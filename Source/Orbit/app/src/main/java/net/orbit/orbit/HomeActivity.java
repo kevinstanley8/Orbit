@@ -34,9 +34,9 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i("HomeActivity", "Successfully received JSONArray with all students!");
                 try {
                     JSONObject student1 = students.getJSONObject(0);
-                    textView.append("ID: " + student1.getString("id") + " Name: " + student1.getString("name") + "\n");
+                    textView.append("ID: " + student1.getString("id") + " Name: " + student1.getString("firstName") + " " + student1.getString("lastName")  + "\n");
                     JSONObject student2 = students.getJSONObject(1);
-                    textView.append("ID: " + student2.getString("id") + " Name: " + student2.getString("name"));
+                    textView.append("ID: " + student2.getString("id") + " Name: " + student2.getString("firstName") + " " + student2.getString("lastName") );
                 } catch (JSONException e) {
                     e.getStackTrace();
                 }
