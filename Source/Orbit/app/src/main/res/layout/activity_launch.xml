@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome to Orbit. Jenkins build working."
+        android:text="Welcome to Orbit. In class working."
         android:gravity="center"
         android:textColor="#0000FF"
         android:textSize="40sp"/>
