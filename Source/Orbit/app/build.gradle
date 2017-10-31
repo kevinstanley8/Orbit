@@ -8,10 +8,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode System.getenv("BUILD_NUMBER") as Integer ?: 0
-        versionName 1.0
-            project.ext.set("archivesBaseName", "Orbit-" + versionName + "-" + versionCode);
+        versionName "0.0." + System.getenv("BUILD_NUMBER") as Integer ?: 0;
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        resValue "string", "app_name", "MyApp " + (System.getenv("BUILD_NUMBER") ?: "IDE")
     }
     signingConfigs {
         release {
