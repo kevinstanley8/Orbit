@@ -13,8 +13,8 @@ android {
     }
     signingConfigs {
         release {
-            // storeFile file("/tmp/keystore/keystore_file.jks")
-            storeFile file("/Users/brocktubre/Desktop/keystore_file.jks")
+            storeFile file("/opt/bitnami/keystore/keystore/keystore_file.jks")
+            // storeFile file("/Users/brocktubre/Desktop/keystore_file.jks")
             storePassword "092890bwt"
             keyAlias "key0"
             keyPassword "092890bwt"
