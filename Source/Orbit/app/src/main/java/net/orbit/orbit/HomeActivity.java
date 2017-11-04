@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray teacher) {
                         // called when success happens
-                        Log.e("HomeActivity", "Successfully added new teacher: " + teacher);
+                        Log.i("HomeActivity", "Successfully added new teacher: " + teacher);
 
                     }
 
