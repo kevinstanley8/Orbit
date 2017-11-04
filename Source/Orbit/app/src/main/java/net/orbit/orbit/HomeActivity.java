@@ -5,10 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import com.loopj.android.http.*;
-import org.json.*;
-import net.orbit.orbit.HttpUtils.OrbitRestClient;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import net.orbit.orbit.Utils.OrbitRestClient;
+import net.orbit.orbit.Model.Teacher;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
 
 
@@ -22,6 +32,41 @@ public class HomeActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         final TextView textView = (TextView)findViewById(R.id.students);
+        final Button button = (Button) findViewById(R.id.addTeacher);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("HomeActivity", "Add a new Test Teacher.");
+                Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", "", "Bossier", "LA", "71111");
+                RequestParams params = new RequestParams();
+                params.put("teacher", newTeacher);
+                OrbitRestClient.post("add-teacher", params, new JsonHttpResponseHandler(){
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray teacher) {
+                        // called when success happens
+                        Log.e("HomeActivity", "Successfully added new teacher: " + teacher);
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Log.e("HomeActivity", "Error when adding new teacher: " + errorResponse);
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                    }
+                });
+
+            }
+        });
 
         OrbitRestClient.get("all-students", null, new JsonHttpResponseHandler(){
             @Override

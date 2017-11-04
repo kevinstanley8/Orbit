@@ -20,4 +20,6 @@
     <string name="newAccountCreated">New Account Created!</string>
     <string name="registrationFailed">Registration Failed</string>
     <string name="createAccount">Create Account</string>
+    <string name="addTeacher">Add Teacher</string>
+
 </resources>
