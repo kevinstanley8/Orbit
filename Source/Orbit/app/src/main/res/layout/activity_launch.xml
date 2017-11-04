@@ -9,14 +9,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.orbit.orbit.LaunchActivity"
-    android:background="@drawable/orbit">
+    android:background="@drawable/orbit_launch_background">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome to Orbit. In class working."
+        android:text="Welcome to Orbit."
         android:gravity="center"
-        android:textColor="#0000FF"
+        android:textColor="#FFFFFF"
         android:textSize="40sp"/>
 </FrameLayout>
 

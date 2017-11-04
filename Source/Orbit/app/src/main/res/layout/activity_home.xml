@@ -16,12 +16,11 @@ tools:context="net.orbit.orbit.HomeActivity"
     <TextView
         android:layout_width="match_parent"
         android:layout_height="71dp"
-        android:text="HOME PAGE - Welcome to Orbit!"/>
+        android:text="HOME PAGE - Welcome to Orbit 123!"/>
 
     <TextView
         android:id="@+id/students"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 
 </LinearLayout>
