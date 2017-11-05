@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 
 import net.orbit.orbit.Utils.OrbitRestClient;
 import net.orbit.orbit.Model.Teacher;
@@ -19,7 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -37,9 +43,29 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("HomeActivity", "Add a new Test Teacher.");
+
                 Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", "", "Bossier", "LA", "71111");
+                //Gson gson = new Gson();
+                //String json = gson.toJson(newTeacher);
                 RequestParams params = new RequestParams();
                 params.put("teacher", newTeacher);
+
+//                JSONObject jsonParams = new JSONObject();
+//                try {
+//                    jsonParams.put("teacher", newTeacher);
+//                    StringEntity entity = new StringEntity(jsonParams.toString());
+//                    OrbitRestClient.post(this, "add-teacher", entity, "application/json", new JsonHttpResponseHandler(){
+//
+//                    });
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                } catch (UnsupportedEncodingException e){
+//                    e.printStackTrace();
+//                }
+
+
+
+
                 OrbitRestClient.post("add-teacher", params, new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
