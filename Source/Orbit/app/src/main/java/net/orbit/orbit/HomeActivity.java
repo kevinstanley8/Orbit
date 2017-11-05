@@ -15,25 +15,34 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 
+import net.orbit.orbit.Service.PropertiesService;
 import net.orbit.orbit.Utils.OrbitRestClient;
 import net.orbit.orbit.Model.Teacher;
+import net.orbit.orbit.Utils.PropertyReader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 
 public class HomeActivity extends AppCompatActivity {
+    PropertiesService propertiesService = new PropertiesService();
+    OrbitRestClient orbitRestClient = new OrbitRestClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        String apiUrl = propertiesService.getProperty(this,"orbit.api.url");
+        orbitRestClient.setBaseUrl(apiUrl);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -43,30 +52,14 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("HomeActivity", "Add a new Test Teacher.");
-
+                // Creates a new teacher Object to send to API
                 Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", "", "Bossier", "LA", "71111");
                 //Gson gson = new Gson();
                 //String json = gson.toJson(newTeacher);
                 RequestParams params = new RequestParams();
                 params.put("teacher", newTeacher);
 
-//                JSONObject jsonParams = new JSONObject();
-//                try {
-//                    jsonParams.put("teacher", newTeacher);
-//                    StringEntity entity = new StringEntity(jsonParams.toString());
-//                    OrbitRestClient.post(this, "add-teacher", entity, "application/json", new JsonHttpResponseHandler(){
-//
-//                    });
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (UnsupportedEncodingException e){
-//                    e.printStackTrace();
-//                }
-
-
-
-
-                OrbitRestClient.post("add-teacher", params, new JsonHttpResponseHandler(){
+                orbitRestClient.post("add-teacher", params, new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
                         // called before request is started
@@ -94,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        OrbitRestClient.get("all-students", null, new JsonHttpResponseHandler(){
+        orbitRestClient.get("all-students", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 // called before request is started

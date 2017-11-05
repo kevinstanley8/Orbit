@@ -13,27 +13,36 @@ import net.orbit.orbit.HomeActivity;
 public class OrbitRestClient {
     // TODO Make this value a properties value
     //private static final String BASE_URL = "http://18.220.78.140/orbit-api/";
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+    //private static final String BASE_URL = "http://10.0.2.2:8080/";
+    private String baseUrl;
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
-    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(url, params, responseHandler);
     }
 
-    public static void postByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public void postByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(url, params, responseHandler);
     }
 
-    private static String getAbsoluteUrl(String relativeUrl) {
-        return BASE_URL + relativeUrl;
+    private String getAbsoluteUrl(String relativeUrl) {
+        return getBaseUrl() + relativeUrl;
+    }
+
+    public void setBaseUrl(String url){
+        this.baseUrl = url;
+    }
+
+    public String getBaseUrl(){
+        return this.baseUrl;
     }
 }
