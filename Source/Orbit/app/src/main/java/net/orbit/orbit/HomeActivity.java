@@ -35,16 +35,17 @@ public class HomeActivity extends AppCompatActivity {
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-        String apiUrl = propertiesService.getProperty(this,"orbit.api.url");
-        orbitRestClient.setBaseUrl(apiUrl);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
+        // Sets the URL for the API url
+        String apiUrl = propertiesService.getProperty(this,"orbit.api.url");
+        orbitRestClient.setBaseUrl(apiUrl);
 
         final TextView textView = (TextView)findViewById(R.id.students);
         final Button button = (Button) findViewById(R.id.addTeacher);
@@ -52,17 +53,13 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("HomeActivity", "Add a new Test Teacher.");
+
                 // Creates a new teacher Object to send to API
-                Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", "", "Bossier", "LA", "71111");
+                Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", null, "Bossier", "LA", "71111");
                 Gson gson = new Gson();
                 String json = gson.toJson(newTeacher);
-                //RequestParams params = new RequestParams();
-                //params.put("teacher", newTeacher);
-
-                //JSONObject jsonParams = new JSONObject();
                 StringEntity entity = null;
                 try {
-                    //jsonParams.put("teacher", newTeacher);
                     entity = new StringEntity(json.toString());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
