@@ -22,6 +22,7 @@ public class AddTeacherActivity extends AppCompatActivity {
         final Button cancelButton = (Button) findViewById(R.id.cancel_action);
 
         final EditText mFirstName   = (EditText)findViewById(R.id.firstName);
+        final String mFirstrgName = String.valueOf((EditText)findViewById(R.id.firstName));
         final EditText mLastName   = (EditText)findViewById(R.id.lastName);
         final EditText mDob   = (EditText)findViewById(R.id.dateOfBirth);
         final EditText mSsn   = (EditText)findViewById(R.id.ssn);
