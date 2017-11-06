@@ -23,7 +23,7 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class AddTeacherActivity extends AppCompatActivity {
-    TeacherService teacherSerivice = new TeacherService(this);
+    TeacherService teacherService = new TeacherService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class AddTeacherActivity extends AppCompatActivity {
                                     mState.getText().toString(),
                                     mZip.getText().toString());
 
-                teacherSerivice.addTeacher(newTeacher);
+                teacherService.addTeacher(newTeacher);
 
             }
         });
