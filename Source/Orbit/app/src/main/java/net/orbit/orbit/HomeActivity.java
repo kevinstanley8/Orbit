@@ -54,12 +54,22 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("HomeActivity", "Add a new Test Teacher.");
                 // Creates a new teacher Object to send to API
                 Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", "", "Bossier", "LA", "71111");
-                //Gson gson = new Gson();
-                //String json = gson.toJson(newTeacher);
-                RequestParams params = new RequestParams();
-                params.put("teacher", newTeacher);
+                Gson gson = new Gson();
+                String json = gson.toJson(newTeacher);
+                //RequestParams params = new RequestParams();
+                //params.put("teacher", newTeacher);
 
-                orbitRestClient.post("add-teacher", params, new JsonHttpResponseHandler(){
+                //JSONObject jsonParams = new JSONObject();
+                StringEntity entity = null;
+                try {
+                    //jsonParams.put("teacher", newTeacher);
+                    entity = new StringEntity(json.toString());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                orbitRestClient.post(HomeActivity.this, "add-teacher", entity, "application/json",
+                        new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
                         // called before request is started

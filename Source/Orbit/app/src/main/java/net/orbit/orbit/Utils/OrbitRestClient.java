@@ -1,10 +1,15 @@
 package net.orbit.orbit.Utils;
 
+import android.content.Context;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 
 import net.orbit.orbit.HomeActivity;
+
+import cz.msebera.android.httpclient.HttpEntity;
 
 /**
  * Created by sristic on 10/21/17.
@@ -24,6 +29,10 @@ public class OrbitRestClient {
 
     public void post(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.post(getAbsoluteUrl(url), params, responseHandler);
+    }
+
+    public void post(Context context, String url, HttpEntity entity, String contentType, ResponseHandlerInterface responseHandler){
+        client.post(context, getAbsoluteUrl(url), entity, contentType, responseHandler);
     }
 
     public void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
