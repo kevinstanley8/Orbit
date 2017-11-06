@@ -55,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("HomeActivity", "Add a new Test Teacher.");
 
                 // Creates a new teacher Object to send to API
-                Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", null, "Bossier", "LA", "71111");
+                Teacher newTeacher = new Teacher("Mike", "Oneal", "09/28/1990","123456789", "2610 Bardot Ln", "", "Bossier", "LA", "71111");
                 Gson gson = new Gson();
                 String json = gson.toJson(newTeacher);
                 StringEntity entity = null;
