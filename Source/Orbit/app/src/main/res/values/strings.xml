@@ -21,5 +21,6 @@
     <string name="registrationFailed">Registration Failed</string>
     <string name="createAccount">Create Account</string>
     <string name="addTeacher">Add Teacher</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
