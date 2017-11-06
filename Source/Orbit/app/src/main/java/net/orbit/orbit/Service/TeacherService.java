@@ -1,0 +1,72 @@
+package net.orbit.orbit.Service;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import net.orbit.orbit.AddTeacherActivity;
+import net.orbit.orbit.Model.Teacher;
+import net.orbit.orbit.Utils.OrbitRestClient;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
+
+/**
+ * Created by brocktubre on 11/6/17.
+ */
+
+public class TeacherService {
+    OrbitRestClient orbitRestClient = new OrbitRestClient();
+    PropertiesService propertiesService = new PropertiesService();
+    Context context;
+
+    public TeacherService(Context context){
+        // Sets the URL for the API url
+        String apiUrl = propertiesService.getProperty(context,"orbit.api.url");
+        orbitRestClient.setBaseUrl(apiUrl);
+        this.context = context;
+    }
+    public void addTeacher(Teacher newTeacher){
+        Gson gson = new Gson();
+        String json = gson.toJson(newTeacher);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
+                new JsonHttpResponseHandler(){
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray teacher) {
+                        // called when success happens
+                        Log.i("AddTeacherActivity", "Successfully added new teacher: " + teacher);
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Log.e("AddTeacherActivity", "Error when adding new teacher: " + errorResponse);
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                    }
+                });
+    }
+}
