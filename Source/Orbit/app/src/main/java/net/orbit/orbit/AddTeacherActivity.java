@@ -1,26 +1,14 @@
 package net.orbit.orbit;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.util.Log;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import net.orbit.orbit.Model.Teacher;
-import net.orbit.orbit.Service.PropertiesService;
 import net.orbit.orbit.Service.TeacherService;
-import net.orbit.orbit.Utils.OrbitRestClient;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class AddTeacherActivity extends AppCompatActivity {
     TeacherService teacherService = new TeacherService(this);

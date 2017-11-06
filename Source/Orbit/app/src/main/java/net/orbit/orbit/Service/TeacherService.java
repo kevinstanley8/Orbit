@@ -28,9 +28,6 @@ public class TeacherService {
     Context context;
 
     public TeacherService(Context context){
-        // Sets the URL for the API url
-        String apiUrl = propertiesService.getProperty(context,"orbit.api.url");
-        orbitRestClient.setBaseUrl(apiUrl);
         this.context = context;
     }
     public void addTeacher(Teacher newTeacher){
@@ -43,6 +40,8 @@ public class TeacherService {
             e.printStackTrace();
         }
 
+        // Sets the URL for the API url
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
         orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
