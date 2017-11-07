@@ -6,74 +6,111 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="net.orbit.orbit.AddTeacherActivity">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:orientation="vertical">
     <EditText
         android:id="@+id/firstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name" />
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/lastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name" />
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp" />
 
     <EditText
         android:id="@+id/dateOfBirth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="DOB" />
+        android:hint="DOB"
+        android:inputType="date"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/ssn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="SSN" />
+        android:hint="SSN"
+        android:inputType="numberPassword"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/address1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Address 1" />
+        android:hint="Address 1"
+        android:inputType="textPostalAddress"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/address2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Address 2" />
+        android:hint="Address 2"
+        android:inputType="textPostalAddress"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="City" />
+        android:hint="City"
+        android:inputType="text"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="State" />
+        android:hint="State"
+        android:inputType="text"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <EditText
         android:id="@+id/zip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Zip" />
+        android:hint="Zip"
+        android:inputType="number"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
     <Button
         android:id="@+id/addTeacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/addTeacher" />
+        android:text="@string/addTeacher"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
     <Button
         android:id="@+id/cancel_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/cancel" />
-
+        android:text="@string/cancel"
+        android:layout_marginTop="15dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    </LinearLayout>
+</ScrollView>
 
 </LinearLayout>
