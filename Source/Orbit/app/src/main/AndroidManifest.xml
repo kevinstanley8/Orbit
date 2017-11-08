@@ -33,8 +33,11 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        
-        <activity android:name=".AddTeacherActivity"></activity>
+        <activity android:name=".AddTeacherActivity" />
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
