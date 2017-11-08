@@ -3,7 +3,6 @@ package net.orbit.orbit;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +20,17 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        //setContentView(R.layout.activity_home);
+
+        //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
+        getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
 
         // Sets the URL for the API url
         String apiUrl = propertiesService.getProperty(this,"orbit.api.url");
