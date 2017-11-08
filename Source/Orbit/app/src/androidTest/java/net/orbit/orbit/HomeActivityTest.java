@@ -26,14 +26,6 @@ public class HomeActivityTest {
     }
 
     @Test
-    public void onCreate() throws Exception {
-    }
-
-    @Test
-    public void getStudents() throws Exception {
-    }
-
-    @Test
     public void testLaunch(){
         View view = mHomeActivity.findViewById(R.id.homeBanner);
         assertNotNull(view);
