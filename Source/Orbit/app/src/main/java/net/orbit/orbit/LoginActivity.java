@@ -20,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,14 +32,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+
+import net.orbit.orbit.Utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +136,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
+    private void storeUserInPreferences()
+    {
+        String email = mEmailView.getText().toString();
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        orbitPref.storeUserPreference("userName", email);
+    }
+
     private void registerNewAccount()
     {
         int TEST = 0;
@@ -148,6 +152,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void loadHomeScreen()
     {
         startActivity(HomeActivity.createIntent(this));
+    }
+
+    private void loadMainScreen()
+    {
+        startActivity(BaseActivity.createIntent(this));
     }
 
     private void showLoginError()
@@ -170,6 +179,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "LOGIN SUCESSFUL!!!.",
                                     Toast.LENGTH_SHORT).show();
+                            storeUserInPreferences();
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             loadHomeScreen();
