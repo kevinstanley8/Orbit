@@ -1,6 +1,7 @@
 package net.orbit.orbit;
 
 import android.support.test.rule.ActivityTestRule;
+import android.view.View;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,18 +18,22 @@ public class LoginActivityTest {
     @Rule
     public ActivityTestRule<LoginActivity> mLoginActivityActivityTestRule = new ActivityTestRule<LoginActivity>(LoginActivity.class);
 
-    private HomeActivity mLoginActivity = null;
+    private LoginActivity mLoginActivity = null;
     @Before
     public void setUp() throws Exception {
+        mLoginActivity = mLoginActivityActivityTestRule.getActivity();
     }
 
     @Test
     public void testLaunch(){
+        View view = mLoginActivity.findViewById(R.id.login_form);
+        assertNotNull(view);
 
     }
 
     @After
     public void tearDown() throws Exception {
+        mLoginActivity = null;
     }
 
 }
