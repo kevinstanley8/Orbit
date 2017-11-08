@@ -14,9 +14,10 @@ tools:context="net.orbit.orbit.HomeActivity"
     >
 
     <TextView
+        android:id="@+id/homeBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HOME PAGE - Welcome to Orbit 123!"/>
+        android:text="HOME PAGE - Welcome to Orbit!"/>
 
     <TextView
         android:id="@+id/students"

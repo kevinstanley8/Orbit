@@ -25,7 +25,6 @@ public class HomeActivity extends AppCompatActivity {
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +44,16 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        getStudents();
+
+    }
+
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, HomeActivity.class);
+        return i;
+    }
+
+    public void getStudents(){
         orbitRestClient.get("all-students", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -56,9 +65,9 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i("HomeActivity", "Successfully received JSONArray with all students!");
                 try {
                     JSONObject student1 = students.getJSONObject(0);
-                    textView.append("ID: " + student1.getString("studentId") + " Name: " + student1.getString("studentFirstName") + " " + student1.getString("studentLastName")  + "\n");
+                    //textView.append("ID: " + student1.getString("studentId") + " Name: " + student1.getString("studentFirstName") + " " + student1.getString("studentLastName")  + "\n");
                     JSONObject student2 = students.getJSONObject(1);
-                    textView.append("ID: " + student2.getString("studentId") + " Name: " + student2.getString("studentFirstName") + " " + student2.getString("studentLastName") );
+                    //textView.append("ID: " + student2.getString("studentId") + " Name: " + student2.getString("studentFirstName") + " " + student2.getString("studentLastName") );
                 } catch (JSONException e) {
                     e.getStackTrace();
                 }
@@ -76,12 +85,6 @@ public class HomeActivity extends AppCompatActivity {
             }
 
         });
-
-    }
-
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, HomeActivity.class);
-        return i;
     }
 
 }
