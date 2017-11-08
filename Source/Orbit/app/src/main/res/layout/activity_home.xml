@@ -25,11 +25,11 @@ tools:context="net.orbit.orbit.HomeActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/addTeacher"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/addTeacher" />
+    <!--<Button-->
+        <!--android:id="@+id/addTeacher"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="@string/addTeacher" />-->
 
 </LinearLayout>
