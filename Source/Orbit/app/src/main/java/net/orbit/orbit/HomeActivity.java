@@ -38,14 +38,14 @@ public class HomeActivity extends BaseActivity {
         String apiUrl = propertiesService.getProperty(this,"orbit.api.url");
         orbitRestClient.setBaseUrl(apiUrl);
 
-//        final Button button = (Button) findViewById(R.id.addTeacher);
-//
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent addTeacherIntent = new Intent(HomeActivity.this, AddTeacherActivity.class);
-//                HomeActivity.this.startActivity(addTeacherIntent);
-//            }
-//        });
+        final Button button = (Button) findViewById(R.id.createStudent);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent createStudentIntent= new Intent(HomeActivity.this, CreateStudentActivity.class);
+                HomeActivity.this.startActivity(createStudentIntent);
+            }
+        });
 
         // Displays a alert window and lets you know if your DB connection is successful.
         // If student data is returned, then the connection was successful.

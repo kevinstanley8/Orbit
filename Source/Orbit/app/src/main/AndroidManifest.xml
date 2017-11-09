@@ -34,6 +34,7 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddTeacherActivity" />
+        <activity android:name=".CreateStudentActivity"/>
         <activity
             android:name=".BaseActivity"
             android:label="@string/title_activity_main"

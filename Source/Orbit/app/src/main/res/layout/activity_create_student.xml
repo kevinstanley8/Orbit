@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.orbit.orbit.CreateStudentActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/studentFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp" />
+
+            <EditText
+                android:id="@+id/studentDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="DOB"
+                android:inputType="date"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentSSN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Social Secruity Number"
+                android:inputType="numberPassword"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentAddress1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Student's Address Required"
+                android:inputType="textPostalAddress"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Student's Address Can be Left Blank"
+                android:inputType="textPostalAddress"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                android:inputType="text"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="State"
+                android:inputType="text"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentZip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Zip"
+                android:inputType="number"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/studentGrade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Grade"
+                android:inputType="number"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/motherFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's First Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/motherLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Last Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/motherSSN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Social Secruity Number"
+                android:inputType="numberPassword"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherAddress1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Address Required"
+                android:inputType="textPostalAddress"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Address Can be Left Blank"
+                android:inputType="textPostalAddress"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherZip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Zip Code"
+                android:inputType="number"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/motherCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's City"
+                android:inputType="text"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's State"
+                android:inputType="text"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherHomePhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Home Phone"
+                android:inputType="phone"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherCellPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Cell Phone"
+                android:inputType="phone"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/motherEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mother's Email"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's First Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Last Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherSSN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Social Secruity Number"
+                android:inputType="numberPassword"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherAddress1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Address Required"
+                android:inputType="textPostalAddress"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Address Can be Left Blank"
+                android:inputType="textPostalAddress"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherZip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Zip Code"
+                android:inputType="number"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's City"
+                android:inputType="text"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's State"
+                android:inputType="text"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherHomePhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Home Phone"
+                android:inputType="phone"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherCellPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Cell Phone"
+                android:inputType="phone"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/fatherEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Father's Email"
+                android:inputType="textEmailAddress"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <Button
+                android:id="@+id/createStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/createStudent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+            <Button
+                android:id="@+id/cancel_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/cancel"
+                android:layout_marginTop="15dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
