@@ -3,7 +3,7 @@ package net.orbit.orbit;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
-import net.orbit.orbit.Activity.LoginActivity;
+import net.orbit.orbit.activities.LoginActivity;
 
 import org.junit.After;
 import org.junit.Before;

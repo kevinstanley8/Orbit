@@ -1,4 +1,4 @@
-package net.orbit.orbit.Activity;
+package net.orbit.orbit.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import net.orbit.orbit.Model.Student;
+import net.orbit.orbit.models.Student;
 import net.orbit.orbit.R;
-import net.orbit.orbit.Service.StudentService;
+import net.orbit.orbit.services.StudentService;
 
 /**
  * Created by David on 11/8/2017.

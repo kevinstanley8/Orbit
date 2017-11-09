@@ -1,4 +1,4 @@
-package net.orbit.orbit.Activity;
+package net.orbit.orbit.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import net.orbit.orbit.Model.Teacher;
+import net.orbit.orbit.models.Teacher;
 import net.orbit.orbit.R;
-import net.orbit.orbit.Service.TeacherService;
+import net.orbit.orbit.services.TeacherService;
 
 public class AddTeacherActivity extends AppCompatActivity {
     TeacherService teacherService = new TeacherService(this);

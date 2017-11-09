@@ -1,4 +1,4 @@
-package net.orbit.orbit.Activity;
+package net.orbit.orbit.activities;
 
 import android.content.Context;
 import android.content.Intent;

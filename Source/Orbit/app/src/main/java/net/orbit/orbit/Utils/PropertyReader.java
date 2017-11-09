@@ -1,4 +1,4 @@
-package net.orbit.orbit.Utils;
+package net.orbit.orbit.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;

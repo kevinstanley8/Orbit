@@ -1,8 +1,8 @@
-package net.orbit.orbit.Service;
+package net.orbit.orbit.services;
 
 import android.content.Context;
 
-import net.orbit.orbit.Utils.PropertyReader;
+import net.orbit.orbit.utils.PropertyReader;
 
 import java.util.Properties;
 

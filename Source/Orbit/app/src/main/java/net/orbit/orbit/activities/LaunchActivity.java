@@ -1,4 +1,4 @@
-package net.orbit.orbit.Activity;
+package net.orbit.orbit.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

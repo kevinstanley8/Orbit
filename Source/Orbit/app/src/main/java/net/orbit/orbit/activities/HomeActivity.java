@@ -1,4 +1,4 @@
-package net.orbit.orbit.Activity;
+package net.orbit.orbit.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.widget.Button;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.Service.PropertiesService;
-import net.orbit.orbit.Utils.OrbitRestClient;
+import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

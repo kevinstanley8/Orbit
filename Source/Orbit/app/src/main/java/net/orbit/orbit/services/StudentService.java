@@ -1,4 +1,4 @@
-package net.orbit.orbit.Service;
+package net.orbit.orbit.services;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.Model.Student;
-import net.orbit.orbit.Utils.OrbitRestClient;
+import net.orbit.orbit.models.Student;
+import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

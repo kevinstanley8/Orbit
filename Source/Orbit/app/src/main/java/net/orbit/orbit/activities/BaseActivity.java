@@ -1,4 +1,4 @@
-package net.orbit.orbit.Activity;
+package net.orbit.orbit.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -21,9 +21,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.orbit.orbit.Fragment.PreferencesFragment;
+import net.orbit.orbit.fragments.PreferencesFragment;
 import net.orbit.orbit.R;
-import net.orbit.orbit.Utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
 

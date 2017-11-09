@@ -1,4 +1,4 @@
-package net.orbit.orbit.Fragment;
+package net.orbit.orbit.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
