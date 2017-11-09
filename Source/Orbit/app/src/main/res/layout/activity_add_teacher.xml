@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="net.orbit.orbit.AddTeacherActivity">
+    tools:context="net.orbit.orbit.Activity.AddTeacherActivity">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

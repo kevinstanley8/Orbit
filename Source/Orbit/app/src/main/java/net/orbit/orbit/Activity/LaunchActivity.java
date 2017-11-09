@@ -1,9 +1,11 @@
-package net.orbit.orbit;
+package net.orbit.orbit.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.AsyncTask;
+
+import net.orbit.orbit.R;
 
 public class LaunchActivity extends AppCompatActivity {
 

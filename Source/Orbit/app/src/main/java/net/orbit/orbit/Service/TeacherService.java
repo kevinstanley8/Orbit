@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.AddTeacherActivity;
 import net.orbit.orbit.Model.Teacher;
 import net.orbit.orbit.Utils.OrbitRestClient;
 

@@ -1,4 +1,4 @@
-package net.orbit.orbit;
+package net.orbit.orbit.Activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -37,6 +37,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import net.orbit.orbit.R;
 import net.orbit.orbit.Utils.OrbitUserPreferences;
 
 import java.util.ArrayList;

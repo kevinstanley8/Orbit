@@ -3,6 +3,8 @@ package net.orbit.orbit;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import net.orbit.orbit.Activity.HomeActivity;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

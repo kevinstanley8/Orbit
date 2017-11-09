@@ -1,4 +1,4 @@
-package net.orbit.orbit;
+package net.orbit.orbit.Fragment;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import net.orbit.orbit.R;
 
 
 /**
