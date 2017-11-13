@@ -1,5 +1,7 @@
 package net.orbit.orbit.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,14 +13,22 @@ import net.orbit.orbit.models.Teacher;
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.TeacherService;
 
-public class AddTeacherActivity extends AppCompatActivity {
+public class AddTeacherActivity extends BaseActivity {
     TeacherService teacherService = new TeacherService(this);
+
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, AddTeacherActivity.class);
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_teacher);
+        //setContentView(R.layout.activity_add_teacher);
+
+        //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
+        getLayoutInflater().inflate(R.layout.activity_add_teacher, relativeLayout);
 
         final Button addTeacherButton = (Button) findViewById(R.id.addTeacher);
         final Button cancelButton = (Button) findViewById(R.id.cancel_action);
@@ -46,7 +56,7 @@ public class AddTeacherActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("AddTeacherActivity", "Add a new Test Teacher.");
 
-                //Creates a new teacher Object to send to API
+                //Creates a new menu_teacher Object to send to API
                 Teacher newTeacher = new Teacher
                             (mFirstName.getText().toString(),
                                     mLastName.getText().toString(),

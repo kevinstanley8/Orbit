@@ -1,7 +1,5 @@
 package net.orbit.orbit.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -20,13 +18,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import net.orbit.orbit.fragments.PreferencesFragment;
+import com.google.firebase.auth.FirebaseAuth;
+
 import net.orbit.orbit.R;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
 
+/**
+ * BaseActivity - class that app other app activities will extend.  This will provide the nav menu by default.  When
+ *      extending this class you need to open AndroidManifest.xml and make sure your activity is using the NoActionBar theme.
+ */
 public class BaseActivity extends AppCompatActivity {
     private static String TAG = BaseActivity.class.getSimpleName();
     ListView mDrawerList;
@@ -35,8 +39,31 @@ public class BaseActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     protected RelativeLayout relativeLayout;
+    private OrbitMenuNavigation orbitNav;
 
+    //user setters to set menu title when menu drawer is open and closed
+    private String drawerOpenTitle = "";
+    private String drawerClosedTitle = "";
 
+    public String getDrawerOpenTitle() {
+        return drawerOpenTitle;
+    }
+
+    public void setDrawerOpenTitle(String drawerOpenTitle) {
+        this.drawerOpenTitle = drawerOpenTitle;
+    }
+
+    public String getDrawerClosedTitle() {
+        return drawerClosedTitle;
+    }
+
+    public void setDrawerClosedTitle(String drawerClosedTitle) {
+        this.drawerClosedTitle = drawerClosedTitle;
+    }
+
+    /**
+     * NavItem class
+     */
     class NavItem {
         String mTitle;
         String mSubtitle;
@@ -49,6 +76,9 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * DrawerListAdapter class
+     */
     class DrawerListAdapter extends BaseAdapter {
 
         Context mContext;
@@ -97,6 +127,62 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+    /**
+     * OrbitMenuNavigation - internal class that controls the selection of items from the nav drawer.  This had to be
+     *     an internal class because passing the app context to a separate class did not work.
+     *
+     */
+    public class OrbitMenuNavigation {
+        public static final int PROFILE = 0;
+        public static final int ADD_STUDENT = 1;
+        public static final int LINK_STUDENT = 2;
+        public static final int ADD_TEACHER = 3;
+        public static final int LOG_OFF = 4;
+
+        private int result = 0;
+        private Context context;
+
+        public OrbitMenuNavigation(Context context)
+        {
+            this.context = context;
+        }
+
+
+        /**
+         * gotoMenuItem - start app activities
+         * @param position
+         */
+        public void gotoMenuItem(int position)
+        {
+            switch(position)
+            {
+                case PROFILE: showMessage("Not Implemented");
+                    break;
+                case ADD_STUDENT: startActivityForResult(CreateStudentActivity.createIntent(context), result);
+                    break;
+                case LINK_STUDENT: showMessage("Not Implemented");
+                    break;
+                case ADD_TEACHER: startActivityForResult(AddTeacherActivity.createIntent(context), result);
+                    break;
+                case LOG_OFF: FirebaseAuth.getInstance().signOut();
+                    startActivity(LoginActivity.createIntent(context));
+                    break;
+            }
+        }
+
+        /**
+         * showMessage - show Toast message if needed
+         * @param message
+         */
+        private void showMessage(String message)
+        {
+            Toast.makeText(context, message,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle
@@ -119,9 +205,14 @@ public class BaseActivity extends AppCompatActivity {
         relativeLayout = (RelativeLayout)findViewById(R.id.mainContent);
 
         //need to go back later and dynamically change menu options based on user's role.
-        mNavItems.add(new NavItem("Home", "Home", R.drawable.orbit_icon));
-        mNavItems.add(new NavItem("Add Student", "Add Student", R.drawable.orbit_icon));
-        mNavItems.add(new NavItem("Link Student", "Link Student", R.drawable.orbit_icon));
+        mNavItems.add(new NavItem(getString(R.string.menu_home), getString(R.string.menu_home), R.drawable.menu_school));
+        mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
+        mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
+        mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
+        mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
+
+        //create a new OrbitMenuNavigation and pass context
+        orbitNav = new OrbitMenuNavigation(getApplicationContext());
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -145,20 +236,18 @@ public class BaseActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                R.string.test1,  /* "open drawer" description */
-                R.string.test2  /* "close drawer" description */
+                R.string.open,  /* "open drawer" description */
+                R.string.open  /* "close drawer" description */
         ) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                //getActionBar().setTitle("TEST1");
-                getSupportActionBar().setTitle("TEST1");
+                getSupportActionBar().setTitle(getDrawerOpenTitle());
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle("TEST2");
-                getSupportActionBar().setTitle("TEST2");
+                getSupportActionBar().setTitle(getDrawerClosedTitle());
             }
         };
 
@@ -194,7 +283,8 @@ public class BaseActivity extends AppCompatActivity {
 * is selected.
 * */
     private void selectItemFromDrawer(int position) {
-        Fragment fragment = new PreferencesFragment();
+
+        /*Fragment fragment = new PreferencesFragment();
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -202,10 +292,13 @@ public class BaseActivity extends AppCompatActivity {
                 .commit();
 
         mDrawerList.setItemChecked(position, true);
-        setTitle(mNavItems.get(position).mTitle);
+        setTitle(mNavItems.get(position).mTitle);*/
 
         // Close the drawer
         mDrawerLayout.closeDrawer(mDrawerPane);
+
+        orbitNav.gotoMenuItem(position);
+
     }
 
     public static Intent createIntent(Context context) {

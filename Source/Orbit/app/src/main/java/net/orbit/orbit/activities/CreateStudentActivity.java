@@ -1,5 +1,7 @@
 package net.orbit.orbit.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,13 +17,22 @@ import net.orbit.orbit.services.StudentService;
  * Created by David on 11/8/2017.
  */
 
-public class CreateStudentActivity extends AppCompatActivity
+public class CreateStudentActivity extends BaseActivity
 {
     private StudentService studentService = new StudentService(this);
+
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, CreateStudentActivity.class);
+        return i;
+    }
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_student);
+        //setContentView(R.layout.activity_create_student);
+
+        //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
+        getLayoutInflater().inflate(R.layout.activity_create_student, relativeLayout);
 
         final Button createStudent = (Button) findViewById(R.id.createStudent);
         final Button cancelButton = (Button) findViewById(R.id.cancel_action);
@@ -73,7 +84,7 @@ public class CreateStudentActivity extends AppCompatActivity
             public void onClick(View v) {
                 Log.d("CreateStudentActivity", "Create A New Student.");
 
-                //Creates a new student Object to send to API
+                //Creates a new menu_student Object to send to API
                 Student newStudent = new Student(
                                 studentFirstName.getText().toString(),
                                 studentLastName.getText().toString(),

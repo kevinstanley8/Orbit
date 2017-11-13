@@ -27,7 +27,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="test1">TEST OPEN</string>
-    <string name="test2">EST CLOSE</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_add_student">Add Student</string>
+    <string name="menu_link_student">Link Student</string>
+    <string name="menu_add_teacher">Add Teacher</string>
+    <string name="menu_logout">Log Out</string>
 
 </resources>

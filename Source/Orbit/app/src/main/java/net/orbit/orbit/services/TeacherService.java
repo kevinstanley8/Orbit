@@ -41,7 +41,7 @@ public class TeacherService {
 
         // Sets the URL for the API url
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
-        orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
+        orbitRestClient.post(this.context, "add-menu_teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
@@ -51,14 +51,14 @@ public class TeacherService {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray teacher) {
                         // called when success happens
-                        Log.i("AddTeacherActivity", "Successfully added new teacher: " + teacher);
+                        Log.i("AddTeacherActivity", "Successfully added new menu_teacher: " + teacher);
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("AddTeacherActivity", "Error when adding new teacher: " + errorResponse);
+                        Log.e("AddTeacherActivity", "Error when adding new menu_teacher: " + errorResponse);
                     }
 
                     @Override

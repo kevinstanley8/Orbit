@@ -41,13 +41,16 @@ public class HomeActivity extends BaseActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent createStudentIntent= new Intent(HomeActivity.this, CreateStudentActivity.class);
-                HomeActivity.this.startActivity(createStudentIntent);
+                int TEST = 0;
+                startActivityForResult(CreateStudentActivity.createIntent(getApplicationContext()), TEST);
+
+                /*Intent createStudentIntent= new Intent(HomeActivity.this, CreateStudentActivity.class);
+                HomeActivity.this.startActivity(createStudentIntent);*/
             }
         });
 
         // Displays a alert window and lets you know if your DB connection is successful.
-        // If student data is returned, then the connection was successful.
+        // If menu_student data is returned, then the connection was successful.
         getDBConnectionAlert();
 
     }
@@ -81,16 +84,19 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("HomeActivity", "Error connection to DB: " + errorResponse.toString());
-                AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
-                alertDialog.setTitle("DB Connection");
-                alertDialog.setMessage("Cannot connect to DB: " + orbitRestClient.getBaseUrl());
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }});
-                alertDialog.show();
+                if(errorResponse != null) {
+                    Log.e("HomeActivity", "Error connection to DB: " + errorResponse.toString());
+                    AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
+                    alertDialog.setTitle("DB Connection");
+                    alertDialog.setMessage("Cannot connect to DB: " + orbitRestClient.getBaseUrl());
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
             }
 
             @Override
