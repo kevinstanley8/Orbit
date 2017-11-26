@@ -1,11 +1,16 @@
 package net.orbit.orbit.services;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.activities.AllTeachersActivity;
+import net.orbit.orbit.activities.BaseActivity;
+import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.models.Teacher;
 import net.orbit.orbit.utils.OrbitRestClient;
 
@@ -13,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -66,5 +72,35 @@ public class TeacherService {
                         // called when request is retried
                     }
                 });
+    }
+
+    public void viewTeachers(final AllTeachersActivity activity){
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.get("all-teachers", null, new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray teachers) {
+                Gson gson = new Gson();
+                Teacher[] teacherList = gson.fromJson(teachers.toString(), Teacher[].class);
+                activity.updateTeacherList(teacherList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("AddTeacherActivity", "Error when adding new menu_teacher: " + errorResponse);
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+        });
+
     }
 }

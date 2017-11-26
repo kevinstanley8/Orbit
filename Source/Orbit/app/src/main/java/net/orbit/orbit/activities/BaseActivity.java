@@ -138,7 +138,8 @@ public class BaseActivity extends AppCompatActivity {
         public static final int ADD_STUDENT = 1;
         public static final int LINK_STUDENT = 2;
         public static final int ADD_TEACHER = 3;
-        public static final int LOG_OFF = 4;
+        public static final int VIEW_TEACHERS = 4;
+        public static final int LOG_OFF = 5;
 
         private int result = 0;
         private Context context;
@@ -164,6 +165,8 @@ public class BaseActivity extends AppCompatActivity {
                 case LINK_STUDENT: showMessage("Not Implemented");
                     break;
                 case ADD_TEACHER: startActivityForResult(AddTeacherActivity.createIntent(context), result);
+                    break;
+                case VIEW_TEACHERS: startActivityForResult(AllTeachersActivity.createIntent(context), result);
                     break;
                 case LOG_OFF: FirebaseAuth.getInstance().signOut();
                     startActivity(LoginActivity.createIntent(context));
@@ -209,6 +212,7 @@ public class BaseActivity extends AppCompatActivity {
         mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
         mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
         mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
+        mNavItems.add(new NavItem(getString(R.string.menu_view_teacher), getString(R.string.menu_view_teacher), R.drawable.menu_view_teachers));
         mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
 
         //create a new OrbitMenuNavigation and pass context

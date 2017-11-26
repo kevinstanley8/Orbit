@@ -33,15 +33,21 @@
             android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AddTeacherActivity"
+        <activity
+            android:name=".activities.AddTeacherActivity"
             android:label="AddTeacherActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.CreateStudentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CreateStudentActivity"
             android:label="CreateStudentActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.BaseActivity"
             android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.AllTeachersActivity"
+            android:label="@string/title_activity_all_teachers"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
