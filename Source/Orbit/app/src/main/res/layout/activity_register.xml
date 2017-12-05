@@ -53,6 +53,12 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <Spinner
+            android:id="@+id/roleSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            />
+
         <Button
             android:id="@+id/email_sign_in_button"
             style="?android:textAppearanceSmall"

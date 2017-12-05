@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.Role;
+import net.orbit.orbit.models.User;
+import net.orbit.orbit.services.RoleService;
+import net.orbit.orbit.services.UserService;
+import net.orbit.orbit.utils.Constants;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,12 +42,16 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final int REQUEST_READ_CONTACTS = 0;
+    Spinner roleSpinner;
+    UserService userService = new UserService(this);
+    RoleService roleService = new RoleService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        roleService.viewRoles(this);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                 createAccount();
             }
         });
+        roleSpinner = (Spinner) findViewById(R.id.roleSpinner);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -131,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
         return password.length() > 4;
     }
 
-    private void createAccount(String email, String password) {
+    private void createAccount(final String email, String password) {
         Log.d("LOGIN", "createAccount:" + email);
         if (!validateForm()) {
             return;
@@ -152,6 +172,15 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                         else
                         {
+                            String userUID = mAuth.getCurrentUser().getUid();
+                            Role role = (Role) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
+                            // Get current date
+                            Date dateObj = new Date();
+                            String date = new SimpleDateFormat(Constants.DATE_FORMAT).format(dateObj);
+                            User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
+                            // Add user to database
+                            userService.addUser(user);
+
                             Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                     Toast.LENGTH_SHORT).show();
 
@@ -163,6 +192,21 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    public void updateRolesSpinner(Role[] roleArray)
+    {
+        List<Role> list = new ArrayList<>();
+        for (Role r : roleArray) {
+            if (!r.getName().equals("Admin") && !r.getName().equals("Teacher")) {
+                list.add(r);
+            }
+        }
+
+        Log.d("Roles list:", list.toString());
+        ArrayAdapter<Role> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(dataAdapter);
+    }
 
     private boolean validateForm()
     {
