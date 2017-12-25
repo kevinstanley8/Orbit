@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.orbit.orbit.activities.FindStudentActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <EditText
+        android:id="@+id/studentFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
+
+    <EditText
+        android:id="@+id/studentLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp" />
+
+        <EditText
+            android:id="@+id/studentDateOfBirth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DOB"
+            android:inputType="date"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <EditText
+            android:id="@+id/studentSSN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Social Secruity Number"
+            android:inputType="numberPassword"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/findStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/search"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    </LinearLayout>
+
+</LinearLayout>

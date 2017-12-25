@@ -162,7 +162,7 @@ public class BaseActivity extends AppCompatActivity {
                     break;
                 case ADD_STUDENT: startActivityForResult(CreateStudentActivity.createIntent(context), result);
                     break;
-                case LINK_STUDENT: showMessage("Not Implemented");
+                case LINK_STUDENT: startActivityForResult(FindStudentActivity.createIntent(context), result);
                     break;
                 case ADD_TEACHER: startActivityForResult(AddTeacherActivity.createIntent(context), result);
                     break;

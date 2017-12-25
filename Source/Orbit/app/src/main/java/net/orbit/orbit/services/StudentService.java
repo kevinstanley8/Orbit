@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.models.Student;
+import net.orbit.orbit.models.StudentDTO;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
@@ -60,6 +61,45 @@ public class StudentService
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("CreateStudentActivity", "Error when creating new menu_student: " + errorResponse);
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                    }
+                });
+    }
+
+    public void findStudent(StudentDTO studentDTO){
+        Gson gson = new Gson();
+        String json = gson.toJson(studentDTO);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // Sets the URL for the API url
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.post(this.context, "get-student", entity, "application/json",
+                new JsonHttpResponseHandler(){
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray student) {
+                        // called when success happens
+                        Log.i("CreateStudentActivity", "Successfully found student: " + student);
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Log.e("CreateStudentActivity", "Error when finding strudent: " + errorResponse);
                     }
 
                     @Override
