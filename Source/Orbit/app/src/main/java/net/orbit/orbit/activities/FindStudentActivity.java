@@ -38,7 +38,7 @@ public class FindStudentActivity extends BaseActivity {
 
         findStudent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("CreateStudentActivity", "Create A New Student.");
+                Log.d("FindStudentActivity", "Finding a Student.");
 
                 //Creates a new menu_student Object to send to API
                 StudentDTO studentDto = new StudentDTO(

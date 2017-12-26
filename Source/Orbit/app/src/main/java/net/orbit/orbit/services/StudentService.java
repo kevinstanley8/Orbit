@@ -2,6 +2,7 @@ package net.orbit.orbit.services;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -90,9 +91,11 @@ public class StudentService
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray student) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject student) {
                         // called when success happens
                         Log.i("FindStudentActivity", "Successfully found student: " + student);
+                        // We have a match student. Need to do linking here.
+                        Toast.makeText(context, "Found a matching student." , Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -100,6 +103,7 @@ public class StudentService
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("FindStudentActivity", "Error when finding student: " + errorResponse);
+                        Toast.makeText(context, "Error finding student.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
