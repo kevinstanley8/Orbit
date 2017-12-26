@@ -92,14 +92,14 @@ public class StudentService
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray student) {
                         // called when success happens
-                        Log.i("CreateStudentActivity", "Successfully found student: " + student);
+                        Log.i("FindStudentActivity", "Successfully found student: " + student);
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("CreateStudentActivity", "Error when finding strudent: " + errorResponse);
+                        Log.e("FindStudentActivity", "Error when finding student: " + errorResponse);
                     }
 
                     @Override
