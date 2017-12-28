@@ -134,7 +134,7 @@ public class BaseActivity extends AppCompatActivity {
      *
      */
     public class OrbitMenuNavigation {
-        public static final int PROFILE = 0;
+        public static final int HOME = 0;
         public static final int ADD_STUDENT = 1;
         public static final int LINK_STUDENT = 2;
         public static final int ADD_TEACHER = 3;
@@ -158,7 +158,7 @@ public class BaseActivity extends AppCompatActivity {
         {
             switch(position)
             {
-                case PROFILE: showMessage("Not Implemented");
+                case HOME: startActivityForResult(HomeActivity.createIntent(context), result);
                     break;
                 case ADD_STUDENT: startActivityForResult(CreateStudentActivity.createIntent(context), result);
                     break;
