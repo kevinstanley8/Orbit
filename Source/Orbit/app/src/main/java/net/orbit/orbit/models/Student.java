@@ -6,7 +6,7 @@ package net.orbit.orbit.models;
 
 public class Student
 {
-    private int studentID;
+    private int studentId;
     private String studentFirstName, studentLastName, studentDateOfBirth, studentSSN, studentAddress_1, studentAddress_2,
             studentCity, studentState, studentZipCode, studentGrade;
 
@@ -28,7 +28,7 @@ public class Student
                    String fatherFirstName, String fatherLastName, String fatherSSN,
                    String fatherAddress_1, String fatherAddress_2, String fatherCity,
                    String fatherState, String fatherZipCode, String fatherHomePhone,
-                   String fatherCellPhone, String fatherEmail)
+                   String fatherCellPhone, String fatherEmail, int studentId)
     {
         this.studentFirstName = studentFirstName;
         this.studentLastName = studentLastName;
@@ -64,9 +64,10 @@ public class Student
         this.fatherHomePhone = fatherHomePhone;
         this.fatherCellPhone = fatherCellPhone;
         this.fatherEmail = fatherEmail;
+        this.studentId = studentId;
     }
-    public int getStudentId() {  return studentID;   }
-    public void setStudentId(int studentID) {  this.studentID = studentID;   }
+    public int getStudentId() {  return studentId;   }
+    public void setStudentId(int studentID) {  this.studentId = studentID;   }
 
     public String getStudentFirstName() {  return studentFirstName;  }
     public void setStudentFirstName(String studentFirstName)
@@ -198,7 +199,7 @@ public class Student
     @Override
     public String toString()
     {
-        return "Student [id = " + studentID + ", firstName = " + studentFirstName+
+        return "Student [studentId = " + studentId + ", firstName = " + studentFirstName+
                 ",lastName = " + studentLastName + ",DOB = "+studentDateOfBirth+
                 ", SSN = " + studentSSN + ", address1 = " + studentAddress_1+
                 ", address2 = " + studentAddress_2 +

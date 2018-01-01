@@ -116,7 +116,8 @@ public class CreateStudentActivity extends BaseActivity
                                 fatherZipCode.getText().toString(),
                                 fatherHomePhone.getText().toString(),
                                 fatherCellPhone.getText().toString(),
-                                fatherEmail.getText().toString()
+                                fatherEmail.getText().toString(),
+                                0
                                 );
 
                 studentService.addStudent(newStudent);

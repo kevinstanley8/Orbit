@@ -151,6 +151,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void storeUserInPreferences()
     {
+        FirebaseUser user = mAuth.getCurrentUser();
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        orbitPref.storeUserPreference("userUID", user.getUid());
+    }
+
+    private void storeUserUID(String UID)
+    {
         String email = mEmailView.getText().toString();
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
         orbitPref.storeUserPreference("userName", email);
@@ -164,6 +171,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loadHomeScreen()
     {
+        storeUserInPreferences();
         startActivity(HomeActivity.createIntent(this));
     }
 
