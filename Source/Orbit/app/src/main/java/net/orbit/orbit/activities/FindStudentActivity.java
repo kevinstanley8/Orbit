@@ -12,6 +12,7 @@ import android.widget.EditText;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.StudentDTO;
 import net.orbit.orbit.services.StudentService;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 public class FindStudentActivity extends BaseActivity {
     private StudentService studentService = new StudentService(this);
@@ -48,7 +49,9 @@ public class FindStudentActivity extends BaseActivity {
                         studentSSN.getText().toString()
                 );
 
-                studentService.findStudent(studentDto);
+                OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+                String uid = orbitPref.getUserPreference("userUID");
+                studentService.findStudent(studentDto, uid);
 
             }
         });

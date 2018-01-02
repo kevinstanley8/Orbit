@@ -36,7 +36,7 @@
     <string name="menu_logout">Log Out</string>
     <string name="menu_view_teacher">View Teachers</string>
     <string name="title_activity_all_teachers">AllTeachersActivity</string>
-    <string name="search">Search</string>
+    <string name="link">Link Student</string>
     <string name="title_activity_find_student">Link Student</string>
 
 </resources>
