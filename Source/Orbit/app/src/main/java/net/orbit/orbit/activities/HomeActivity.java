@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
@@ -32,88 +33,174 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class HomeActivity extends BaseActivity {
+
+
+
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_home);
 
+        //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
+        getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
+
+        // Determines the screen size of the current device
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
-
 
         float density  = getResources().getDisplayMetrics().density;
         int dpHeight = (int) (outMetrics.heightPixels / density);
         int dpWidth  = (int) (outMetrics.widthPixels / density);
 
+    // TODO still need to play with this to ensure scaling...
+        // maybe go a different route
         int testWidth = (dpWidth) ;
 
+        ViewGroup.LayoutParams params;
+        final ImageButton firstIcon = (ImageButton) findViewById(R.id.firstIcon);
+        final ImageButton secondIcon = (ImageButton) findViewById(R.id.secondIcon);
+        final ImageButton thirdIcon = (ImageButton) findViewById(R.id.thirdIcon);
+        final ImageButton fourthIcon = (ImageButton) findViewById(R.id.fourthIcon);
+        final ImageButton fifthIcon = (ImageButton) findViewById(R.id.fifthIcon);
+        final ImageButton sixthIcon = (ImageButton) findViewById(R.id.sixthIcon);
+        final ImageButton seventhIcon = (ImageButton) findViewById(R.id.seventhIcon);
+        final ImageButton eighthIcon = (ImageButton) findViewById(R.id.eighthIcon);
+        final ImageButton ninthIcon = (ImageButton) findViewById(R.id.ninthIcon);
 
-
-        //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
-        getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
-        // Sets the URL for the API url
-        String apiUrl = propertiesService.getProperty(this, "orbit.api.url");
-        orbitRestClient.setBaseUrl(apiUrl);
-
-
-        ImageButton firstIcon = (ImageButton) findViewById(R.id.firstIcon);
-        ViewGroup.LayoutParams params = firstIcon.getLayoutParams();
+// TODO assign actual listeners to different pages
+        params = firstIcon.getLayoutParams();
         params.height = testWidth;
         params.width = testWidth;
         firstIcon.setLayoutParams(params);
 
-        ImageButton secondIcon = (ImageButton) findViewById(R.id.secondIcon);
+        firstIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = secondIcon.getLayoutParams();
         params.width = testWidth;
         params.height = testWidth;
         secondIcon.setLayoutParams(params);
 
-        ImageButton thirdIcon = (ImageButton) findViewById(R.id.thirdIcon);
+        secondIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
+
         params = thirdIcon.getLayoutParams();
         params.width = testWidth;
         params.height = testWidth;
         thirdIcon.setLayoutParams(params);
 
-        ImageButton fourthIcon = (ImageButton) findViewById(R.id.fourthIcon);
+        thirdIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = fourthIcon.getLayoutParams();
         params.height = testWidth;
         params.width = testWidth;
         fourthIcon.setLayoutParams(params);
 
-        ImageButton fifthIcon = (ImageButton) findViewById(R.id.fifthIcon);
+        fourthIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = fifthIcon.getLayoutParams();
         params.width = testWidth;
         params.height = testWidth;
         fifthIcon.setLayoutParams(params);
 
-        ImageButton sixthIcon = (ImageButton) findViewById(R.id.sixthIcon);
+        fifthIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = sixthIcon.getLayoutParams();
         params.width = testWidth;
         params.height = testWidth;
         sixthIcon.setLayoutParams(params);
 
-        ImageButton seventhIcon = (ImageButton) findViewById(R.id.seventhIcon);
+        sixthIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = seventhIcon.getLayoutParams();
         params.height = testWidth;
         params.width = testWidth;
         seventhIcon.setLayoutParams(params);
 
-        ImageButton eighthIcon = (ImageButton) findViewById(R.id.eighthIcon);
+        seventhIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = eighthIcon.getLayoutParams();
         params.width = testWidth;
         params.height = testWidth;
         eighthIcon.setLayoutParams(params);
 
-        ImageButton ninthIcon = (ImageButton) findViewById(R.id.ninthIcon);
+        eighthIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
         params = ninthIcon.getLayoutParams();
         params.width = testWidth;
         params.height = testWidth;
         ninthIcon.setLayoutParams(params);
 
+        ninthIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(newIntent);
+            }
+        });
+
+        // Sets the URL for the API url
+        String apiUrl = propertiesService.getProperty(this, "orbit.api.url");
+        orbitRestClient.setBaseUrl(apiUrl);
 
         // Displays a alert window and lets you know if your DB connection is successful.
         // If menu_student data is returned, then the connection was successful.
