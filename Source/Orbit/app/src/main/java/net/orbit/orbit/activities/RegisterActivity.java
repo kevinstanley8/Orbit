@@ -81,6 +81,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    private void storeUserInPreferences()
+    {
+        FirebaseUser user = mAuth.getCurrentUser();
+        userService.findUserByUID(user.getUid(), true);
+    }
+
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
@@ -183,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                     Toast.LENGTH_SHORT).show();
-
+                            storeUserInPreferences();
                             setResult(0);
                             finish();
                         }
