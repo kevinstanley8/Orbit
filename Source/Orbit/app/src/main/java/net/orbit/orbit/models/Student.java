@@ -66,6 +66,19 @@ public class Student
         this.fatherEmail = fatherEmail;
         this.studentId = studentId;
     }
+
+    /**
+     * Constructor to be used with creating Student object for the choose student list cards
+     * @param studentFirstName
+     * @param studentLastName
+     */
+    public Student(String studentFirstName, String studentLastName)
+    {
+        this.studentFirstName = studentFirstName;
+        this.studentLastName = studentLastName;
+    }
+
+
     public int getStudentId() {  return studentId;   }
     public void setStudentId(int studentID) {  this.studentId = studentID;   }
 

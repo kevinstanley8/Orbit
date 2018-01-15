@@ -50,8 +50,11 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile 'com.android.support:recyclerview-v7:25.4.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 

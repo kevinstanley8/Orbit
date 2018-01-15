@@ -5,19 +5,25 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
+import net.orbit.orbit.activities.ChooseStudentActivity;
 import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.models.AccountLink;
 import net.orbit.orbit.models.AccountLinkDTO;
 import net.orbit.orbit.models.Student;
 import net.orbit.orbit.models.StudentDTO;
+import net.orbit.orbit.models.User;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -167,6 +173,41 @@ public class StudentService
                         // called when request is retried
                     }
                 });
+    }
+
+
+    public void findLinkedStudents(final ChooseStudentActivity activity, String UID)
+    {
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.get("find-linked/" + UID, null, new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray students) {
+                // called when success happens
+                Gson gson = new Gson();
+                List<Student> studentList = gson.fromJson(students.toString(), new TypeToken<List<Student>>(){}.getType());
+                activity.updateStudentList(studentList);
+
+                Log.i("StudentService", "Find Linked Student - Successful");
+                Toast.makeText(context, "FOUND LINKED STUDENTS" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("StudentService", "Error finding linked students: " + errorResponse);
+                Toast.makeText(context, "Error finding linked students", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
     }
 
 
