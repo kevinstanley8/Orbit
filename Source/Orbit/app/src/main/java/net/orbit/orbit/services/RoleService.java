@@ -25,10 +25,10 @@ public class RoleService {
     OrbitRestClient orbitRestClient = new OrbitRestClient();
     PropertiesService propertiesService = new PropertiesService();
     Context context;
-    private FirebaseAuth mAuth;
 
     public RoleService(Context context){
         this.context = context;
+        //orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
     }
 
     public void viewRoles(final RegisterActivity activity){
@@ -62,9 +62,10 @@ public class RoleService {
     }
 
     public void hasTeacherRole(){
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String UID = currentUser.getUid();
-        orbitRestClient.get("has-teacher-role/" + UID, null , new JsonHttpResponseHandler(){
+        orbitRestClient.get("has-teacher-role/" + UID, null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 // called before request is started
@@ -75,13 +76,13 @@ public class RoleService {
                 Gson gson = new Gson();
 //                Role[] teacherList = gson.fromJson(roles.toString(), Role[].class);
 //                activity.updateRolesSpinner(teacherList);
-                Log.d("RolesService", "Has teacher role: " + hasRole);
+                Log.d("RolesService", "Checking teacher role: " + hasRole);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("RolesService", "Error when pulling roles: " + errorResponse);
+                Log.e("RolesService", "Error on checking teacher role: " + errorResponse);
             }
 
             @Override
