@@ -3,6 +3,8 @@ package net.orbit.orbit.services;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -23,6 +25,7 @@ public class RoleService {
     OrbitRestClient orbitRestClient = new OrbitRestClient();
     PropertiesService propertiesService = new PropertiesService();
     Context context;
+    private FirebaseAuth mAuth;
 
     public RoleService(Context context){
         this.context = context;
@@ -41,13 +44,13 @@ public class RoleService {
                 Gson gson = new Gson();
                 Role[] teacherList = gson.fromJson(roles.toString(), Role[].class);
                 activity.updateRolesSpinner(teacherList);
-                Log.d("ViewRolesService", "Successfully pulled all roles: " + roles);
+                Log.d("RolesService", "Successfully pulled all roles: " + roles);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("ViewRolesService", "Error when pulling roles: " + errorResponse);
+                Log.e("RolesService", "Error when pulling roles: " + errorResponse);
             }
 
             @Override
@@ -56,6 +59,36 @@ public class RoleService {
             }
 
         });
+    }
 
+    public void hasTeacherRole(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String UID = currentUser.getUid();
+        orbitRestClient.get("has-teacher-role/" + UID, null , new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject hasRole) {
+                Gson gson = new Gson();
+//                Role[] teacherList = gson.fromJson(roles.toString(), Role[].class);
+//                activity.updateRolesSpinner(teacherList);
+                Log.d("RolesService", "Has teacher role: " + hasRole);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("RolesService", "Error when pulling roles: " + errorResponse);
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+        });
     }
 }
