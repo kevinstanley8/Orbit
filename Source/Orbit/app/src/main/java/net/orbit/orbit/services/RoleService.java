@@ -72,11 +72,11 @@ public class RoleService {
             }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject hasRole) {
-                Gson gson = new Gson();
+            public void onSuccess(int statusCode, Header[] headers, JSONObject checkRole) {
+//                Gson gson = new Gson();
 //                Role[] teacherList = gson.fromJson(roles.toString(), Role[].class);
 //                activity.updateRolesSpinner(teacherList);
-                Log.d("RolesService", "Checking teacher role: " + hasRole);
+                Log.d("RolesService", "Checking teacher role: " + checkRole);
             }
 
             @Override
