@@ -81,6 +81,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    private void storeUserInPreferences()
+    {
+        FirebaseUser user = mAuth.getCurrentUser();
+        userService.findUserByUID(user.getUid(), true);
+    }
+
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
@@ -183,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                     Toast.LENGTH_SHORT).show();
-
+                            storeUserInPreferences();
                             setResult(0);
                             finish();
                         }
@@ -196,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity {
     {
         List<Role> list = new ArrayList<>();
         for (Role r : roleArray) {
-            if (!r.getName().equals("Admin") && !r.getName().equals("Teacher")) {
+            if (!r.getName().equals(Constants.ROLE_ADMIN) && !r.getName().equals(Constants.ROLE_TEACHER)) {
                 list.add(r);
             }
         }

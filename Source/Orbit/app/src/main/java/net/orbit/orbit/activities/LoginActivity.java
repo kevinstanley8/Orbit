@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.User;
+import net.orbit.orbit.services.UserService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
@@ -73,6 +76,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    private UserService userService = new UserService(this);
 
 
     private FirebaseAuth mAuth;
@@ -152,15 +157,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void storeUserInPreferences()
     {
         FirebaseUser user = mAuth.getCurrentUser();
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        orbitPref.storeUserPreference("userUID", user.getUid());
-    }
-
-    private void storeUserUID(String UID)
-    {
-        String email = mEmailView.getText().toString();
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        orbitPref.storeUserPreference("userName", email);
+        userService.findUserByUID(user.getUid(), true);
     }
 
     private void registerNewAccount()
