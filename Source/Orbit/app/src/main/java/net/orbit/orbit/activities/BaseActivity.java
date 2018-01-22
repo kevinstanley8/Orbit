@@ -45,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     ArrayList<NavItem> mNavItems = new ArrayList<NavItem>();
     protected RelativeLayout relativeLayout;
     private OrbitMenuNavigation orbitNav;
+    private TextView userName;
 
     //user setters to set menu title when menu drawer is open and closed
     private String drawerOpenTitle = "";
@@ -259,7 +260,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
 
-        TextView userName = (TextView)findViewById(R.id.userName);
+        userName = (TextView)findViewById(R.id.userName);
         userName.setText(user.getEmail());
 
         // Set the drawer toggle as the DrawerListener
@@ -272,11 +273,14 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Update nav bar based on user's role
      * @param role
      * @author surge
      */
     public void updateNavBar(Role role){
+        String appendRole = " (" + role.getName() + ")";
+        // Append user role next to email
+        userName.append(appendRole);
         // This method is going to be changed once we have all pages ready
         if (role.getName().equals(Constants.ROLE_ADMIN)) {
             mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
