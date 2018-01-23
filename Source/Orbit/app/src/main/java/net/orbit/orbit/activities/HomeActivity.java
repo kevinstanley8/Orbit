@@ -236,7 +236,9 @@ public class HomeActivity extends BaseActivity {
                             }
                         });
                 alertDialog.show();
-                rs.hasTeacherRole();
+                
+                // TODO GP-121 testing roles
+                //rs.hasTeacherRole();
             }
 
             @Override
