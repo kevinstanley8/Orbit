@@ -22,6 +22,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.services.RoleService;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
@@ -38,6 +39,7 @@ public class HomeActivity extends BaseActivity {
 
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
+    RoleService rs = new RoleService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,6 +236,9 @@ public class HomeActivity extends BaseActivity {
                             }
                         });
                 alertDialog.show();
+                
+                // TODO GP-121 testing roles
+                //rs.hasTeacherRole();
             }
 
             @Override

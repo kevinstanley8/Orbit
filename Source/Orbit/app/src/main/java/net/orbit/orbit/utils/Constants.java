@@ -12,4 +12,10 @@ public class Constants {
     // User
     public static final int USER_INVALID_ATTEMPTS = 0;
     public static final String USER_ACTIVE = "True";
+
+    // Roles
+    public static final String ROLE_ADMIN = "Admin";
+    public static final String ROLE_TEACHER = "Teacher";
+    public static final String ROLE_PARENT = "Parent";
+    public static final String ROLE_STUDENT = "Student";
 }
