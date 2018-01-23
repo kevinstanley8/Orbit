@@ -25,6 +25,7 @@ import net.orbit.orbit.models.User;
 import net.orbit.orbit.services.RoleService;
 import net.orbit.orbit.services.UserService;
 import net.orbit.orbit.utils.Constants;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -78,13 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                 // ...
             }
         };
-
-    }
-
-    private void storeUserInPreferences()
-    {
-        FirebaseUser user = mAuth.getCurrentUser();
-        userService.findUserByUID(user.getUid(), true);
     }
 
     public void onStart() {
@@ -186,10 +180,10 @@ public class RegisterActivity extends AppCompatActivity {
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
                             // Add user to database
                             userService.addUser(user);
-
+                            userService.storeUserInPreferences(mAuth);
                             Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                     Toast.LENGTH_SHORT).show();
-                            storeUserInPreferences();
+
                             setResult(0);
                             finish();
                         }
@@ -202,7 +196,7 @@ public class RegisterActivity extends AppCompatActivity {
     {
         List<Role> list = new ArrayList<>();
         for (Role r : roleArray) {
-            if (!r.getName().equals(Constants.ROLE_ADMIN) && !r.getName().equals(Constants.ROLE_TEACHER)) {
+            if (!r.getName().equals(Constants.ROLE_ADMIN)) {
                 list.add(r);
             }
         }

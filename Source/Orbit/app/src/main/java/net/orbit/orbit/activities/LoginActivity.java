@@ -154,12 +154,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void storeUserInPreferences()
-    {
-        FirebaseUser user = mAuth.getCurrentUser();
-        userService.findUserByUID(user.getUid(), true);
-    }
-
     private void registerNewAccount()
     {
         int TEST = 0;
@@ -168,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loadHomeScreen()
     {
-        storeUserInPreferences();
+        userService.storeUserInPreferences(mAuth);
         startActivity(HomeActivity.createIntent(this));
     }
 
@@ -197,7 +191,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login Successful!",
                                     Toast.LENGTH_SHORT).show();
-                            storeUserInPreferences();
+                            userService.storeUserInPreferences(mAuth);
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             loadHomeScreen();

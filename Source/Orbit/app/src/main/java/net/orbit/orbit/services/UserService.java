@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -30,11 +32,11 @@ public class UserService {
     OrbitRestClient orbitRestClient = new OrbitRestClient();
     PropertiesService propertiesService = new PropertiesService();
     Context context;
-    private User userLoggedIn;
 
     public UserService(Context context){
         this.context = context;
     }
+
 
     public void addUser(User user){
         Gson gson = new Gson();
@@ -114,6 +116,11 @@ public class UserService {
                         // called when request is retried
                     }
                 });
+    }
+
+    public void storeUserInPreferences(FirebaseAuth mAuth) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        this.findUserByUID(user.getUid(), true);
     }
 
 }

@@ -24,12 +24,22 @@ public class OrbitUserPreferences {
         editor = pref.edit();
     }
 
+    /**
+     * Storing text in shared preferences
+     * @param prefName
+     * @param prefValue
+     */
     public void storeUserPreference(String prefName, String prefValue)
     {
         editor.putString(prefName, prefValue); // Storing long
         editor.commit();
     }
 
+    /**
+     * Storing object in shared preferences
+     * @param prefName
+     * @param user
+     */
     public void storeUserPreference(String prefName, User user)
     {
         Gson gson = new Gson();
@@ -38,12 +48,22 @@ public class OrbitUserPreferences {
         editor.commit();
     }
 
+    /**
+     * Getting text from shared preferences
+     * @param prefName
+     * @return
+     */
     public String getUserPreference(String prefName)
     {
         String prefValue = pref.getString(prefName, null);
         return prefValue;
     }
 
+    /**
+     * Getting object from user preferences
+     * @param prefName
+     * @return
+     */
     public User getUserPreferenceObj(String prefName)
     {
         Gson gson = new Gson();

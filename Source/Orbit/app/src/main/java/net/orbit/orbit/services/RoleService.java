@@ -95,40 +95,4 @@ public class RoleService {
 
         });
     }
-
-    /**
-     * Update nav bar if updateNavBar equals true, otherwise do nothing
-     */
-    public void findRoleByID(final int roleID, final boolean updateNavBar, final BaseActivity activity){
-        String url = "get-role/" + roleID;
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
-        orbitRestClient.get(url, null, new JsonHttpResponseHandler(){
-            @Override
-            public void onStart() {
-                // called before request is started
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject role) {
-                Log.i("RoleService", "Successfully found a role: " + role);
-                Gson gson = new Gson();
-                Role dbRole = gson.fromJson(role.toString(), Role.class);
-                if (updateNavBar) {
-                    activity.updateNavBar(dbRole);
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
-                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("RoleService", "Error when finding a role: " + errorResponse);
-            }
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-
-        });
-    }
 }
