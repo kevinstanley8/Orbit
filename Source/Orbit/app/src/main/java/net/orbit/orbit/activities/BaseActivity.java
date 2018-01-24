@@ -167,7 +167,27 @@ public class BaseActivity extends AppCompatActivity {
          */
         public void gotoMenuItem(int position)
         {
-            switch(position)
+            NavItem item = (NavItem)mNavItems.get(position);
+
+            // translation of menu item titles -> defined menu constants
+            int selectedItem = 0;
+            if(item.mTitle.trim().equals("Home"))
+                selectedItem = HOME;
+            else if(item.mTitle.trim().equals("Add Student"))
+                selectedItem = ADD_STUDENT;
+            else if(item.mTitle.trim().equals("Link Student"))
+                selectedItem = LINK_STUDENT;
+            else if(item.mTitle.trim().equals("Add Teacher"))
+                selectedItem = ADD_TEACHER;
+            else if(item.mTitle.trim().equals("View Teachers"))
+                selectedItem = VIEW_TEACHERS;
+            else if(item.mTitle.trim().equals("Choose Student"))
+                selectedItem = CHOOSE_STUDENT;
+            else if(item.mTitle.trim().equals("Log Out"))
+                selectedItem = LOG_OFF;
+
+
+            switch(selectedItem)
             {
                 case HOME: startActivityForResult(HomeActivity.createIntent(context), result);
                     break;
