@@ -39,7 +39,6 @@ public class HomeActivity extends BaseActivity {
 
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
-    RoleService rs = new RoleService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

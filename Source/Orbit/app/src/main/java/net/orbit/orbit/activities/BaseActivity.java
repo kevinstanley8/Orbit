@@ -48,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
     protected RelativeLayout relativeLayout;
     private OrbitMenuNavigation orbitNav;
     private TextView userName;
+    private boolean navBarUpdated = false;
 
     //user setters to set menu title when menu drawer is open and closed
     private String drawerOpenTitle = "";
@@ -202,6 +203,8 @@ public class BaseActivity extends AppCompatActivity {
                 case CHOOSE_STUDENT: startActivityForResult(ChooseStudentActivity.createIntent(context), result);
                     break;
                 case LOG_OFF: FirebaseAuth.getInstance().signOut();
+                    OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
+                    orbitPref.clear();
                     startActivity(LoginActivity.createIntent(context));
                     break;
             }
@@ -240,23 +243,8 @@ public class BaseActivity extends AppCompatActivity {
 
         relativeLayout = (RelativeLayout)findViewById(R.id.mainContent);
 
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        User user = orbitPref.getUserPreferenceObj("loggedUser");
-        Log.i("UserFromSharedPref", user.toString());
-        Role userRole = user.getRole();
-
         // This method is going to be changed once we have all pages ready
         mNavItems.add(new NavItem(getString(R.string.menu_home), getString(R.string.menu_home), R.drawable.menu_school));
-        if (userRole.getName().equals(Constants.ROLE_ADMIN)) {
-            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
-            mNavItems.add(new NavItem(getString(R.string.menu_view_teacher), getString(R.string.menu_view_teacher), R.drawable.menu_view_teachers));
-        } else if (userRole.getName().equals(Constants.ROLE_TEACHER)) {
-            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
-        }
-        mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
         orbitNav = new OrbitMenuNavigation(getApplicationContext());
 
         // DrawerLayout
@@ -293,12 +281,12 @@ public class BaseActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(getDrawerClosedTitle());
+                if (!navBarUpdated) {
+                    updateNavBar();
+                    navBarUpdated = true;
+                }
             }
         };
-
-        userName = (TextView)findViewById(R.id.userName);
-        String userInfo = user.getEmail() + " (" + userRole.getName() + ")";
-        userName.setText(userInfo);
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -307,6 +295,27 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void updateNavBar(){
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        User user = orbitPref.getUserPreferenceObj("loggedUser");
+        Log.i("UserFromSharedPref", user.toString());
+        Role userRole = user.getRole();
+
+        if (userRole.getName().equals(Constants.ROLE_ADMIN)) {
+            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
+            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
+            mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
+            mNavItems.add(new NavItem(getString(R.string.menu_view_teacher), getString(R.string.menu_view_teacher), R.drawable.menu_view_teachers));
+        } else if (userRole.getName().equals(Constants.ROLE_TEACHER)) {
+            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
+            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
+        }
+        mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
+        orbitNav = new OrbitMenuNavigation(getApplicationContext());
+        userName = (TextView)findViewById(R.id.userName);
+        userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");
     }
 
     @Override

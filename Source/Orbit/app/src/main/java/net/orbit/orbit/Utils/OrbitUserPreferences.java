@@ -75,4 +75,12 @@ public class OrbitUserPreferences {
         return null;
     }
 
+    /**
+     * Clear shared preferences
+     */
+    public void clear(){
+        editor.clear();
+        editor.commit();
+    }
+
 }
