@@ -5,30 +5,26 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.PropertiesService;
-import net.orbit.orbit.services.RoleService;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -47,155 +43,96 @@ public class HomeActivity extends BaseActivity {
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
 
-        // Determines the screen size of the current device
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
 
-        float density  = getResources().getDisplayMetrics().density;
-        int dpHeight = (int) (outMetrics.heightPixels / density);
-        int dpWidth  = (int) (outMetrics.widthPixels / density);
+         GridView gridview = (GridView) findViewById(R.id.gridview);
+         class ImageAdapter extends BaseAdapter
+         {
+             private Context mContext;
+             private final String[] labels;
+             private final int[] Imageid;
 
-    // TODO still need to play with this to ensure scaling...
-        // maybe go a different route
-        int testWidth = (dpWidth) ;
+             public ImageAdapter(Context c,String[] labels,int[] Imageid ) {
+                 mContext = c;
+                 this.Imageid = Imageid;
+                 this.labels = labels;
+             }
 
-        ViewGroup.LayoutParams params;
-        final ImageButton firstIcon = (ImageButton) findViewById(R.id.firstIcon);
-        final ImageButton secondIcon = (ImageButton) findViewById(R.id.secondIcon);
-        final ImageButton thirdIcon = (ImageButton) findViewById(R.id.thirdIcon);
-        final ImageButton fourthIcon = (ImageButton) findViewById(R.id.fourthIcon);
-        final ImageButton fifthIcon = (ImageButton) findViewById(R.id.fifthIcon);
-        final ImageButton sixthIcon = (ImageButton) findViewById(R.id.sixthIcon);
-        final ImageButton seventhIcon = (ImageButton) findViewById(R.id.seventhIcon);
-        final ImageButton eighthIcon = (ImageButton) findViewById(R.id.eighthIcon);
-        final ImageButton ninthIcon = (ImageButton) findViewById(R.id.ninthIcon);
+             @Override
+             public int getCount() {
+                 // TODO Auto-generated method stub
+                 return labels.length;
+             }
 
-// TODO assign actual listeners to different pages
-        params = firstIcon.getLayoutParams();
-        params.height = testWidth;
-        params.width = testWidth;
-        firstIcon.setLayoutParams(params);
+             @Override
+             public Object getItem(int position) {
+                 // TODO Auto-generated method stub
+                 return null;
+             }
 
-        firstIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
+             @Override
+             public long getItemId(int position) {
+                 // TODO Auto-generated method stub
+                 return 0;
+             }
+
+             @Override
+             public View getView(int position, View convertView, ViewGroup parent) {
+                 // TODO Auto-generated method stub
+                 View grid;
+                 LayoutInflater inflater = (LayoutInflater) mContext
+                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                 if (convertView == null) {
+
+                     grid = new View(mContext);
+                     grid = inflater.inflate(R.layout.grid_item, null);
+                     TextView textView = (TextView) grid.findViewById(R.id.gridText);
+                     ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+                     textView.setText(labels[position]);
+                     imageView.setImageResource(Imageid[position]);
+                 } else {
+                     grid = (View) convertView;
+                 }
+
+                 return grid;
+             }
             }
-        });
 
-        params = secondIcon.getLayoutParams();
-        params.width = testWidth;
-        params.height = testWidth;
-        secondIcon.setLayoutParams(params);
+            // references to our images
+        final String[] labels=
+                {
+                        "Link Students",
+                        "Select Student",
+                        "Log-Out",
+                        "Filler",
+                        "Test",
+                        "Test"
 
-        secondIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
+                };
+        int[] images =
+                {
+                        R.drawable.menu_link_parent_student,
+                        R.drawable.menu_choose_student,
+                        R.drawable.menu_logout,
+                        R.drawable.menu_school,
+                        R.drawable.menu_student,
+                        R.drawable.menu_teacher
+                };
 
+        gridview.setAdapter(new ImageAdapter(this, labels, images));
 
-        params = thirdIcon.getLayoutParams();
-        params.width = testWidth;
-        params.height = testWidth;
-        thirdIcon.setLayoutParams(params);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id)
+            {
+                if(labels[position] == "Log-Out")
+                {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(newIntent);
+                }
 
-        thirdIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
-
-        params = fourthIcon.getLayoutParams();
-        params.height = testWidth;
-        params.width = testWidth;
-        fourthIcon.setLayoutParams(params);
-
-        fourthIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
-
-        params = fifthIcon.getLayoutParams();
-        params.width = testWidth;
-        params.height = testWidth;
-        fifthIcon.setLayoutParams(params);
-
-        fifthIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
-
-        params = sixthIcon.getLayoutParams();
-        params.width = testWidth;
-        params.height = testWidth;
-        sixthIcon.setLayoutParams(params);
-
-        sixthIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
-
-        params = seventhIcon.getLayoutParams();
-        params.height = testWidth;
-        params.width = testWidth;
-        seventhIcon.setLayoutParams(params);
-
-        seventhIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
-
-        params = eighthIcon.getLayoutParams();
-        params.width = testWidth;
-        params.height = testWidth;
-        eighthIcon.setLayoutParams(params);
-
-        eighthIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
-            }
-        });
-
-        params = ninthIcon.getLayoutParams();
-        params.width = testWidth;
-        params.height = testWidth;
-        ninthIcon.setLayoutParams(params);
-
-        ninthIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(newIntent);
             }
         });
 

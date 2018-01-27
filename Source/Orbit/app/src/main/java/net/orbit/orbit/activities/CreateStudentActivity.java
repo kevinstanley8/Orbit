@@ -45,31 +45,31 @@ public class CreateStudentActivity extends BaseActivity
         final EditText studentCity = (EditText) findViewById(R.id.studentCity);
         final EditText studentState = (EditText) findViewById(R.id.studentState);
         final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
-        final EditText studentGrade = (EditText) findViewById(R.id.studentGrade);
+        final String studentGrade = "To Be Filled at Later Date";
 
-        final EditText motherFirstName = (EditText) findViewById(R.id.motherFirstName);
-        final EditText motherLastName = (EditText) findViewById(R.id.motherLastName);
-        final EditText motherSSN = (EditText) findViewById(R.id.motherSSN);
-        final EditText motherAddress1 = (EditText) findViewById(R.id.motherAddress1);
-        final EditText motherAddress2 = (EditText) findViewById(R.id.motherAddress2);
-        final EditText motherCity = (EditText) findViewById(R.id.motherCity);
-        final EditText motherState = (EditText) findViewById(R.id.motherState);
-        final EditText motherZipCode = (EditText) findViewById(R.id.motherZip);
-        final EditText motherHomePhone = (EditText) findViewById(R.id.motherHomePhone);
-        final EditText motherCellPhone = (EditText) findViewById(R.id.motherCellPhone);
-        final EditText motherEmail = (EditText) findViewById(R.id.motherEmail);
+        final String motherFirstName = "To Be Filled at Later Date";
+        final String motherLastName = "To Be Filled at Later Date";
+        final String motherSSN = "To Be Filled at Later Date";
+        final String motherAddress1 = "To Be Filled at Later Date";
+        final String motherAddress2 = "To Be Filled at Later Date";
+        final String motherCity = "To Be Filled at Later Date";
+        final String motherState = "To Be Filled at Later Date";
+        final String motherZipCode = "To Be Filled at Later Date";
+        final String motherHomePhone = "To Be Filled at Later Date";
+        final String motherCellPhone = "To Be Filled at Later Date";
+        final String motherEmail = "";
 
-        final EditText fatherFirstName = (EditText) findViewById(R.id.fatherFirstName);
-        final EditText fatherLastName = (EditText) findViewById(R.id.fatherLastName);
-        final EditText fatherSSN = (EditText) findViewById(R.id.fatherSSN);
-        final EditText fatherAddress1 = (EditText) findViewById(R.id.fatherAddress1);
-        final EditText fatherAddress2 = (EditText) findViewById(R.id.fatherAddress2);
-        final EditText fatherCity = (EditText) findViewById(R.id.fatherCity);
-        final EditText fatherState = (EditText) findViewById(R.id.fatherState);
-        final EditText fatherZipCode = (EditText) findViewById(R.id.fatherZip);
-        final EditText fatherHomePhone = (EditText) findViewById(R.id.fatherHomePhone);
-        final EditText fatherCellPhone = (EditText) findViewById(R.id.fatherCellPhone);
-        final EditText fatherEmail = (EditText) findViewById(R.id.fatherEmail);
+        final String fatherFirstName = "To Be Filled at Later Date";
+        final String fatherLastName = "To Be Filled at Later Date";
+        final String fatherSSN = "To Be Filled at Later Date";
+        final String fatherAddress1 = "To Be Filled at Later Date";
+        final String fatherAddress2 = "To Be Filled at Later Date";
+        final String fatherCity = "To Be Filled at Later Date";
+        final String fatherState = "To Be Filled at Later Date";
+        final String fatherZipCode = "To Be Filled at Later Date";
+        final String fatherHomePhone = "To Be Filled at Later Date";
+        final String fatherCellPhone = "To Be Filled at Later Date";
+        final String fatherEmail = "To Be Filled at Later Date";
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -94,29 +94,29 @@ public class CreateStudentActivity extends BaseActivity
                                 studentCity.getText().toString(),
                                 studentState.getText().toString(),
                                 studentZipCode.getText().toString(),
-                                studentGrade.getText().toString(),
-                                motherFirstName.getText().toString(),
-                                motherLastName.getText().toString(),
-                                motherSSN.getText().toString(),
-                                motherAddress1.getText().toString(),
-                                motherAddress2.getText().toString(),
-                                motherCity.getText().toString(),
-                                motherState.getText().toString(),
-                                motherZipCode.getText().toString(),
-                                motherHomePhone.getText().toString(),
-                                motherCellPhone.getText().toString(),
-                                motherEmail.getText().toString(),
-                                fatherFirstName.getText().toString(),
-                                fatherLastName.getText().toString(),
-                                fatherSSN.getText().toString(),
-                                fatherAddress1.getText().toString(),
-                                fatherAddress2.getText().toString(),
-                                fatherCity.getText().toString(),
-                                fatherState.getText().toString(),
-                                fatherZipCode.getText().toString(),
-                                fatherHomePhone.getText().toString(),
-                                fatherCellPhone.getText().toString(),
-                                fatherEmail.getText().toString(),
+                                studentGrade,
+                                motherFirstName,
+                                motherLastName,
+                                motherSSN,
+                                motherAddress1,
+                                motherAddress2,
+                                motherCity,
+                                motherState,
+                                motherZipCode,
+                                motherHomePhone,
+                                motherCellPhone,
+                                motherEmail,
+                                fatherFirstName,
+                                fatherLastName,
+                                fatherSSN,
+                                fatherAddress1,
+                                fatherAddress2,
+                                fatherCity,
+                                fatherState,
+                                fatherZipCode,
+                                fatherHomePhone,
+                                fatherCellPhone,
+                                fatherEmail,
                                 0
                                 );
 
