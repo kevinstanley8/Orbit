@@ -53,9 +53,13 @@
             android:name=".activities.FindStudentActivity"
             android:label="@string/title_activity_find_student"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ChooseStudentActivity"
+        <activity
+            android:name=".activities.ChooseStudentActivity"
             android:label="@string/choose_student"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.EnrollStudentInCourseActivity"
+            android:label="@string/choose_student"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

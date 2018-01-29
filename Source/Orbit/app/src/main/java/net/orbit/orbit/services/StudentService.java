@@ -10,9 +10,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import net.orbit.orbit.activities.ChooseStudentActivity;
+import net.orbit.orbit.activities.EnrollStudentInCourseActivity;
 import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.models.AccountLink;
 import net.orbit.orbit.models.AccountLinkDTO;
+import net.orbit.orbit.models.EnrollStudentInClassDTO;
 import net.orbit.orbit.models.Student;
 import net.orbit.orbit.models.StudentDTO;
 import net.orbit.orbit.models.User;
@@ -210,5 +212,93 @@ public class StudentService
         });
     }
 
+    public void findAllStudents(final EnrollStudentInCourseActivity activity)
+    {
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.get("all-students/", null, new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray students) {
+                // called when success happens
+                Gson gson = new Gson();
+                List<Student> studentList = gson.fromJson(students.toString(), new TypeToken<List<Student>>(){}.getType());
+                activity.updateStudentList(studentList);
+
+                Log.i("StudentService", "Find Linked Student - Successful");
+                Toast.makeText(context, "FOUND LINKED STUDENTS" , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("StudentService", "Error finding linked students: " + errorResponse);
+                Toast.makeText(context, "Error finding linked students", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+    public void enrollStudentsInCourse(List<Student> enrollList, int courseID)
+    {
+        EnrollStudentInClassDTO enrollDTO = new EnrollStudentInClassDTO();
+
+        for(int i = 0; i < enrollList.size(); i++)
+        {
+            enrollDTO.addEnrollRecord(enrollList.get(i).getStudentId(), courseID);
+        }
+
+        Gson gson = new Gson();
+        String json = gson.toJson(enrollDTO);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // Sets the URL for the API url
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.post(this.context, "link-student", entity, "application/json",
+                new JsonHttpResponseHandler(){
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject account) {
+                        // called when success happens
+                        Gson gson = new Gson();
+                        AccountLink accountLink = gson.fromJson(account.toString(), AccountLink.class);
+
+                        Log.i("StudentService", accountLink.getMessage() + account);
+                        // We have a match student. Need to do linking here.
+                        Toast.makeText(context, accountLink.getMessage() , Toast.LENGTH_SHORT).show();
+                        context.startActivity(HomeActivity.createIntent(context));
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Log.e("StudentService", "Error when linking student: " + errorResponse);
+                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                    }
+                });
+
+
+    }
 
 }

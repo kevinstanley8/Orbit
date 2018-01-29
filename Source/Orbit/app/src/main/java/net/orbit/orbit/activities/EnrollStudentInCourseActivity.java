@@ -1,0 +1,211 @@
+package net.orbit.orbit.activities;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import net.orbit.orbit.R;
+import net.orbit.orbit.models.Student;
+import net.orbit.orbit.services.StudentService;
+import net.orbit.orbit.utils.OrbitUserPreferences;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EnrollStudentInCourseActivity extends BaseActivity {
+    private RecyclerView recyclerView;
+    StudentService studentService = new StudentService(this);
+
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, EnrollStudentInCourseActivity.class);
+        return i;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
+        getLayoutInflater().inflate(R.layout.activity_enroll_student_in_course, relativeLayout);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new EnrollStudentInCourseActivity.Adapter(this));
+
+        findViewById(R.id.btnEnroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enrollStudents();
+            }
+        });
+
+        //loadList();
+
+        //if(EnrollStudentInCourseActivity.Adapter.students == null || EnrollStudentInCourseActivity.Adapter.students.size() < 0)
+        studentService.findAllStudents(this);
+    }
+
+    /*protected void onResume() {
+        super.onResume();
+        reloadList();
+    }*/
+
+    private void enrollStudents()
+    {
+        List<Student> enrollList = new ArrayList<>();
+        for(int i = 0; i < EnrollStudentInCourseActivity.Adapter.students.size(); i++)
+        {
+            if(EnrollStudentInCourseActivity.Adapter.students.get(i).getIsSelected())
+                enrollList.add(EnrollStudentInCourseActivity.Adapter.students.get(i));
+        }
+
+        //call enrollList
+
+    }
+
+    public void saveStudentList()
+    {
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        orbitPref.storeUserPreference("studentList", EnrollStudentInCourseActivity.Adapter.students);
+    }
+
+    public void updateStudentList(List<Student> studentList)
+    {
+        for(int i = 0; i < studentList.size(); i++)
+        {
+            EnrollStudentInCourseActivity.Adapter.students.add((Student)studentList.get(i));
+        }
+
+        reloadList();
+    }
+
+    public void reloadList()
+    {
+        saveStudentList();
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    public void loadList()
+    {
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Student>>() {}.getType();
+        List<Student> savedStudentList = new ArrayList<>();
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        savedStudentList = gson.fromJson(orbitPref.getUserPreference("studentList"), type);
+
+        //only set the meme list if a List was found saved in Shared Preferences
+        if(savedStudentList != null && savedStudentList.size() > 0) {
+            EnrollStudentInCourseActivity.Adapter.students = savedStudentList;
+        }
+    }
+
+    public static class Adapter extends RecyclerView.Adapter<EnrollStudentInCourseActivity.ViewHolder> {
+
+        private final Activity context;
+        private static List<Student> students = new ArrayList<>();
+
+        public Adapter(Activity context) {
+            this.context = context;
+            students.clear();
+
+            /*if(students.size() <= 0) {
+                //inital seed of list if needed
+            }*/
+        }
+
+        public static void addStudent(Student student)
+        {
+            students.add(student);
+        }
+
+        @Override
+        public EnrollStudentInCourseActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = context.getLayoutInflater().inflate(R.layout.student_item, parent, false);
+            return new EnrollStudentInCourseActivity.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(EnrollStudentInCourseActivity.ViewHolder holder, int position) {
+            Student student = students.get(position);
+
+            holder.txtStudentName.setText(student.getStudentFirstName() + " " + student.getStudentLastName());
+
+            if(student.getIsSelected())
+                holder.itemView.setBackgroundColor(Color.parseColor("#90CAF9"));
+            else
+                holder.itemView.setBackgroundColor(Color.WHITE);
+
+            //set created text info section
+            StringBuilder sb = new StringBuilder();
+
+            //String testImage = "http://media2.s-nbcnews.com/j/streams/2013/june/130617/6c7911377-tdy-130617-leo-toasts-1.nbcnews-ux-2880-1000.jpg";
+            //Glide.with(context).load(testImage).into(holder.memeImage);
+        }
+
+        @Override
+        public int getItemCount() {
+            return students.size();
+        }
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        public final ImageView memeImage;
+        public final TextView txtStudentName;
+        public boolean isSelected;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
+            memeImage = (ImageView) itemView.findViewById(R.drawable.default_student);
+            txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
+            isSelected = false;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if(EnrollStudentInCourseActivity.Adapter.students.get(position).getIsSelected()) {
+                EnrollStudentInCourseActivity.Adapter.students.get(position).setIsSelected(false);
+                itemView.setBackgroundColor(Color.WHITE);
+            }
+            else {
+                EnrollStudentInCourseActivity.Adapter.students.get(position).setIsSelected(true);
+                itemView.setBackgroundColor(Color.parseColor("#90CAF9"));
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            /*int position = getAdapterPosition();
+            String top = Adapter.memes.get(position).getTxtTop();
+            String bottom = Adapter.memes.get(position).getTxtBottom();
+            String url = Adapter.memes.get(position).getMemeURL();
+
+            Context context = itemView.getContext();
+            int TEST = 0;
+
+            context.startActivity(EditMeme.createIntent(
+                    context, Adapter.memes, position, itemView, top, bottom, url));*/
+
+            return false;
+        }
+
+    }
+
+}
