@@ -50,10 +50,15 @@
             android:label="@string/title_activity_all_teachers"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.ViewCoursesActivity"
+            android:label="@string/menu_view_courses"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.FindStudentActivity"
             android:label="@string/title_activity_find_student"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ChooseStudentActivity"
+        <activity
+            android:name=".activities.ChooseStudentActivity"
             android:label="@string/choose_student"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

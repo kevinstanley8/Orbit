@@ -151,6 +151,7 @@ public class BaseActivity extends AppCompatActivity {
         public static final int VIEW_TEACHERS = 4;
         public static final int CHOOSE_STUDENT = 5;
         public static final int LOG_OFF = 6;
+        public static final int VIEW_COURSES = 7;
 
 
         private int result = 0;
@@ -186,6 +187,8 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = CHOOSE_STUDENT;
             else if(item.mTitle.trim().equals("Log Out"))
                 selectedItem = LOG_OFF;
+            else if(item.mTitle.trim().equals("View Courses"))
+                selectedItem = VIEW_COURSES;
 
 
             switch(selectedItem)
@@ -206,6 +209,8 @@ public class BaseActivity extends AppCompatActivity {
                     OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
                     orbitPref.clear();
                     startActivity(LoginActivity.createIntent(context));
+                    break;
+                case VIEW_COURSES: startActivityForResult(ViewCoursesActivity.createIntent(context), result);
                     break;
             }
         }
@@ -311,6 +316,7 @@ public class BaseActivity extends AppCompatActivity {
         } else if (userRole.getName().equals(Constants.ROLE_TEACHER)) {
             mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
             mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
+            mNavItems.add(new NavItem(getString(R.string.menu_view_courses), getString(R.string.menu_view_courses), R.drawable.menu_choose_student));
         }
         mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
         orbitNav = new OrbitMenuNavigation(getApplicationContext());

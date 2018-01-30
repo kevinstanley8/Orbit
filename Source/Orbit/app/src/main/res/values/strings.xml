@@ -40,5 +40,6 @@
     <string name="title_activity_find_student">Link Student</string>
     <string name="menu_choose_student">Choose Student</string>
     <string name="choose_student">Choose Student</string>
+    <string name="menu_view_courses">View Courses</string>
 
 </resources>

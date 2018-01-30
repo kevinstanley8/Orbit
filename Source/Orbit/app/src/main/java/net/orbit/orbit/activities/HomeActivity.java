@@ -104,7 +104,7 @@ public class HomeActivity extends BaseActivity {
                         "Link Students",
                         "Select Student",
                         "Log-Out",
-                        "Filler",
+                        "Courses",
                         "Test",
                         "Test"
 
