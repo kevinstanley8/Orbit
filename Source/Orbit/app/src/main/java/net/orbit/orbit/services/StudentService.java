@@ -266,7 +266,7 @@ public class StudentService
 
         // Sets the URL for the API url
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
-        orbitRestClient.post(this.context, "link-student", entity, "application/json",
+        orbitRestClient.post(this.context, "enroll-students-course", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
@@ -274,14 +274,15 @@ public class StudentService
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject account) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject schedule) {
                         // called when success happens
                         Gson gson = new Gson();
-                        AccountLink accountLink = gson.fromJson(account.toString(), AccountLink.class);
 
-                        Log.i("StudentService", accountLink.getMessage() + account);
+                        //String scheduleMessage = gson.fromJson(schedule.toString(), AccountLink.class);
+
+                        Log.i("StudentService", schedule.toString());
                         // We have a match student. Need to do linking here.
-                        Toast.makeText(context, accountLink.getMessage() , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Enroll Successful" , Toast.LENGTH_SHORT).show();
                         context.startActivity(HomeActivity.createIntent(context));
                     }
 

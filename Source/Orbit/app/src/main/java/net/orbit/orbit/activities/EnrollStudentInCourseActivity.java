@@ -73,8 +73,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
                 enrollList.add(EnrollStudentInCourseActivity.Adapter.students.get(i));
         }
 
-        //call enrollList
-
+        studentService.enrollStudentsInCourse(enrollList, 1);
     }
 
     public void saveStudentList()
