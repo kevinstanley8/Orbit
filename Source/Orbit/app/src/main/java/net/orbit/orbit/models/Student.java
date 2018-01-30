@@ -18,6 +18,8 @@ public class Student
             fatherAddress_2, fatherCity, fatherState, fatherZipCode,
             fatherHomePhone, fatherCellPhone, fatherEmail;
 
+    private boolean isSelected = false;
+
     public Student(String studentFirstName, String studentLastName,
                    String dateOfBirth, String studentSSN, String studentAddress_1, String studentAddress_2,
                    String studentCity, String studentState, String studentZipCode, String studentGrade,
@@ -208,6 +210,9 @@ public class Student
     public String getFatherEmail() {return fatherEmail;}
     public void setFatherEmail(String fatherEmail)
     {this.fatherEmail = fatherEmail;}
+
+    public boolean getIsSelected() {  return isSelected;   }
+    public void setIsSelected(boolean isSelected) {  this.isSelected = isSelected;   }
 
     @Override
     public String toString()

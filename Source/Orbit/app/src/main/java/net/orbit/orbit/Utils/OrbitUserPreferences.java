@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import net.orbit.orbit.activities.EnrollStudentInCourseActivity;
+import net.orbit.orbit.models.Student;
 import net.orbit.orbit.models.User;
+
+import java.util.List;
 
 /**
  * Created by Kevin Stanley on 11/7/2017.
@@ -44,6 +49,18 @@ public class OrbitUserPreferences {
     {
         Gson gson = new Gson();
         String json = gson.toJson(user);
+        editor.putString(prefName, json);
+        editor.commit();
+    }
+
+    /**
+     * Store student list
+     * @param prefName
+     * @param students
+     */
+    public void storeUserPreference(String prefName, List<Student> students)
+    {
+        String json = new Gson().toJson(students, new TypeToken<List<Student>>(){}.getType());
         editor.putString(prefName, json);
         editor.commit();
     }

@@ -152,6 +152,8 @@ public class BaseActivity extends AppCompatActivity {
         public static final int CHOOSE_STUDENT = 5;
         public static final int LOG_OFF = 6;
         public static final int VIEW_COURSES = 7;
+        public static final int ENROLL_STUDENT_IN_COURSE = 8;
+
 
 
         private int result = 0;
@@ -185,6 +187,8 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = VIEW_TEACHERS;
             else if(item.mTitle.trim().equals("Choose Student"))
                 selectedItem = CHOOSE_STUDENT;
+            else if(item.mTitle.trim().equals("Enroll Student In Course"))
+                selectedItem = ENROLL_STUDENT_IN_COURSE;
             else if(item.mTitle.trim().equals("Log Out"))
                 selectedItem = LOG_OFF;
             else if(item.mTitle.trim().equals("View Courses"))
@@ -211,6 +215,8 @@ public class BaseActivity extends AppCompatActivity {
                     startActivity(LoginActivity.createIntent(context));
                     break;
                 case VIEW_COURSES: startActivityForResult(ViewCoursesActivity.createIntent(context), result);
+                    break;
+                case ENROLL_STUDENT_IN_COURSE: startActivityForResult(EnrollStudentInCourseActivity.createIntent(context), result);
                     break;
             }
         }
@@ -313,10 +319,14 @@ public class BaseActivity extends AppCompatActivity {
             mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
             mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
             mNavItems.add(new NavItem(getString(R.string.menu_view_teacher), getString(R.string.menu_view_teacher), R.drawable.menu_view_teachers));
+            mNavItems.add(new NavItem(getString(R.string.menu_choose_student), getString(R.string.menu_choose_student), R.drawable.menu_choose_student));
+            mNavItems.add(new NavItem(getString(R.string.menu_enroll_student_in_course), getString(R.string.menu_enroll_student_in_course), R.drawable.menu_enroll_student_in_course));
         } else if (userRole.getName().equals(Constants.ROLE_TEACHER)) {
             mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
             mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
             mNavItems.add(new NavItem(getString(R.string.menu_view_courses), getString(R.string.menu_view_courses), R.drawable.menu_choose_student));
+            mNavItems.add(new NavItem(getString(R.string.menu_enroll_student_in_course), getString(R.string.menu_enroll_student_in_course), R.drawable.menu_enroll_student_in_course));
+
         }
         mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
         orbitNav = new OrbitMenuNavigation(getApplicationContext());
