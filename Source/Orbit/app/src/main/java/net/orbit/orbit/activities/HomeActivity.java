@@ -14,17 +14,19 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.MainMenuItem;
+import net.orbit.orbit.models.MenuList;
 import net.orbit.orbit.services.PropertiesService;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -35,32 +37,35 @@ public class HomeActivity extends BaseActivity {
 
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
+    List<MainMenuItem> mainMenuItems;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        this.mainMenuItems = MenuList.mainMenuItems;
         super.onCreate(savedInstanceState);
+        final int teacherUpper = 6, teacherLower = 3;
+        final int logoff = 6;
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
-
 
          GridView gridview = (GridView) findViewById(R.id.gridview);
          class ImageAdapter extends BaseAdapter
          {
              private Context mContext;
-             private final String[] labels;
-             private final int[] Imageid;
+             private final List<MainMenuItem> menuItems;
 
-             public ImageAdapter(Context c,String[] labels,int[] Imageid ) {
+             public ImageAdapter(Context c,List<MainMenuItem> menuItems ) {
                  mContext = c;
-                 this.Imageid = Imageid;
-                 this.labels = labels;
+                 this.menuItems = menuItems;
              }
 
              @Override
              public int getCount() {
                  // TODO Auto-generated method stub
-                 return labels.length;
+                 return menuItems.size();
              }
 
              @Override
@@ -82,14 +87,16 @@ public class HomeActivity extends BaseActivity {
                  LayoutInflater inflater = (LayoutInflater) mContext
                          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                 if (convertView == null) {
-
+                 if (convertView == null)
+                 {
                      grid = new View(mContext);
                      grid = inflater.inflate(R.layout.grid_item, null);
                      TextView textView = (TextView) grid.findViewById(R.id.gridText);
                      ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
-                     textView.setText(labels[position]);
-                     imageView.setImageResource(Imageid[position]);
+
+                     MainMenuItem temp = menuItems.get(position);
+                     textView.setText(getString(temp.getLabel()));
+                     imageView.setImageResource(temp.getImage());
                  } else {
                      grid = (View) convertView;
                  }
@@ -98,38 +105,45 @@ public class HomeActivity extends BaseActivity {
              }
             }
 
-            // references to our images
-        final String[] labels=
-                {
-                        "Link Students",
-                        "Select Student",
-                        "Log-Out",
-                        "Courses",
-                        "Test",
-                        "Test"
 
-                };
-        int[] images =
-                {
-                        R.drawable.menu_link_parent_student,
-                        R.drawable.menu_choose_student,
-                        R.drawable.menu_logout,
-                        R.drawable.menu_school,
-                        R.drawable.menu_student,
-                        R.drawable.menu_teacher
-                };
-
-        gridview.setAdapter(new ImageAdapter(this, labels, images));
+        gridview.setAdapter(new ImageAdapter(this, mainMenuItems));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id)
             {
-                if(labels[position] == "Log-Out")
+                MainMenuItem temp = mainMenuItems.get(position);
+
+                if(temp.getLabel() == (R.string.menu_logout))
                 {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                    //FirebaseAuth.getInstance().signOut();
+                    //Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                    //startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.menu_add_student))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, CreateStudentActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.menu_add_teacher))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, AddTeacherActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.menu_choose_student))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ChooseStudentActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.menu_enroll_student_in_course))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, EnrollStudentInCourseActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.menu_link_student))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, FindStudentActivity.class);
                     startActivity(newIntent);
                 }
 
