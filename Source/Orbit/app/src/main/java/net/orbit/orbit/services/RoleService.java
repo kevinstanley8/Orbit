@@ -27,6 +27,7 @@ import cz.msebera.android.httpclient.Header;
 public class RoleService {
     OrbitRestClient orbitRestClient = new OrbitRestClient();
     PropertiesService propertiesService = new PropertiesService();
+    SecurityService securityService = new SecurityService();
     Context context;
 
     public RoleService(Context context){
@@ -66,8 +67,7 @@ public class RoleService {
 
     public void hasTeacherRole(){
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String UID = currentUser.getUid();
+        String UID = securityService.getCurrentUsersUid();
         orbitRestClient.get("has-teacher-role/" + UID, null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
