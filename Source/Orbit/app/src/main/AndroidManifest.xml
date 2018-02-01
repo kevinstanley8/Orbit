@@ -67,7 +67,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".activities.ChooseCourseActivity"
-            android:label="Choose Course"
+            android:label="@string/choose_course"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
