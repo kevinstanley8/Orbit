@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import net.orbit.orbit.models.Course;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.CourseService;
@@ -15,7 +16,6 @@ import net.orbit.orbit.services.CourseService;
 public class ViewCoursesActivity extends BaseActivity {
 
     CourseService courseService = new CourseService(this);
-    Button mFabAddCourse = (Button) findViewById(R.id.fab_add_course);
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ViewCoursesActivity.class);
@@ -33,16 +33,23 @@ public class ViewCoursesActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        courseService.getAllCourses(this);
+        courseService.getAllCourses(this, this.getApplicationContext());
 
+
+        FloatingActionButton mFabAddCourse = (FloatingActionButton) findViewById(R.id.fab_add_course);
         mFabAddCourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("ViewCoursesActivity", "Add a new Course.");
+                Log.d("ViewCoursesActivity", "We want to add a new Course.");
                 Intent chooseCourseActivity = new Intent(ViewCoursesActivity.this, ChooseCourseActivity.class);
                 ViewCoursesActivity.this.startActivity(chooseCourseActivity);
             }
 
         });
+    }
+
+    public void updateCourseList(Course[] courseList){
+        Log.i("ViewCourseActivity", courseList.toString());
+
     }
 
 

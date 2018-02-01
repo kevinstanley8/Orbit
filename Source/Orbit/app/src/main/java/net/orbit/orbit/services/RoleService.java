@@ -12,6 +12,7 @@ import net.orbit.orbit.activities.BaseActivity;
 import net.orbit.orbit.activities.RegisterActivity;
 import net.orbit.orbit.models.Role;
 import net.orbit.orbit.models.User;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -36,7 +37,7 @@ public class RoleService {
     }
 
     public void viewRoles(final RegisterActivity activity){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("all-roles", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -66,7 +67,7 @@ public class RoleService {
     }
 
     public void hasTeacherRole(){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         String UID = securityService.getCurrentUsersUid();
         orbitRestClient.get("has-teacher-role/" + UID, null, new JsonHttpResponseHandler(){
             @Override

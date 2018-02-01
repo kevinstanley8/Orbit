@@ -6,9 +6,13 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.activities.AllTeachersActivity;
+import net.orbit.orbit.activities.ViewCoursesActivity;
 import net.orbit.orbit.models.Course;
 import net.orbit.orbit.models.Teacher;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,14 +34,14 @@ public class CourseService {
         this.context = context;
     }
 
-    public void getAllCourses(Context context){
+    public void getAllCourses(final ViewCoursesActivity activity, Context context, final ServerCallback<Teacher> callback){
         Log.d("CourseService", "Getting all the courses assigned to current Teacher.");
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
 
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
         String UID = securityService.getCurrentUsersUid();
-        Teacher teacher = teacherService.getTeacherByUid(UID);
+        teacherService.getTeacherByUid(UID, callback);
 
-        orbitRestClient.get("get-courses-by-teacher-id/" + UID, null, new JsonHttpResponseHandler(){
+        orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 // called before request is started
@@ -47,7 +51,7 @@ public class CourseService {
             public void onSuccess(int statusCode, Header[] headers, JSONArray courses) {
                 Gson gson = new Gson();
                 Course[] courseList = gson.fromJson(courses.toString(), Course[].class);
-                //activity.updateTeacherList(teacherList);
+                activity.updateCourseList(courseList);
             }
 
             @Override

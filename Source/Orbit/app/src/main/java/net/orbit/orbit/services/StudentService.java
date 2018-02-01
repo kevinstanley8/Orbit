@@ -18,6 +18,7 @@ import net.orbit.orbit.models.EnrollStudentInClassDTO;
 import net.orbit.orbit.models.Student;
 import net.orbit.orbit.models.StudentDTO;
 import net.orbit.orbit.models.User;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
@@ -54,7 +55,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "create-menu_student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -93,7 +94,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "get-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override

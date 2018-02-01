@@ -18,4 +18,6 @@ public class Constants {
     public static final String ROLE_TEACHER = "Teacher";
     public static final String ROLE_PARENT = "Parent";
     public static final String ROLE_STUDENT = "Student";
+
+    public static final String ORBIT_API_URL = "orbit.api.url";
 }

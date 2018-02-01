@@ -1,5 +1,8 @@
 package net.orbit.orbit.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by brocktubre on 11/4/17.
  */
@@ -27,6 +30,14 @@ public class Teacher {
         this.city = city;
         this.state = state;
         this.zip = zip;
+    }
+
+    public Teacher(JSONObject teacher) throws JSONException {
+        this.teacherID = teacher.getInt("teacherID");
+    }
+
+    public Teacher(){
+
     }
 
     public int getTeacherID() {

@@ -12,9 +12,12 @@ import net.orbit.orbit.activities.AllTeachersActivity;
 import net.orbit.orbit.activities.BaseActivity;
 import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.models.Teacher;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -107,18 +110,21 @@ public class TeacherService {
 
     }
 
-    public Teacher getTeacherByUid(String UID){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+    public void getTeacherByUid(String UID, final ServerCallback<Teacher> callback){
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.get("get-teacher-id/" + UID, null, new JsonHttpResponseHandler(){
-            @Override
-            public void onStart() {
-                // called before request is started
-            }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject teacher) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonTeacher) {
                 Gson gson = new Gson();
-                Log.i("TeacherService", "Successfully found a teacher: " + teacher);
+                Log.i("TeacherService", "Successfully found a teacher: " + jsonTeacher);
+                Teacher teacher = new Teacher();
+                try {
+                    teacher = new Teacher(jsonTeacher);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                callback.onSuccess(teacher);
             }
 
             @Override
@@ -127,13 +133,7 @@ public class TeacherService {
                 Log.e("TeacherService", "Error when adding new menu_teacher: " + errorResponse);
             }
 
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-
         });
-        return null;
     }
 
 }
