@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.Role;
 import net.orbit.orbit.models.User;
+import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.RoleService;
 import net.orbit.orbit.services.UserService;
 import net.orbit.orbit.utils.Constants;
@@ -54,6 +55,7 @@ public class BaseActivity extends AppCompatActivity {
     private String drawerOpenTitle = "";
     private String drawerClosedTitle = "";
 
+    private LogoutService logoutService;
 
     public String getDrawerOpenTitle() {
         return drawerOpenTitle;
@@ -170,6 +172,7 @@ public class BaseActivity extends AppCompatActivity {
         public void gotoMenuItem(int position)
         {
             NavItem item = (NavItem)mNavItems.get(position);
+            logoutService = new LogoutService(context);
 
             // translation of menu item titles -> defined menu constants
             int selectedItem = 0;
@@ -205,10 +208,8 @@ public class BaseActivity extends AppCompatActivity {
                     break;
                 case CHOOSE_STUDENT: startActivityForResult(ChooseStudentActivity.createIntent(context), result);
                     break;
-                case LOG_OFF: FirebaseAuth.getInstance().signOut();
-                    OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
-                    orbitPref.clear();
-                    startActivity(LoginActivity.createIntent(context));
+                case LOG_OFF:
+                    logoutService.logout();
                     break;
                 case ENROLL_STUDENT_IN_COURSE: startActivityForResult(EnrollStudentInCourseActivity.createIntent(context), result);
                     break;

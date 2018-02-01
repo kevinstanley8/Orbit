@@ -20,6 +20,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.MainMenuItem;
 import net.orbit.orbit.models.MenuList;
+import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.PropertiesService;
 import net.orbit.orbit.utils.OrbitRestClient;
 
@@ -38,6 +39,7 @@ public class HomeActivity extends BaseActivity {
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
     List<MainMenuItem> mainMenuItems;
+    LogoutService logoutService = new LogoutService(this);
 
 
     @Override
@@ -117,9 +119,7 @@ public class HomeActivity extends BaseActivity {
 
                 if(temp.getLabel() == (R.string.menu_logout))
                 {
-                    //FirebaseAuth.getInstance().signOut();
-                    //Intent newIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                    //startActivity(newIntent);
+                    logoutService.logout();
                 }
                 if(temp.getLabel() == (R.string.menu_add_student))
                 {
