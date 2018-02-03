@@ -4,10 +4,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.activities.ViewCoursesActivity;
 import net.orbit.orbit.models.pojo.Course;
+import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.utils.Constants;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -52,7 +55,7 @@ public class CourseService {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray courses) {
                         Gson gson = new Gson();
-                        Course[] courseList = gson.fromJson(courses.toString(), Course[].class);
+                        List<Course> courseList = gson.fromJson(courses.toString(), new TypeToken<List<Course>>(){}.getType());
                         activity.updateCourseList(courseList);
                     }
 

@@ -10,7 +10,10 @@ import android.view.View;
 import net.orbit.orbit.models.pojo.Course;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.services.CourseService;
+
+import java.util.List;
 
 public class ViewCoursesActivity extends BaseActivity {
 
@@ -46,8 +49,15 @@ public class ViewCoursesActivity extends BaseActivity {
         });
     }
 
-    public void updateCourseList(Course[] courseList){
-        Log.i("ViewCourseActivity", courseList.toString());
+    public void updateCourseList(List<Course> courseList){
+        if(courseList.size() == 0){
+            Log.i("ViewCourseActivity", "No courses found for teacher logged in.");
+            return;
+        }
+
+        Log.i("ViewCourseActivity", "Found courses associated with teacher logged in." + courseList);
+
+
 
     }
 
