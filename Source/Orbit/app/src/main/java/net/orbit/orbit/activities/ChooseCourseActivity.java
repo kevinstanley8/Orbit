@@ -1,6 +1,5 @@
 package net.orbit.orbit.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -13,7 +12,7 @@ public class ChooseCourseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
-        getLayoutInflater().inflate(R.layout.activity_view_courses, relativeLayout);
+        getLayoutInflater().inflate(R.layout.activity_view_courses_teacher, relativeLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

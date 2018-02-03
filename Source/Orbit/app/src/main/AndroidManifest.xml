@@ -50,7 +50,7 @@
             android:label="@string/title_activity_all_teachers"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ViewCoursesActivity"
+            android:name=".activities.ViewCoursesTeacherActivity"
             android:label="@string/menu_view_courses"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

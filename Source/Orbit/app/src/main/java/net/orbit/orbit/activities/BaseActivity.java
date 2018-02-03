@@ -210,7 +210,7 @@ public class BaseActivity extends AppCompatActivity {
                 case LOG_OFF:
                     logoutService.logout();
                     break;
-                case VIEW_COURSES: startActivityForResult(ViewCoursesActivity.createIntent(context), result);
+                case VIEW_COURSES: startActivityForResult(ViewCoursesTeacherActivity.createIntent(context), result);
                     break;
                 case ENROLL_STUDENT_IN_COURSE: startActivityForResult(EnrollStudentInCourseActivity.createIntent(context), result);
                     break;

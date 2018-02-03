@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.activities.AllTeachersActivity;
-import net.orbit.orbit.activities.ViewCoursesActivity;
+import net.orbit.orbit.activities.ViewCoursesTeacherActivity;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.utils.Constants;
@@ -106,7 +106,7 @@ public class TeacherService {
 
     }
 
-    public void getTeacherByUid(String UID, final ViewCoursesActivity activity , final ServerCallback<Teacher> callback){
+    public void getTeacherByUid(String UID, final ViewCoursesTeacherActivity activity , final ServerCallback<Teacher> callback){
         orbitRestClient.setBaseUrl(propertiesService.getProperty(activity, Constants.ORBIT_API_URL));
         orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
 
