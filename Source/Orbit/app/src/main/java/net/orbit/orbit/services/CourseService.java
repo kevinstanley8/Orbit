@@ -3,12 +3,25 @@ package net.orbit.orbit.services;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
 import net.orbit.orbit.activities.ViewCoursesActivity;
+import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.ServerCallback;
+
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * Created by brocktubre on 1/29/18.
@@ -32,8 +45,24 @@ public class CourseService {
         String UID = securityService.getCurrentUsersUid();
         teacherService.getTeacherByUid(UID, activity, new ServerCallback<Teacher>() {
             @Override
-            public void onSuccess(Teacher result) {
-                Log.i("ViewCoursesActivity", "Found teacher and call back is working: " + result);
+            public void onSuccess(Teacher teacher) {
+                Log.i("ViewCoursesActivity", "Found teacher and call back is working: " + teacher);
+                orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray courses) {
+                        Gson gson = new Gson();
+                        Course[] courseList = gson.fromJson(courses.toString(), Course[].class);
+                        activity.updateCourseList(courseList);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Log.e("CourseService", "Error when adding new menu_teacher: " + errorResponse);
+                    }
+
+                });
             }
 
             @Override

@@ -108,7 +108,7 @@ public class TeacherService {
 
     public void getTeacherByUid(String UID, final ViewCoursesActivity activity , final ServerCallback<Teacher> callback){
         orbitRestClient.setBaseUrl(propertiesService.getProperty(activity, Constants.ORBIT_API_URL));
-        orbitRestClient.get("get-teaher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
+        orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonTeacher) {
