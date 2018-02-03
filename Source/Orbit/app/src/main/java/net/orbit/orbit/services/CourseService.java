@@ -67,7 +67,7 @@ public class CourseService {
 
             @Override
             public void onFail(ErrorResponse errorResponse) {
-                Log.i("ViewCoursesTeacherActivity", "Error finding teacher and call back is working: " + errorResponse.getMessage());
+                Log.i("ViewCoursesTActivity", "Error finding teacher and call back is working: " + errorResponse.getMessage());
             }
         });
     }
