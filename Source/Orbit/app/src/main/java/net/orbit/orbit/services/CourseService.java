@@ -34,38 +34,29 @@ public class CourseService {
         this.context = context;
     }
 
-    public void getAllCourses(final ViewCoursesActivity activity, Context context, final ServerCallback<Teacher> callback){
+    public void getAllCourses(final ViewCoursesActivity activity){
         Log.d("CourseService", "Getting all the courses assigned to current Teacher.");
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, "orbit.api.url"));
 
         String UID = securityService.getCurrentUsersUid();
-        teacherService.getTeacherByUid(UID, callback);
+        teacherService.getTeacherByUid(UID);
 
-        orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
-            @Override
-            public void onStart() {
-                // called before request is started
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray courses) {
-                Gson gson = new Gson();
-                Course[] courseList = gson.fromJson(courses.toString(), Course[].class);
-                activity.updateCourseList(courseList);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
-                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("AddTeacherActivity", "Error when adding new menu_teacher: " + errorResponse);
-            }
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-
-        });
+//        orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray courses) {
+//                Gson gson = new Gson();
+//                Course[] courseList = gson.fromJson(courses.toString(), Course[].class);
+//                activity.updateCourseList(courseList);
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+//                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+//                Log.e("CourseService", "Error when adding new menu_teacher: " + errorResponse);
+//            }
+//
+//        });
     }
 
 }

@@ -33,7 +33,7 @@ public class ViewCoursesActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        courseService.getAllCourses(this, this.getApplicationContext());
+        courseService.getAllCourses(this);
 
 
         FloatingActionButton mFabAddCourse = (FloatingActionButton) findViewById(R.id.fab_add_course);

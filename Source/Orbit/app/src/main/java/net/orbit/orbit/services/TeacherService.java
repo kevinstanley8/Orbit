@@ -52,7 +52,7 @@ public class TeacherService {
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "add-menu_teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -81,7 +81,7 @@ public class TeacherService {
     }
 
     public void viewTeachers(final AllTeachersActivity activity){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("all-teachers", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -110,7 +110,7 @@ public class TeacherService {
 
     }
 
-    public void getTeacherByUid(String UID, final ServerCallback<Teacher> callback){
+    public void getTeacherByUid(String UID){
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.get("get-teacher-id/" + UID, null, new JsonHttpResponseHandler(){
 
@@ -124,13 +124,13 @@ public class TeacherService {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                callback.onSuccess(teacher);
+                // callback.onSuccess(teacher);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("TeacherService", "Error when adding new menu_teacher: " + errorResponse);
+                Log.e("TeacherService", "Error when finding teacher by UID: " + errorResponse);
             }
 
         });

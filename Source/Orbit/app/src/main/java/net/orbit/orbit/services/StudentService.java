@@ -144,7 +144,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "link-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -181,7 +181,7 @@ public class StudentService
 
     public void findLinkedStudents(final ChooseStudentActivity activity, String UID)
     {
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("find-linked/" + UID, null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
