@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import net.orbit.orbit.models.pojo.Course;
 
 import net.orbit.orbit.R;
@@ -52,6 +54,7 @@ public class ViewCoursesActivity extends BaseActivity {
     public void updateCourseList(List<Course> courseList){
         if(courseList.size() == 0){
             Log.i("ViewCourseActivity", "No courses found for teacher logged in.");
+            Toast.makeText(this, "You have no courses." , Toast.LENGTH_SHORT).show();
             return;
         }
 
