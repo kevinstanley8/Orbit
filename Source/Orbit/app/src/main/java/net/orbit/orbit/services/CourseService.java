@@ -36,10 +36,10 @@ public class CourseService {
 
     public void getAllCourses(final ViewCoursesActivity activity){
         Log.d("CourseService", "Getting all the courses assigned to current Teacher.");
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, "orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
 
         String UID = securityService.getCurrentUsersUid();
-        teacherService.getTeacherByUid(UID);
+        teacherService.getTeacherByUid(UID, activity);
 
 //        orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
 //

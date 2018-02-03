@@ -11,6 +11,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import net.orbit.orbit.activities.AllTeachersActivity;
 import net.orbit.orbit.activities.BaseActivity;
 import net.orbit.orbit.activities.HomeActivity;
+import net.orbit.orbit.activities.ViewCoursesActivity;
 import net.orbit.orbit.models.Teacher;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
@@ -110,27 +111,23 @@ public class TeacherService {
 
     }
 
-    public void getTeacherByUid(String UID){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
-        orbitRestClient.get("get-teacher-id/" + UID, null, new JsonHttpResponseHandler(){
+    public void getTeacherByUid(String UID, final ViewCoursesActivity activity, final ServerCallback<Teacher> callback){
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(activity, Constants.ORBIT_API_URL));
+        orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonTeacher) {
                 Gson gson = new Gson();
                 Log.i("TeacherService", "Successfully found a teacher: " + jsonTeacher);
                 Teacher teacher = new Teacher();
-                try {
-                    teacher = new Teacher(jsonTeacher);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                // callback.onSuccess(teacher);
+                callback.onSuccess(teacher);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.e("TeacherService", "Error when finding teacher by UID: " + errorResponse);
+                callback.onFail(null);
             }
 
         });
