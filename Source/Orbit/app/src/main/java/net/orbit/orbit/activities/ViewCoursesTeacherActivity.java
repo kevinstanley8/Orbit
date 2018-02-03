@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.orbit.orbit.models.pojo.Course;
@@ -42,7 +43,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         FloatingActionButton mFabAddCourse = (FloatingActionButton) findViewById(R.id.fab_add_course);
         mFabAddCourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("ViewCoursesTeacherActivity", "We want to add a new Course.");
+                Log.d("ViewCoursesTActivity", "We want to add a new Course.");
                 Intent chooseCourseActivity = new Intent(ViewCoursesTeacherActivity.this, ChooseCourseActivity.class);
                 ViewCoursesTeacherActivity.this.startActivity(chooseCourseActivity);
             }
@@ -51,13 +52,18 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
     }
 
     public void updateCourseList(List<Course> courseList){
-        if(courseList.size() == 0){
+
+
+        if(courseList.size() > 0){
             Log.i("ViewCourseActivity", "No courses found for teacher logged in.");
             Toast.makeText(this, "You have no courses." , Toast.LENGTH_SHORT).show();
+            TextView noCoursesFound = (TextView)findViewById(R.id.noCoursesFound);
+            noCoursesFound.setVisibility(View.VISIBLE);
             return;
         }
 
         Log.i("ViewCourseActivity", "Found courses associated with teacher logged in." + courseList);
+        
 
 
 

@@ -46,7 +46,7 @@ public class CourseService {
         teacherService.getTeacherByUid(UID, activity, new ServerCallback<Teacher>() {
             @Override
             public void onSuccess(Teacher teacher) {
-                Log.i("ViewCoursesTeacherActivity", "Found teacher and call back is working: " + teacher);
+                Log.i("CourseService", "Found teacher and call back is working: " + teacher);
                 orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
 
                     @Override
