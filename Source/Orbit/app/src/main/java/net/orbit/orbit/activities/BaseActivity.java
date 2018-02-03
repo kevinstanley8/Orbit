@@ -21,15 +21,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.Role;
-import net.orbit.orbit.models.User;
+import net.orbit.orbit.models.pojo.Role;
+import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.LogoutService;
-import net.orbit.orbit.services.RoleService;
-import net.orbit.orbit.services.UserService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 

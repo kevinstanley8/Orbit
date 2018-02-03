@@ -1,14 +1,13 @@
 package net.orbit.orbit.activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import net.orbit.orbit.models.Course;
+import net.orbit.orbit.models.pojo.Course;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.CourseService;

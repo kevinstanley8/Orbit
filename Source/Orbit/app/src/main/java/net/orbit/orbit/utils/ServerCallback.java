@@ -1,4 +1,6 @@
 package net.orbit.orbit.utils;
+import net.orbit.orbit.models.exceptions.ErrorResponse;
+
 import org.json.JSONObject;
 
 /**
@@ -7,5 +9,5 @@ import org.json.JSONObject;
 
 public interface ServerCallback<T> {
         void onSuccess(T result);
-        void onFail();
+        void onFail(ErrorResponse errorMessage);
 }

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import net.orbit.orbit.models.Student;
+import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.StudentService;
 

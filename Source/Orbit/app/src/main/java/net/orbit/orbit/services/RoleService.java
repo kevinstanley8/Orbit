@@ -3,18 +3,13 @@ package net.orbit.orbit.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.activities.BaseActivity;
 import net.orbit.orbit.activities.RegisterActivity;
-import net.orbit.orbit.models.Role;
-import net.orbit.orbit.models.User;
+import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
-import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

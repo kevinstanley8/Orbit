@@ -7,17 +7,15 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import net.orbit.orbit.activities.ChooseStudentActivity;
 import net.orbit.orbit.activities.EnrollStudentInCourseActivity;
 import net.orbit.orbit.activities.HomeActivity;
-import net.orbit.orbit.models.AccountLink;
-import net.orbit.orbit.models.AccountLinkDTO;
-import net.orbit.orbit.models.EnrollStudentInClassDTO;
-import net.orbit.orbit.models.Student;
-import net.orbit.orbit.models.StudentDTO;
-import net.orbit.orbit.models.User;
+import net.orbit.orbit.models.pojo.AccountLink;
+import net.orbit.orbit.models.dto.AccountLinkDTO;
+import net.orbit.orbit.models.dto.EnrollStudentInClassDTO;
+import net.orbit.orbit.models.pojo.Student;
+import net.orbit.orbit.models.dto.StudentDTO;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 
@@ -25,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;

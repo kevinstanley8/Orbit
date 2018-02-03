@@ -3,7 +3,6 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.Student;
+import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 

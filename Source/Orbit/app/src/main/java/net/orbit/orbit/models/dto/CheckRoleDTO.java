@@ -1,4 +1,4 @@
-package net.orbit.orbit.models;
+package net.orbit.orbit.models.dto;
 
 /**
  * Created by brocktubre on 1/15/18.
