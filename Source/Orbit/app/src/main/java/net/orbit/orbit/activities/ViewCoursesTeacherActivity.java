@@ -58,7 +58,9 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter(this));
 
-        courseService.getAllCourses(this);
+        if(Adapter.courses.size() == 0){
+            courseService.getAllCourses(this);
+        }
 
     }
 
@@ -112,7 +114,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             holder.txtCourseName.setText(course.getName());
 
             //set created text info section
-            StringBuilder sb = new StringBuilder();
+            //StringBuilder sb = new StringBuilder();
 
             //String testImage = "http://media2.s-nbcnews.com/j/streams/2013/june/130617/6c7911377-tdy-130617-leo-toasts-1.nbcnews-ux-2880-1000.jpg";
             //Glide.with(context).load(testImage).into(holder.memeImage);
