@@ -28,7 +28,7 @@ public class RoleService {
 
     public RoleService(Context context){
         this.context = context;
-        //orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        //orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
     }
 
     public void viewRoles(final RegisterActivity activity){

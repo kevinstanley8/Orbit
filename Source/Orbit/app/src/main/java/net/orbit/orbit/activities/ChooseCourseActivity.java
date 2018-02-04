@@ -67,7 +67,7 @@ public class ChooseCourseActivity extends BaseActivity {
             }
         }
 
-        // courseService.assignCourseToTeacher(assignList, 1);
+        courseService.assignCourseToTeacher(assignList);
     }
 
     public void updateCourseList(List<Course> courseList)

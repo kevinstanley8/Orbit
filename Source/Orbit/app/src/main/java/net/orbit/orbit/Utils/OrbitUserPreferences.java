@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 
 import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Student;
+import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.pojo.User;
 
 import java.util.List;
@@ -43,12 +44,12 @@ public class OrbitUserPreferences {
     /**
      * Storing object in shared preferences
      * @param prefName
-     * @param user
+     * @param type
      */
-    public void storeUserPreference(String prefName, User user)
+    public <T> void storeUserPreference(String prefName, T type)
     {
         Gson gson = new Gson();
-        String json = gson.toJson(user);
+        String json = gson.toJson(type);
         editor.putString(prefName, json);
         editor.commit();
     }
@@ -88,6 +89,22 @@ public class OrbitUserPreferences {
         User user = gson.fromJson(json, User.class);
         if (user != null) {
             return user;
+        }
+        return null;
+    }
+
+    /**
+     * Getting object from teacher preferences
+     * @param prefName
+     * @return
+     */
+    public Teacher getTeacherPreferenceObj(String prefName)
+    {
+        Gson gson = new Gson();
+        String json = pref.getString(prefName, "");
+        Teacher teacher = gson.fromJson(json, Teacher.class);
+        if (teacher != null) {
+            return teacher;
         }
         return null;
     }

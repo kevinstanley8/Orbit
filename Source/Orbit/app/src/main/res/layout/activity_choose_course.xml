@@ -23,7 +23,7 @@
         android:id="@+id/btnAssign"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Assign Course"
+        android:text="Assign Courses"
         android:layout_weight="10"/>
 
 </LinearLayout>
