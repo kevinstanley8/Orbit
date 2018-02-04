@@ -3,6 +3,7 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,6 +61,8 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
 
         Adapter.courses = new ArrayList<>();
         courseService.getAllCoursesAssignedToCurrentTeacher(this);
+
+
 
 
     }
@@ -142,15 +145,13 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
 
-            /*TextView top = (TextView) itemView.findViewById(R.id.txtTop);
-            TextView bottom = (TextView) itemView.findViewById(R.id.txtBottom);
-            TextView url = (TextView) itemView.findViewById(R.id.txtURLString);
-
-            String text = (String) top.getText();
-
+            int position = getAdapterPosition();
+            Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
             Context context = itemView.getContext();
-            context.startActivity(MemeCloseUpActivity.createIntent(
-                    context, (String) top.getText(), (String) bottom.getText(), (String) url.getText()));*/
+            Intent intent = new Intent(context, ViewCourseActivity.class);
+            intent.putExtra("courseName", course.getName());
+            intent.putExtra("courseId", course.getCourseId());
+            context.startActivity(intent);
 
         }
 
