@@ -3,9 +3,7 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.Student;
+import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -171,7 +169,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            memeImage = (ImageView) itemView.findViewById(R.drawable.default_student);
+            memeImage = (ImageView) itemView.findViewById(R.drawable.ic_person_black_24px);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
             isSelected = false;
         }

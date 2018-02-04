@@ -1,4 +1,4 @@
-package net.orbit.orbit.models;
+package net.orbit.orbit.models.pojo;
 
 /**
  * Created by Kevin Stanley on 1/28/2018.

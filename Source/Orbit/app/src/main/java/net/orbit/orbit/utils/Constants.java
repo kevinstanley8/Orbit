@@ -19,4 +19,12 @@ public class Constants {
     public static final String ROLE_PARENT = "Parent";
     public static final String ROLE_STUDENT = "Student";
     public static final String DEFAULT = "Default";
+
+    public static final String ORBIT_API_URL = "orbit.api.url";
+    public static final String APP_PROPERTIES = "app.properties";
+
+    public static final String SUCCESS_STATUS = "SUCCESS";
+    public static final String FAIL_STATUS = "FAILURE";
+
+
 }

@@ -4,57 +4,81 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import net.orbit.orbit.models.pojo.Course;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.pojo.Student;
-import net.orbit.orbit.services.StudentService;
-import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.services.CourseService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChooseStudentActivity extends BaseActivity {
+public class ViewCoursesTeacherActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    StudentService studentService = new StudentService(this);
+    CourseService courseService = new CourseService(this);
 
     public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, ChooseStudentActivity.class);
+        Intent i = new Intent(context, ViewCoursesTeacherActivity.class);
         return i;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_choose_student);
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
-        getLayoutInflater().inflate(R.layout.activity_choose_student, relativeLayout);
+        getLayoutInflater().inflate(R.layout.activity_view_courses_teacher, relativeLayout);
 
-        //get UID of current user
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        String uid = orbitPref.getUserPreference("userUID");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        FloatingActionButton mFabAddCourse = (FloatingActionButton) findViewById(R.id.fab_add_course);
+        mFabAddCourse.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("ViewCoursesTActivity", "We want to add a new Course.");
+                Intent chooseCourseActivity = new Intent(ViewCoursesTeacherActivity.this, ChooseCourseActivity.class);
+                ViewCoursesTeacherActivity.this.startActivity(chooseCourseActivity);
+            }
+
+        });
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter(this));
 
-        studentService.findLinkedStudents(this, uid);
+        Adapter.courses = new ArrayList<>();
+        courseService.getAllCoursesAssignedToCurrentTeacher(this);
+
 
     }
 
-    public void updateStudentList(List<Student> studentList)
-    {
-        for(int i = 0; i < studentList.size(); i++)
-        {
-            Adapter.students.add((Student)studentList.get(i));
+    public void updateCourseList(List<Course> courseList){
+
+
+        if(courseList.size() == 0){
+            Log.i("ViewCourseActivity", "No courses found for teacher logged in.");
+            Toast.makeText(this, "You have no courses." , Toast.LENGTH_SHORT).show();
+            TextView noCoursesFound = (TextView)findViewById(R.id.noCoursesFound);
+            noCoursesFound.setVisibility(View.VISIBLE);
+            return;
         }
 
+        Log.i("ViewCourseActivity", "Found courses associated with teacher logged in." + courseList);
+        for (Course c : courseList){
+            Adapter.courses.add(c);
+        }
         reloadList();
     }
 
@@ -63,38 +87,34 @@ public class ChooseStudentActivity extends BaseActivity {
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 
-    public static class Adapter extends RecyclerView.Adapter<ViewHolder> {
+    public static class Adapter extends RecyclerView.Adapter<ViewCoursesTeacherActivity.ViewHolder> {
 
         private final Activity context;
-        private static List<Student> students = new ArrayList<>();
+        private static List<Course> courses = new ArrayList<>();
 
         public Adapter(Activity context) {
             this.context = context;
-
-            /*if(students.size() <= 0) {
-                //inital seed of list if needed
-            }*/
         }
 
-        public static void addStudent(Student student)
+        public static void addCourse(Course course)
         {
-            students.add(student);
+            courses.add(course);
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = context.getLayoutInflater().inflate(R.layout.student_item, parent, false);
-            return new ViewHolder(view);
+        public ViewCoursesTeacherActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = context.getLayoutInflater().inflate(R.layout.course_item, parent, false);
+            return new ViewCoursesTeacherActivity.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Student student = students.get(position);
+        public void onBindViewHolder(ViewCoursesTeacherActivity.ViewHolder holder, int position) {
+            Course course = courses.get(position);
 
-            holder.txtStudentName.setText(student.getStudentFirstName() + " " + student.getStudentLastName());
+            holder.txtCourseName.setText(course.getName());
 
             //set created text info section
-            StringBuilder sb = new StringBuilder();
+            //StringBuilder sb = new StringBuilder();
 
             //String testImage = "http://media2.s-nbcnews.com/j/streams/2013/june/130617/6c7911377-tdy-130617-leo-toasts-1.nbcnews-ux-2880-1000.jpg";
             //Glide.with(context).load(testImage).into(holder.memeImage);
@@ -102,21 +122,21 @@ public class ChooseStudentActivity extends BaseActivity {
 
         @Override
         public int getItemCount() {
-            return students.size();
+            return courses.size();
         }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        public final ImageView memeImage;
-        public final TextView txtStudentName;
+        public final ImageView iconImage;
+        public final TextView txtCourseName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            memeImage = (ImageView) itemView.findViewById(R.drawable.ic_person_black_24px);
-            txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
+            iconImage = (ImageView) itemView.findViewById(R.drawable.ic_class_black_24px);
+            txtCourseName = (TextView) itemView.findViewById(R.id.txtCourseName);
         }
 
         @Override
@@ -151,6 +171,7 @@ public class ChooseStudentActivity extends BaseActivity {
         }
 
     }
+
 
 
 }

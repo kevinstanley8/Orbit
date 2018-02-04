@@ -21,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,9 +39,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.User;
 import net.orbit.orbit.services.UserService;
-import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
 import java.util.List;

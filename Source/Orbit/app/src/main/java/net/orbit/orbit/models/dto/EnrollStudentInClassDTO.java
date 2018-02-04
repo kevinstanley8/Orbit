@@ -1,4 +1,6 @@
-package net.orbit.orbit.models;
+package net.orbit.orbit.models.dto;
+
+import net.orbit.orbit.models.pojo.EnrollRecord;
 
 import java.util.ArrayList;
 import java.util.List;

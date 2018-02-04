@@ -1,4 +1,4 @@
-package net.orbit.orbit.models;
+package net.orbit.orbit.models.pojo;
 
 import java.sql.Date;
 

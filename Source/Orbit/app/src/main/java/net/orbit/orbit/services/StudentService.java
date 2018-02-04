@@ -7,24 +7,22 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import net.orbit.orbit.activities.ChooseStudentActivity;
 import net.orbit.orbit.activities.EnrollStudentInCourseActivity;
 import net.orbit.orbit.activities.HomeActivity;
-import net.orbit.orbit.models.AccountLink;
-import net.orbit.orbit.models.AccountLinkDTO;
-import net.orbit.orbit.models.EnrollStudentInClassDTO;
-import net.orbit.orbit.models.Student;
-import net.orbit.orbit.models.StudentDTO;
-import net.orbit.orbit.models.User;
+import net.orbit.orbit.models.pojo.AccountLink;
+import net.orbit.orbit.models.dto.AccountLinkDTO;
+import net.orbit.orbit.models.dto.EnrollStudentInClassDTO;
+import net.orbit.orbit.models.pojo.Student;
+import net.orbit.orbit.models.dto.StudentDTO;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -54,7 +52,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "create-menu_student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -93,7 +91,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "get-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -143,7 +141,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "link-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -167,7 +165,7 @@ public class StudentService
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("StudentService", "Error when linking student: " + errorResponse);
-                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -180,7 +178,7 @@ public class StudentService
 
     public void findLinkedStudents(final ChooseStudentActivity activity, String UID)
     {
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("find-linked/" + UID, null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -265,7 +263,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "enroll-students-course", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -290,7 +288,7 @@ public class StudentService
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("StudentService", "Error when linking student: " + errorResponse);
-                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
