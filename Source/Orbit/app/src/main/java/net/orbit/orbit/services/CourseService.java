@@ -76,7 +76,7 @@ public class CourseService {
 
             @Override
             public void onFail(ErrorResponse errorResponse) {
-                Log.i("ViewCoursesTeacherActivity", "Error finding teacher and call back is working: " + errorResponse.getMessage());
+                Log.i("CourseService", "Error finding teacher and call back is working: " + errorResponse.getMessage());
             }
         });
     }
@@ -129,13 +129,9 @@ public class CourseService {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject schedule) {
+                    public void onSuccess(int statusCode, Header[] headers, String response) {
                         // called when success happens
-                        Gson gson = new Gson();
-
-                        //String scheduleMessage = gson.fromJson(schedule.toString(), AccountLink.class);
-
-                        Log.i("CourseService", schedule.toString());
+                        Log.i("CourseService", "Successfully assigned courses to teacher.");
                         // We have a match student. Need to do linking here.
                         Toast.makeText(context, "Assign courses successfully" , Toast.LENGTH_SHORT).show();
                         context.startActivity(HomeActivity.createIntent(context));
