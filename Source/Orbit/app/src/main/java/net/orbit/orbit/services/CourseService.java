@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.activities.ChooseCourseActivity;
 import net.orbit.orbit.activities.ViewCoursesTeacherActivity;
 import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Teacher;
@@ -38,7 +39,7 @@ public class CourseService {
         this.context = context;
     }
 
-    public void getAllCourses(final ViewCoursesTeacherActivity activity){
+    public void getAllCoursesAssignedToCurrentTeacher(final ViewCoursesTeacherActivity activity){
         Log.d("CourseService", "Getting all the courses assigned to current Teacher.");
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
 
@@ -69,6 +70,28 @@ public class CourseService {
             public void onFail(ErrorResponse errorResponse) {
                 Log.i("ViewCoursesTeacherActivity", "Error finding teacher and call back is working: " + errorResponse.getMessage());
             }
+        });
+    }
+
+    public void getAllCourses(final ChooseCourseActivity activity){
+        Log.d("CourseService", "Getting all the courses.");
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+
+        orbitRestClient.get("all-courses/", null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray courses) {
+                Gson gson = new Gson();
+                List<Course> courseList = gson.fromJson(courses.toString(), new TypeToken<List<Course>>(){}.getType());
+                activity.updateCourseList(courseList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("CourseService", "Error when adding new menu_teacher: " + errorResponse);
+            }
+
         });
     }
 

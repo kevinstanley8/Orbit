@@ -59,7 +59,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         recyclerView.setAdapter(new Adapter(this));
 
         if(Adapter.courses.size() == 0){
-            courseService.getAllCourses(this);
+            courseService.getAllCoursesAssignedToCurrentTeacher(this);
         }
 
     }
@@ -135,7 +135,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            iconImage = (ImageView) itemView.findViewById(R.drawable.default_course_icon_black);
+            iconImage = (ImageView) itemView.findViewById(R.drawable.ic_class_black_24px);
             txtCourseName = (TextView) itemView.findViewById(R.id.txtCourseName);
         }
 

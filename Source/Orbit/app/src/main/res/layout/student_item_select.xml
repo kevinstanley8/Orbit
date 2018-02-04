@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/memeImage"
-            android:src="@drawable/default_student"
+            android:src="@drawable/ic_person_black_24px"
             android:scaleType="centerCrop"/>
 
     </FrameLayout>

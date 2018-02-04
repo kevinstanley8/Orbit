@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.pojo.User;
 
@@ -55,11 +56,11 @@ public class OrbitUserPreferences {
     /**
      * Store student list
      * @param prefName
-     * @param students
+     * @param list
      */
-    public void storeUserPreference(String prefName, List<Student> students)
+    public <T> void storeUserPreference(String prefName, List<T> list)
     {
-        String json = new Gson().toJson(students, new TypeToken<List<Student>>(){}.getType());
+        String json = new Gson().toJson(list, new TypeToken<List<T>>(){}.getType());
         editor.putString(prefName, json);
         editor.commit();
     }
