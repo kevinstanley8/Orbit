@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:rowCount="4"
+    tools:context="net.orbit.orbit.activities.ViewCourseActivity">
+
+    <!--<ImageView-->
+        <!--android:layout_column="0"-->
+        <!--android:layout_row="0"-->
+        <!--android:layout_columnSpan="2"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:id="@+id/iconImage"-->
+        <!--android:src="@drawable/ic_class_black_24px"-->
+        <!--android:minHeight="20dp"-->
+        <!--/>-->
+
+    <TextView
+        android:id="@+id/txtCourseName"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:layout_columnSpan="2"
+        android:layout_gravity="center_horizontal"
+        android:text="English 101"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        />
+
+    <Button
+        android:id="@+id/btnUnassign"
+        android:text="Unassign Class"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill_horizontal"
+        android:textSize="14dip" />
+
+
+
+
+</GridLayout>
