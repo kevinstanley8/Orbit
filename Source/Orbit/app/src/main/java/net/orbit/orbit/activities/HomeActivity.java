@@ -20,9 +20,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.MainMenuItem;
 import net.orbit.orbit.models.MenuList;
+import net.orbit.orbit.models.Role;
+import net.orbit.orbit.models.Teacher;
+import net.orbit.orbit.models.User;
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -89,16 +94,57 @@ public class HomeActivity extends BaseActivity {
                  LayoutInflater inflater = (LayoutInflater) mContext
                          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+                 OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+                 User user = orbitPref.getUserPreferenceObj("loggedUser");
+                 Log.i("UserFromSharedPref", user.toString());
+                 Role userRole = user.getRole();
+
                  if (convertView == null)
                  {
-                     grid = new View(mContext);
-                     grid = inflater.inflate(R.layout.grid_item, null);
-                     TextView textView = (TextView) grid.findViewById(R.id.gridText);
-                     ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
 
                      MainMenuItem temp = menuItems.get(position);
-                     textView.setText(getString(temp.getLabel()));
-                     imageView.setImageResource(temp.getImage());
+                     grid = new View(mContext);
+                     String tempRole = temp.getRole();
+
+/*
+                     if(userRole.getName() == Constants.ROLE_ADMIN)
+                     {
+                         grid = inflater.inflate(R.layout.grid_item, null);
+                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
+                         ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
+                         textView.setText(getString(temp.getLabel()));
+                         imageView.setImageResource(temp.getImage());
+                     }
+                     */
+                     if(userRole.getName() == Constants.ROLE_TEACHER)
+                     {
+                         if(tempRole == Constants.ROLE_TEACHER)
+                         {
+                         grid = inflater.inflate(R.layout.grid_item, null);
+                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
+                         ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
+                         textView.setText(getString(temp.getLabel()));
+                         imageView.setImageResource(temp.getImage());
+                         }
+                     }
+                     /*
+                     if(userRole.getName() == Constants.ROLE_PARENT && tempRole == Constants.ROLE_PARENT)
+                     {
+                         grid = inflater.inflate(R.layout.grid_item, null);
+                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
+                         ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+                         textView.setText(getString(temp.getLabel()));
+                         imageView.setImageResource(temp.getImage());
+                     }
+                     */
+                     else if(tempRole == Constants.DEFAULT)
+                     {
+                         grid = inflater.inflate(R.layout.grid_item, null);
+                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
+                         ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
+                         textView.setText(getString(temp.getLabel()));
+                         imageView.setImageResource(temp.getImage());
+                     }
                  } else {
                      grid = (View) convertView;
                  }
