@@ -129,7 +129,7 @@ public class CourseService {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, String response) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         // called when success happens
                         Log.i("CourseService", "Successfully assigned courses to teacher.");
                         // We have a match student. Need to do linking here.

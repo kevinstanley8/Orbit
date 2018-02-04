@@ -21,4 +21,9 @@ public class Constants {
 
     public static final String ORBIT_API_URL = "orbit.api.url";
     public static final String APP_PROPERTIES = "app.properties";
+
+    public static final String SUCCESS_STATUS = "SUCCESS";
+    public static final String FAIL_STATUS = "FAIL";
+    public static final String SUCCESS_STATUS_DISPLAY = "Success";
+    public static final String FAIL_STATUS_DISPLAY = "Failure";
 }
