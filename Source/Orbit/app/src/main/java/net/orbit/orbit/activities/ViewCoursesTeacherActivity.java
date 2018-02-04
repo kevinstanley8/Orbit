@@ -58,9 +58,9 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter(this));
 
-        if(Adapter.courses.size() == 0){
-            courseService.getAllCoursesAssignedToCurrentTeacher(this);
-        }
+        Adapter.courses = new ArrayList<>();
+        courseService.getAllCoursesAssignedToCurrentTeacher(this);
+
 
     }
 
