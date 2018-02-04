@@ -115,7 +115,7 @@ public class ChooseStudentActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            memeImage = (ImageView) itemView.findViewById(R.drawable.default_student);
+            memeImage = (ImageView) itemView.findViewById(R.drawable.ic_person_black_24px);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
         }
 

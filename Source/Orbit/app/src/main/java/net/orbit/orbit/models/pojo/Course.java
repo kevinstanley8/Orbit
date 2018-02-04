@@ -6,6 +6,7 @@ public class Course {
     private String name;
     private String year;
     private Teacher teacher;
+    private Boolean isSelected = false;
 
     public Course() {
 
@@ -49,6 +50,9 @@ public class Course {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+    public boolean getIsSelected() {  return isSelected;   }
+    public void setIsSelected(boolean isSelected) {  this.isSelected = isSelected;   }
 
     @Override
     public String toString() {

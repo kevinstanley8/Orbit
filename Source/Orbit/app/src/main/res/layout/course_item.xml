@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,36 +15,35 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/memeImage"
-            android:src="@drawable/ic_person_black_24px"
+            android:id="@+id/iconImage"
+            android:src="@drawable/ic_class_black_24px"
             android:scaleType="centerCrop"/>
 
     </FrameLayout>
 
 
     <TextView
-        android:id="@+id/txtStudentName"
+        android:id="@+id/txtCourseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/frameLayout"
         android:layout_alignTop="@+id/frameLayout"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text=""
-        android:textColor="#0000FF"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:layout_toRightOf="@+id/frameLayout"
+        android:text="English"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
     <TextView
         android:id="@+id/txtMoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtStudentName"
-        android:layout_alignRight="@+id/txtStudentName"
-        android:layout_below="@+id/txtStudentName"
+        android:layout_alignLeft="@+id/txtCourseName"
+        android:layout_alignRight="@+id/txtCourseName"
+        android:layout_below="@+id/txtCourseName"
         android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
-    </RelativeLayout>
+</RelativeLayout>
 
 
 

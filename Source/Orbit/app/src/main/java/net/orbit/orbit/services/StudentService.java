@@ -165,7 +165,7 @@ public class StudentService
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("StudentService", "Error when linking student: " + errorResponse);
-                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -263,7 +263,7 @@ public class StudentService
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "enroll-students-course", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -288,7 +288,7 @@ public class StudentService
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("StudentService", "Error when linking student: " + errorResponse);
-                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
