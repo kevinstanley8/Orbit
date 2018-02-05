@@ -121,7 +121,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Here"
+        android:text=""
         android:textColor="#fff"
         android:textSize="18sp"
         android:layout_above="@+id/linearLayout"
