@@ -177,17 +177,6 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray students) {
                 Log.i("HomeActivity", "Successfully connected to DB.");
-                AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
-                alertDialog.setTitle("DB Connection");
-                alertDialog.setMessage("Successfully retrieved data from API: " + orbitRestClient.getBaseUrl());
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-                
                 // TODO GP-121 testing roles
                 //rs.hasTeacherRole();
             }
