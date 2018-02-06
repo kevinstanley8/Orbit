@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.AccountDetailsDTO;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.RoleService;
@@ -175,14 +177,18 @@ public class RegisterActivity extends AppCompatActivity {
                         {
                             String userUID = mAuth.getCurrentUser().getUid();
                             String r = (String) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
+                            EditText firstName = (EditText)findViewById(R.id.firstName);
+                            EditText lastName = (EditText)findViewById(R.id.lastName);
                             Role role = mapRoles.get(r);
                             // Get current date
                             Date dateObj = new Date();
                             String date = new SimpleDateFormat(Constants.DATE_FORMAT).format(dateObj);
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
+                            AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.toString(), lastName.toString());
+
                             Log.i("role", role.toString());
                             // Add user to database
-                            userService.addUser(user);
+                            userService.addUser(accountDetails);
                             userService.storeUserInPreferences(mAuth);
                             Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                     Toast.LENGTH_SHORT).show();

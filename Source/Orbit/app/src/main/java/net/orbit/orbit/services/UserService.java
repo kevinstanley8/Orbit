@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.models.pojo.AccountDetailsDTO;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
@@ -35,9 +36,9 @@ public class UserService {
     }
 
 
-    public void addUser(User user){
+    public void addUser(AccountDetailsDTO accountDetails){
         Gson gson = new Gson();
-        String json = gson.toJson(user);
+        String json = gson.toJson(accountDetails);
         StringEntity entity = null;
         try {
             entity = new StringEntity(json.toString());
