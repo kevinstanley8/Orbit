@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,37 +24,40 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.AccountDetailsDTO;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.RoleService;
 import net.orbit.orbit.services.UserService;
 import net.orbit.orbit.utils.Constants;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private View mProgressView;
-    private View mLoginFormView;
-    private RegisterActivity mAuthTask = null;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static final int REQUEST_READ_CONTACTS = 0;
     Spinner roleSpinner;
     UserService userService = new UserService(this);
     RoleService roleService = new RoleService(this);
-
+    Map<String, Role> mapRoles = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         roleService.viewRoles(this);
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mapRoles.clear();
+        CardView mEmailSignInButton = (CardView) findViewById(R.id.register_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,31 +114,31 @@ public class RegisterActivity extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        /*if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+        if (TextUtils.isEmpty(password)) {
+            passwordTextView.setError(getString(R.string.error_invalid_password));
+            focusView = passwordTextView;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
+            passwordTextView.setError(getString(R.string.error_invalid_password));
+            focusView = passwordTextView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            emailTextView.setError(getString(R.string.error_field_required));
+            focusView = emailTextView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+            emailTextView.setError(getString(R.string.error_invalid_email));
+            focusView = emailTextView;
             cancel = true;
-        }*/
+        }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
 
             createAccount(email, password);
         }
@@ -144,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     private void createAccount(final String email, String password) {
@@ -169,13 +176,19 @@ public class RegisterActivity extends AppCompatActivity {
                         else
                         {
                             String userUID = mAuth.getCurrentUser().getUid();
-                            Role role = (Role) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
+                            String r = (String) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
+                            EditText firstName = (EditText)findViewById(R.id.firstName);
+                            EditText lastName = (EditText)findViewById(R.id.lastName);
+                            Role role = mapRoles.get(r);
                             // Get current date
                             Date dateObj = new Date();
                             String date = new SimpleDateFormat(Constants.DATE_FORMAT).format(dateObj);
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
+                            AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString());
+
+                            Log.i("role", role.toString());
                             // Add user to database
-                            userService.addUser(user);
+                            userService.addUser(accountDetails);
                             userService.storeUserInPreferences(mAuth);
                             Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                     Toast.LENGTH_SHORT).show();
@@ -190,15 +203,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void updateRolesSpinner(Role[] roleArray)
     {
-        List<Role> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         for (Role r : roleArray) {
             if (!r.getName().equals(Constants.ROLE_ADMIN)) {
-                list.add(r);
+                list.add(r.getName());
+                mapRoles.put(r.getName(),r);
             }
         }
 
         Log.d("Roles list:", list.toString());
-        ArrayAdapter<Role> dataAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roleSpinner.setAdapter(dataAdapter);

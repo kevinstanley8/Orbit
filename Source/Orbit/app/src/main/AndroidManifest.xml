@@ -65,10 +65,13 @@
             android:name=".activities.EnrollStudentInCourseActivity"
             android:label="@string/choose_student"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".activities.ChooseCourseActivity"
+        <activity
+            android:name=".activities.ChooseCourseActivity"
             android:label="@string/choose_course"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ViewCourseActivity"
+            android:label="@string/view_course"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

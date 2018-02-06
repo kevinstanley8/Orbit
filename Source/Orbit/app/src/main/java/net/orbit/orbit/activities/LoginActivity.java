@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -90,22 +92,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = (EditText) findViewById(R.id.email);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+        // This code bellow is giving some trouble (have to do some more research on it)
+//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+//                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+//                    attemptLogin();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        RelativeLayout mEmailSignInButton = (RelativeLayout) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mRegisterButton = (Button) findViewById(R.id.register_button);
+        TextView mRegisterButton = (TextView) findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
+        mLoginFormView = findViewById(R.id.imageView);
         mProgressView = findViewById(R.id.login_progress);
 
         mAuth = FirebaseAuth.getInstance();
@@ -140,7 +143,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             loadHomeScreen();
         }
 
-        updateUI(currentUser);
     }
 
     @Override
@@ -163,18 +165,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         startActivity(HomeActivity.createIntent(this));
     }
 
-    private void loadMainScreen()
-    {
-        startActivity(BaseActivity.createIntent(this));
-    }
-
-    private void showLoginError()
-    {
-        TextView txtErrorMessage = (TextView) findViewById(R.id.txtErrorMessage);
-        txtErrorMessage.setText(R.string.invalidLoginMessage);
-        txtErrorMessage.setVisibility(View.VISIBLE);
-    }
-
     private void loginAccount(String email, String password) {
         if (!validateForm()) {
             return;
@@ -189,12 +179,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             Toast.makeText(LoginActivity.this, "Login Successful!",
                                     Toast.LENGTH_SHORT).show();
                             userService.storeUserInPreferences(mAuth);
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
                             loadHomeScreen();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Login failed.",
+                            Toast.makeText(LoginActivity.this, "Wrong credentials!",
                                     Toast.LENGTH_SHORT).show();
 
                             Intent intent = getIntent();
@@ -204,12 +192,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         }
                     }
                 });
-    }
-
-    private void updateUI(FirebaseUser user)
-    {
-        /*Toast.makeText(LoginActivity.this, "USER IS STILL SIGNED IN!!!",
-                Toast.LENGTH_SHORT).show();*/
     }
 
     private boolean validateForm()
@@ -283,7 +265,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -308,7 +294,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-
             loginAccount(email, password);
 
             //OLD CODE FROM DEFAULT PROGRAM BELOW (2 lines)
@@ -324,7 +309,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     /**
@@ -403,7 +388,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+//        mEmailView.setAdapter(adapter);
     }
 
 

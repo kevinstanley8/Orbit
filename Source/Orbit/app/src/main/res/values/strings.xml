@@ -43,6 +43,7 @@
     <string name="menu_view_courses">View Courses</string>
     <string name="menu_enroll_student_in_course">Enroll Student In Course</string>
     <string name="choose_course">Choose Course</string>
+    <string name="view_course">View Course</string>
 
 
 </resources>
