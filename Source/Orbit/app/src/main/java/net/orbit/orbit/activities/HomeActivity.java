@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.internal.bind.MapTypeAdapterFactory;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
@@ -97,58 +98,23 @@ public class HomeActivity extends BaseActivity {
                  OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
                  User user = orbitPref.getUserPreferenceObj("loggedUser");
                  Log.i("UserFromSharedPref", user.toString());
-                 Role userRole = user.getRole();
+                 String userRole = user.getRole().getName();
+
+                 grid = new View(mContext);
+
 
                  if (convertView == null)
                  {
-
                      MainMenuItem temp = menuItems.get(position);
                      grid = new View(mContext);
                      String tempRole = temp.getRole();
-
-/*
-                     if(userRole.getName() == Constants.ROLE_ADMIN)
-                     {
-                         grid = inflater.inflate(R.layout.grid_item, null);
-                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
-                         ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
-                         textView.setText(getString(temp.getLabel()));
-                         imageView.setImageResource(temp.getImage());
-                     }
-                     */
-                     if(userRole.getName() == Constants.ROLE_TEACHER)
-                     {
-                         if(tempRole == Constants.ROLE_TEACHER)
-                         {
-                         grid = inflater.inflate(R.layout.grid_item, null);
-                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
-                         ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
-                         textView.setText(getString(temp.getLabel()));
-                         imageView.setImageResource(temp.getImage());
-                         }
-                     }
-                     /*
-                     if(userRole.getName() == Constants.ROLE_PARENT && tempRole == Constants.ROLE_PARENT)
-                     {
-                         grid = inflater.inflate(R.layout.grid_item, null);
-                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
-                         ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
-                         textView.setText(getString(temp.getLabel()));
-                         imageView.setImageResource(temp.getImage());
-                     }
-                     */
-                     else if(tempRole == Constants.DEFAULT)
-                     {
-                         grid = inflater.inflate(R.layout.grid_item, null);
-                         TextView textView = (TextView) grid.findViewById(R.id.gridText);
-                         ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
-                         textView.setText(getString(temp.getLabel()));
-                         imageView.setImageResource(temp.getImage());
-                     }
-                 } else {
-                     grid = (View) convertView;
-                 }
-
+                     grid = inflater.inflate(R.layout.grid_item, null);
+                     TextView textView = (TextView) grid.findViewById(R.id.gridText);
+                     ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
+                     textView.setText(getString(temp.getLabel()));
+                     imageView.setImageResource(temp.getImage());
+                 } else
+                     grid = convertView;
                  return grid;
              }
             }
