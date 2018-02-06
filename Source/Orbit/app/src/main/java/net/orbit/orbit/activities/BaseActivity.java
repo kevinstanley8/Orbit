@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.MainMenuItem;
+import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.LogoutService;
@@ -29,6 +32,7 @@ import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * BaseActivity - class that app other app activities will extend.  This will provide the nav menu by default.  When
@@ -51,6 +55,9 @@ public class BaseActivity extends AppCompatActivity {
     private String drawerClosedTitle = "";
 
     private LogoutService logoutService;
+
+    List<MainMenuItem> mainMenuItems = MenuList.mainMenuItems;
+
 
     public String getDrawerOpenTitle() {
         return drawerOpenTitle;
@@ -150,6 +157,7 @@ public class BaseActivity extends AppCompatActivity {
         public static final int LOG_OFF = 6;
         public static final int VIEW_COURSES = 7;
         public static final int ENROLL_STUDENT_IN_COURSE = 8;
+
 
 
 
@@ -310,21 +318,51 @@ public class BaseActivity extends AppCompatActivity {
         Log.i("UserFromSharedPref", user.toString());
         Role userRole = user.getRole();
 
-        if (userRole.getName().equals(Constants.ROLE_ADMIN)) {
-            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
-            mNavItems.add(new NavItem(getString(R.string.menu_view_teacher), getString(R.string.menu_view_teacher), R.drawable.menu_view_teachers));
-            mNavItems.add(new NavItem(getString(R.string.menu_choose_student), getString(R.string.menu_choose_student), R.drawable.menu_choose_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_enroll_student_in_course), getString(R.string.menu_enroll_student_in_course), R.drawable.menu_enroll_student_in_course));
-        } else if (userRole.getName().equals(Constants.ROLE_TEACHER)) {
-            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_view_courses), getString(R.string.menu_view_courses), R.drawable.menu_choose_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_enroll_student_in_course), getString(R.string.menu_enroll_student_in_course), R.drawable.menu_enroll_student_in_course));
+        if (userRole.getName().equals(Constants.ROLE_ADMIN))
+        {
+            for(MainMenuItem item : mainMenuItems)
+            {
+                String label = getString(item.getLabel());
+                String title = getString(item.getTitle());
+                mNavItems.add(new NavItem(label, title, item.getImage()));
+            }
+        } else if (userRole.getName().equals(Constants.ROLE_TEACHER))
+        {
+            for(MainMenuItem item : mainMenuItems)
+            {
+                if(item.getRole() == Constants.ROLE_TEACHER || item.getRole() == Constants.DEFAULT)
+                {
+                    String label = getString(item.getLabel());
+                    String title = getString(item.getTitle());
+                    mNavItems.add(new NavItem(label, title, item.getImage()));
+                }
+            }
+
+        } else if (userRole.getName().equals(Constants.ROLE_PARENT))
+        {
+            for(MainMenuItem item : mainMenuItems)
+            {
+                if(item.getRole() == Constants.ROLE_PARENT || item.getRole() == Constants.DEFAULT)
+                {
+                    String label = getString(item.getLabel());
+                    String title = getString(item.getTitle());
+                    mNavItems.add(new NavItem(label, title, item.getImage()));
+                }
+            }
+
+        } else if (userRole.getName().equals(Constants.ROLE_STUDENT))
+        {
+            for(MainMenuItem item : mainMenuItems)
+            {
+                if(item.getRole() == Constants.ROLE_STUDENT || item.getRole() == Constants.DEFAULT)
+                {
+                    String label = getString(item.getLabel());
+                    String title = getString(item.getTitle());
+                    mNavItems.add(new NavItem(label, title, item.getImage()));
+                }
+            }
 
         }
-        mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
         orbitNav = new OrbitMenuNavigation(getApplicationContext());
         userName = (TextView)findViewById(R.id.userName);
         userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");

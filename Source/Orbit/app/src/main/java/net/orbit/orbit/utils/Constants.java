@@ -26,5 +26,8 @@ public class Constants {
     public static final String SUCCESS_STATUS = "SUCCESS";
     public static final String FAIL_STATUS = "FAILURE";
 
+    // String for values that are not filled out thru app UI
+    public static final String FILLOUT_LATER = "TO BE FILLED AT A LATER DATE";
+
 
 }
