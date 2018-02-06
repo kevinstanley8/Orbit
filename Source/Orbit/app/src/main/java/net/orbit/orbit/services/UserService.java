@@ -2,17 +2,14 @@ package net.orbit.orbit.services;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import net.orbit.orbit.R;
-import net.orbit.orbit.models.Role;
-import net.orbit.orbit.models.User;
+import net.orbit.orbit.models.pojo.User;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -48,7 +45,7 @@ public class UserService {
             e.printStackTrace();
         }
 
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "add-user", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -86,7 +83,7 @@ public class UserService {
 
         }
         String url = "get-user/" + uid;
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get(url, null, new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {

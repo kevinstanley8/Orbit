@@ -2,6 +2,7 @@ package net.orbit.orbit.services;
 
 import android.content.Context;
 
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.PropertyReader;
 
 import java.util.Properties;
@@ -19,7 +20,7 @@ public class PropertiesService {
     public String getProperty(Context context, String propName) {
         this.context = context;
         this.propertyReader = new PropertyReader(context);
-        this.properties = this.propertyReader.getMyProperties("app.properties");
+        this.properties = this.propertyReader.getMyProperties(Constants.APP_PROPERTIES);
         return this.properties.getProperty(propName);
     }
 }

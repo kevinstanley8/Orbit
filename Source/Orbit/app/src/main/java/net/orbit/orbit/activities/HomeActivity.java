@@ -18,10 +18,11 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.MainMenuItem;
-import net.orbit.orbit.models.MenuList;
+import net.orbit.orbit.models.pojo.MainMenuItem;
+import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 
 import org.json.JSONArray;
@@ -151,7 +152,7 @@ public class HomeActivity extends BaseActivity {
         });
 
         // Sets the URL for the API url
-        String apiUrl = propertiesService.getProperty(this, "orbit.api.url");
+        String apiUrl = propertiesService.getProperty(this, Constants.ORBIT_API_URL);
         orbitRestClient.setBaseUrl(apiUrl);
 
         // Displays a alert window and lets you know if your DB connection is successful.

@@ -1,24 +1,23 @@
 package net.orbit.orbit.services;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.activities.AllTeachersActivity;
-import net.orbit.orbit.activities.BaseActivity;
-import net.orbit.orbit.activities.HomeActivity;
-import net.orbit.orbit.models.Teacher;
+import net.orbit.orbit.activities.ViewCoursesTeacherActivity;
+import net.orbit.orbit.models.pojo.Teacher;
+import net.orbit.orbit.models.exceptions.ErrorResponse;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -35,6 +34,9 @@ public class TeacherService {
     public TeacherService(Context context){
         this.context = context;
     }
+
+    public TeacherService() { }
+
     public void addTeacher(Teacher newTeacher){
         Gson gson = new Gson();
         String json = gson.toJson(newTeacher);
@@ -46,7 +48,7 @@ public class TeacherService {
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "add-menu_teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -57,14 +59,14 @@ public class TeacherService {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray teacher) {
                         // called when success happens
-                        Log.i("AddTeacherActivity", "Successfully added new menu_teacher: " + teacher);
+                        Log.i("TeacherService", "Successfully added new menu_teacher: " + teacher);
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("AddTeacherActivity", "Error when adding new menu_teacher: " + errorResponse);
+                        Log.e("TeacherService", "Error when adding new menu_teacher: " + errorResponse);
                     }
 
                     @Override
@@ -75,7 +77,7 @@ public class TeacherService {
     }
 
     public void viewTeachers(final AllTeachersActivity activity){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("all-teachers", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -92,7 +94,7 @@ public class TeacherService {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("AddTeacherActivity", "Error when adding new menu_teacher: " + errorResponse);
+                Log.e("TeacherService", "Error when adding new menu_teacher: " + errorResponse);
             }
 
             @Override
@@ -103,4 +105,29 @@ public class TeacherService {
         });
 
     }
+
+    public void getTeacherByUid(String UID, final ViewCoursesTeacherActivity activity , final ServerCallback<Teacher> callback){
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(activity, Constants.ORBIT_API_URL));
+        orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonTeacher) {
+                Gson gson = new Gson();
+                Log.i("TeacherService", "Successfully found a teacher: " + jsonTeacher);
+                Teacher teacher = gson.fromJson(jsonTeacher.toString(), Teacher.class);
+                callback.onSuccess(teacher);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("TeacherService", "Error when finding teacher by UID: " + errorResponse);
+                Gson gson = new Gson();
+                ErrorResponse er = gson.fromJson(errorResponse.toString(), ErrorResponse.class);
+                callback.onFail(er);
+            }
+
+        });
+    }
+
 }

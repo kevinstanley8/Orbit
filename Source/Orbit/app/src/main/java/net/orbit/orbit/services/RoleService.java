@@ -3,17 +3,13 @@ package net.orbit.orbit.services;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.activities.BaseActivity;
 import net.orbit.orbit.activities.RegisterActivity;
-import net.orbit.orbit.models.Role;
-import net.orbit.orbit.models.User;
+import net.orbit.orbit.models.pojo.Role;
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
-import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,15 +23,16 @@ import cz.msebera.android.httpclient.Header;
 public class RoleService {
     OrbitRestClient orbitRestClient = new OrbitRestClient();
     PropertiesService propertiesService = new PropertiesService();
+    SecurityService securityService = new SecurityService();
     Context context;
 
     public RoleService(Context context){
         this.context = context;
-        //orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        //orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
     }
 
     public void viewRoles(final RegisterActivity activity){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("all-roles", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -65,9 +62,8 @@ public class RoleService {
     }
 
     public void hasTeacherRole(){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String UID = currentUser.getUid();
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        String UID = securityService.getCurrentUsersUid();
         orbitRestClient.get("has-teacher-role/" + UID, null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
