@@ -184,7 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Date dateObj = new Date();
                             String date = new SimpleDateFormat(Constants.DATE_FORMAT).format(dateObj);
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
-                            AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.toString(), lastName.toString());
+                            AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString());
 
                             Log.i("role", role.toString());
                             // Add user to database

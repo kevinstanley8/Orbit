@@ -20,7 +20,7 @@
         android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         app:srcCompat="@drawable/orbit_icon_white"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -81,7 +81,7 @@
         android:inputType="textPassword"
         android:textSize="16dp"
         android:textColor="@color/colorPrimary"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="60dp"
         android:layout_alignBottom="@+id/roleSpinner"
         android:layout_alignLeft="@+id/email"
         android:layout_alignStart="@+id/email" />
@@ -89,9 +89,9 @@
     <Spinner
         android:id="@+id/roleSpinner"
         android:layout_width="250dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:ems="10"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="80dp"
         android:textColor="@color/colorWhite"
         android:textSize="16dp"
         android:spinnerMode="dropdown"
