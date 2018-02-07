@@ -69,9 +69,13 @@
             android:name=".activities.ChooseCourseActivity"
             android:label="@string/choose_course"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ViewCourseActivity"
+        <activity
+            android:name=".activities.ViewCourseActivity"
             android:label="@string/view_course"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ViewCourseAssignmentsActivity" />
+        <activity android:name=".activities.ViewSingleAssignmentActivity" />
+        <activity android:name=".activities.CreateAssignmentActivity"></activity>
     </application>
 
 </manifest>

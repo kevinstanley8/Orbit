@@ -23,7 +23,7 @@
 
 
     <TextView
-        android:id="@+id/txtStudentName"
+        android:id="@+id/txtAssignmentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -38,9 +38,9 @@
         android:id="@+id/txtMoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtStudentName"
-        android:layout_alignRight="@+id/txtStudentName"
-        android:layout_below="@+id/txtStudentName"
+        android:layout_alignLeft="@+id/txtAssignmentName"
+        android:layout_alignRight="@+id/txtAssignmentName"
+        android:layout_below="@+id/txtAssignmentName"
         android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
