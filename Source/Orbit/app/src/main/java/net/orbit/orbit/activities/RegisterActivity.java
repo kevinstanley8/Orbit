@@ -1,5 +1,6 @@
 package net.orbit.orbit.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -36,6 +38,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
     UserService userService = new UserService(this);
     RoleService roleService = new RoleService(this);
     Map<String, Role> mapRoles = new HashMap<>();
+    private int mYear,mMonth,mDay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +71,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
         roleSpinner = (Spinner) findViewById(R.id.roleSpinner);
 
-        mAuth = FirebaseAuth.getInstance();
+        final Button pickDate = (Button) findViewById(R.id.pick_date);
+        final TextView textView = (TextView) findViewById(R.id.date);
+        final Calendar myCalendar = Calendar.getInstance();
 
+        mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -82,6 +90,63 @@ public class RegisterActivity extends AppCompatActivity {
                 // ...
             }
         };
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                // myCalendar.add(Calendar.DATE, 0);
+                String myFormat = "yyyy-MM-dd"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                textView.setText(sdf.format(myCalendar.getTime()));
+            }
+
+
+        };
+
+        pickDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(RegisterActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+
+                                if (year < mYear)
+                                    view.updateDate(mYear,mMonth,mDay);
+
+                                if (monthOfYear < mMonth && year == mYear)
+                                    view.updateDate(mYear,mMonth,mDay);
+
+                                if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
+                                    view.updateDate(mYear,mMonth,mDay);
+
+                                textView.setText(dayOfMonth + "-"
+                                        + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                dpd.show();
+
+            }
+        });
     }
 
     public void onStart() {
@@ -201,8 +266,7 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    public void updateRolesSpinner(Role[] roleArray)
-    {
+    public void updateRolesSpinner(Role[] roleArray){
         List<String> list = new ArrayList<>();
         for (Role r : roleArray) {
             if (!r.getName().equals(Constants.ROLE_ADMIN)) {

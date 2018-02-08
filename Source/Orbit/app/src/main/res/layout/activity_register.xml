@@ -44,7 +44,7 @@
         android:id="@+id/lastName"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_above="@+id/email"
+        android:layout_above="@+id/date"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:background="#11000000"
@@ -54,6 +54,20 @@
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/pick_date"
+        />
+
+    <Button
+        android:id="@+id/pick_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick date"
+        android:layout_above="@+id/email"/>
 
     <EditText
         android:id="@+id/email"
