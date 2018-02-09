@@ -56,7 +56,8 @@ public class BaseActivity extends AppCompatActivity {
 
     private LogoutService logoutService;
 
-    List<MainMenuItem> mainMenuItems = MenuList.mainMenuItems;
+    private List<MainMenuItem> mainMenuItems;
+    private DrawerListAdapter adapter;
 
 
     public String getDrawerOpenTitle() {
@@ -268,7 +269,7 @@ public class BaseActivity extends AppCompatActivity {
         // Populate the Navigtion Drawer with options
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
         mDrawerList = (ListView) findViewById(R.id.navList);
-        DrawerListAdapter adapter = new DrawerListAdapter(this, mNavItems);
+        this.adapter = new DrawerListAdapter(this, mNavItems);
         mDrawerList.setAdapter(adapter);
 
         // Drawer Item click listeners
@@ -316,56 +317,54 @@ public class BaseActivity extends AppCompatActivity {
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
         User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
-        Role userRole = user.getRole();
+        String userRole = user.getRole().getName();
 
-        if (userRole.getName().equals(Constants.ROLE_ADMIN))
+        if (userRole.equals(Constants.ROLE_ADMIN))
         {
+            this.mainMenuItems = MenuList.adminMenuList;
             for(MainMenuItem item : mainMenuItems)
             {
                 String label = getString(item.getLabel());
                 String title = getString(item.getTitle());
                 mNavItems.add(new NavItem(label, title, item.getImage()));
+                adapter.notifyDataSetChanged();
             }
-        } else if (userRole.getName().equals(Constants.ROLE_TEACHER))
+        } else if (userRole.equals(Constants.ROLE_TEACHER))
         {
+            this.mainMenuItems = MenuList.teacherMenuList;
             for(MainMenuItem item : mainMenuItems)
             {
-                if(item.getRole() == Constants.ROLE_TEACHER || item.getRole() == Constants.DEFAULT)
-                {
                     String label = getString(item.getLabel());
                     String title = getString(item.getTitle());
                     mNavItems.add(new NavItem(label, title, item.getImage()));
-                }
+                    adapter.notifyDataSetChanged();
             }
 
-        } else if (userRole.getName().equals(Constants.ROLE_PARENT))
+        } else if (userRole.equals(Constants.ROLE_PARENT))
         {
+            this.mainMenuItems = MenuList.parentMenuList;
             for(MainMenuItem item : mainMenuItems)
             {
-                if(item.getRole() == Constants.ROLE_PARENT || item.getRole() == Constants.DEFAULT)
-                {
                     String label = getString(item.getLabel());
                     String title = getString(item.getTitle());
                     mNavItems.add(new NavItem(label, title, item.getImage()));
-                }
+                    adapter.notifyDataSetChanged();
             }
 
-        } else if (userRole.getName().equals(Constants.ROLE_STUDENT))
+        } else if (userRole.equals(Constants.ROLE_STUDENT))
         {
+            this.mainMenuItems = MenuList.studentMenuList;
             for(MainMenuItem item : mainMenuItems)
             {
-                if(item.getRole() == Constants.ROLE_STUDENT || item.getRole() == Constants.DEFAULT)
-                {
                     String label = getString(item.getLabel());
                     String title = getString(item.getTitle());
                     mNavItems.add(new NavItem(label, title, item.getImage()));
-                }
+                    adapter.notifyDataSetChanged();
             }
-
         }
         orbitNav = new OrbitMenuNavigation(getApplicationContext());
         userName = (TextView)findViewById(R.id.userName);
-        userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");
+        //userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");
     }
 
     @Override

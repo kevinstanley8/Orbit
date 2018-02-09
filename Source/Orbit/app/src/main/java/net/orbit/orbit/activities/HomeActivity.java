@@ -51,10 +51,21 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        this.mainMenuItems = MenuList.mainMenuItems;
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        User user = orbitPref.getUserPreferenceObj("loggedUser");
+        Log.i("UserFromSharedPref", user.toString());
+        String userRole = user.getRole().getName();
+
+        // ROLE BASED LIST ASSIGNMENT FOR MENU GRID GENERATION
+        if(userRole == Constants.ROLE_ADMIN)
+            this.mainMenuItems = MenuList.adminMenuList;
+        if(userRole == Constants.ROLE_TEACHER)
+            this.mainMenuItems = MenuList.teacherMenuList;
+        if(userRole == Constants.ROLE_PARENT)
+            this.mainMenuItems = MenuList.parentMenuList;
+        if(userRole == Constants.ROLE_STUDENT)
+            this.mainMenuItems = MenuList.studentMenuList;
         super.onCreate(savedInstanceState);
-        final int teacherUpper = 6, teacherLower = 3;
-        final int logoff = 6;
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
@@ -95,19 +106,14 @@ public class HomeActivity extends BaseActivity {
                  LayoutInflater inflater = (LayoutInflater) mContext
                          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                 OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-                 User user = orbitPref.getUserPreferenceObj("loggedUser");
-                 Log.i("UserFromSharedPref", user.toString());
-                 String userRole = user.getRole().getName();
+
 
                  grid = new View(mContext);
-
 
                  if (convertView == null)
                  {
                      MainMenuItem temp = menuItems.get(position);
                      grid = new View(mContext);
-                     String tempRole = temp.getRole();
                      grid = inflater.inflate(R.layout.grid_item, null);
                      TextView textView = (TextView) grid.findViewById(R.id.gridText);
                      ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
@@ -115,6 +121,7 @@ public class HomeActivity extends BaseActivity {
                      imageView.setImageResource(temp.getImage());
                  } else
                      grid = convertView;
+
                  return grid;
              }
             }
