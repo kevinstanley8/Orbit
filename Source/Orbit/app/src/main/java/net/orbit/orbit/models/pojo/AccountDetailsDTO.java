@@ -8,13 +8,16 @@ public class AccountDetailsDTO {
     private User user;
     private String firstName;
     private String lastName;
+
+    private String dob;
     // TODO add more details about users address
     // and other info we want to store
 
-    public AccountDetailsDTO(User user, String fName, String lName){
+    public AccountDetailsDTO(User user, String fName, String lName, String dob){
         this.user = user;
         this.firstName = fName;
         this.lastName = lName;
+        this.dob = dob;
     }
     public User getUser(){
         return user;
@@ -33,5 +36,13 @@ public class AccountDetailsDTO {
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,6 +56,11 @@ public class RegisterActivity extends AppCompatActivity {
     Map<String, Role> mapRoles = new HashMap<>();
     private int mYear,mMonth,mDay;
 
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, RegisterActivity.class);
+        return i;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
         roleSpinner = (Spinner) findViewById(R.id.roleSpinner);
 
-        final Button pickDate = (Button) findViewById(R.id.pick_date);
-        final TextView textView = (TextView) findViewById(R.id.date);
+        final TextView dateTextView = (TextView) findViewById(R.id.date);
         final Calendar myCalendar = Calendar.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
@@ -101,49 +106,54 @@ public class RegisterActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 // myCalendar.add(Calendar.DATE, 0);
-                String myFormat = "yyyy-MM-dd"; //In which you need put here
+                String myFormat = "MM/dd/yyyy"; //In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                textView.setText(sdf.format(myCalendar.getTime()));
+                dateTextView.setText(sdf.format(myCalendar.getTime()));
             }
 
 
         };
 
-        pickDate.setOnClickListener(new View.OnClickListener() {
+        dateTextView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
+            public boolean onTouch(View v, MotionEvent event) {
 
-                // Launch Date Picker Dialog
-                DatePickerDialog dpd = new DatePickerDialog(RegisterActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    // TODO Auto-generated method stub
+                    final Calendar c = Calendar.getInstance();
+                    mYear = c.get(Calendar.YEAR);
+                    mMonth = c.get(Calendar.MONTH);
+                    mDay = c.get(Calendar.DAY_OF_MONTH);
 
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // Display Selected date in textbox
+                    // Launch Date Picker Dialog
+                    DatePickerDialog dpd = new DatePickerDialog(RegisterActivity.this,
+                            new DatePickerDialog.OnDateSetListener() {
 
-                                if (year < mYear)
-                                    view.updateDate(mYear,mMonth,mDay);
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    // Display Selected date in textbox
 
-                                if (monthOfYear < mMonth && year == mYear)
-                                    view.updateDate(mYear,mMonth,mDay);
+                                    if (year < mYear)
+                                        view.updateDate(mYear,mMonth,mDay);
 
-                                if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
-                                    view.updateDate(mYear,mMonth,mDay);
+                                    if (monthOfYear < mMonth && year == mYear)
+                                        view.updateDate(mYear,mMonth,mDay);
 
-                                textView.setText(dayOfMonth + "-"
-                                        + (monthOfYear + 1) + "-" + year);
+                                    if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
+                                        view.updateDate(mYear,mMonth,mDay);
 
-                            }
-                        }, mYear, mMonth, mDay);
-                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
-                dpd.show();
+                                    dateTextView.setText((monthOfYear + 1) + "/"
+                                            +  dayOfMonth + "/" + year);
+
+                                }
+                            }, mYear, mMonth, mDay);
+                    dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                    dpd.show();
+                    return true;
+                }
+                return false;
 
             }
         });
@@ -160,11 +170,6 @@ public class RegisterActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-    }
-
-    public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, RegisterActivity.class);
-        return i;
     }
 
     private void createAccount() {
@@ -244,12 +249,13 @@ public class RegisterActivity extends AppCompatActivity {
                             String r = (String) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
                             EditText firstName = (EditText)findViewById(R.id.firstName);
                             EditText lastName = (EditText)findViewById(R.id.lastName);
+                            TextView dob = (TextView) findViewById(R.id.date);
                             Role role = mapRoles.get(r);
                             // Get current date
                             Date dateObj = new Date();
                             String date = new SimpleDateFormat(Constants.DATE_FORMAT).format(dateObj);
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
-                            AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString());
+                            AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString(), dob.getText().toString());
 
                             Log.i("role", role.toString());
                             // Add user to database
