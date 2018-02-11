@@ -13,12 +13,11 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("/opt/bitnami/keystore/keystore.jks")
-//            storeFile file("/Users/brocktubre/Desktop/Grad_School/CSC680-681/keystore.jks")
-            storePassword "password123"
+            storeFile file("/opt/bitnami/keystore/keystore_file.jks")
+            //storeFile file("/Users/brocktubre/Desktop/Grad_School/CSC680-681/keystore_file.jks")
+            storePassword "092890bwt"
             keyAlias "key0"
-            keyPassword "password123"
-
+            keyPassword "092890bwt"
 
         }
     }
@@ -31,6 +30,7 @@ android {
             versionNameSuffix "-beta"
         }
         alpha {
+
             applicationIdSuffix ".alpha"
             versionNameSuffix "-alpha"
         }
