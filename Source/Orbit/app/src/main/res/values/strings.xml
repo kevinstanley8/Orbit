@@ -35,6 +35,8 @@
     <string name="menu_enroll_student_in_course">Enroll Student In Course</string>
     <string name="choose_course">Choose Course</string>
     <string name="view_course">View Course</string>
+    <string name="open">Open Drawer</string>
+    <string name="create_assignment">Create Assignment</string>
 
 
 </resources>

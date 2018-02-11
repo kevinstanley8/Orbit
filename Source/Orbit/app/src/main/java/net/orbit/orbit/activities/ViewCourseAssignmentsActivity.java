@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,22 +14,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Assignment;
-import net.orbit.orbit.models.pojo.Student;
-import net.orbit.orbit.services.StudentService;
-import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.services.AssignmentService;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewCourseAssignmentsActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    StudentService studentService = new StudentService(this);
+    AssignmentService assignmentService = new AssignmentService(this);
     private static int courseID = 0;
 
     public static Intent createIntent(Context context, int courseID) {
@@ -54,32 +47,13 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
         mFabAddCourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("CreateAssignment", "We want to add a new Assignment.");
-                Intent chooseCourseActivity = new Intent(ViewCourseAssignmentsActivity.this, CreateAssignmentActivity.class);
+                Intent chooseCourseActivity = CreateAssignmentActivity.createIntent(ViewCourseAssignmentsActivity.this, ViewCourseAssignmentsActivity.courseID);
                 ViewCourseAssignmentsActivity.this.startActivity(chooseCourseActivity);
             }
-
         });
 
-        //studentService.findAllStudents(this);
+        assignmentService.getAllAssignmentsForCourse(this, ViewCourseAssignmentsActivity.courseID);
     }
-
-    /*private void enrollStudents()
-    {
-        List<Student> enrollList = new ArrayList<>();
-        for(int i = 0; i < ViewCourseAssignmentsActivity.Adapter.assignments.size(); i++)
-        {
-            if(ViewCourseAssignmentsActivity.Adapter.assignments.get(i).getIsSelected())
-                enrollList.add(ViewCourseAssignmentsActivity.Adapter.assignments.get(i));
-        }
-
-        studentService.enrollStudentsInCourse(enrollList, 1);
-    }*/
-
-    /*public void saveStudentList()
-    {
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        orbitPref.storeUserPreference("studentList", ViewCourseAssignmentsActivity.Adapter.assignments);
-    }*/
 
     public void updateAssignmentList(List<Assignment> assignmentList)
     {
@@ -93,7 +67,6 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
 
     public void reloadList()
     {
-        //saveStudentList();
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 
@@ -105,10 +78,6 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
         public Adapter(Activity context) {
             this.context = context;
             assignments.clear();
-
-            /*if(students.size() <= 0) {
-                //inital seed of list if needed
-            }*/
         }
 
         public static void addAssignment(Assignment assignment)
@@ -150,22 +119,19 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            image = (ImageView) itemView.findViewById(R.drawable.ic_description_white_24dp);
+            image = (ImageView) itemView.findViewById(R.drawable.ic_description_black_24dp);
             txtAssignmentName = (TextView) itemView.findViewById(R.id.txtAssignmentName);
             isSelected = false;
         }
 
         @Override
         public void onClick(View v) {
-            /*int position = getAdapterPosition();
-            if(ViewCourseAssignmentsActivity.Adapter.assignments.get(position).getIsSelected()) {
-                ViewCourseAssignmentsActivity.Adapter.assignments.get(position).setIsSelected(false);
-                itemView.setBackgroundColor(Color.WHITE);
-            }
-            else {
-                ViewCourseAssignmentsActivity.Adapter.assignments.get(position).setIsSelected(true);
-                itemView.setBackgroundColor(Color.parseColor("#90CAF9"));
-            }*/
+            int position = getAdapterPosition();
+            int assignmentID = ViewCourseAssignmentsActivity.Adapter.assignments.get(position).getAssignmentId();
+
+            Context context = itemView.getContext();
+            Intent intent = ViewAssignmentGradesActivity.createIntent(context, assignmentID);
+            context.startActivity(intent);
 
         }
 

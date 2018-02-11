@@ -6,4 +6,37 @@
     android:layout_height="match_parent"
     tools:context="net.orbit.orbit.activities.CreateAssignmentActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/txtAssignmentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Assignment Name"
+            android:inputType="text"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <EditText
+            android:id="@+id/txtMaxPoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Max Points"
+            android:inputType="text"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/btnCreateAssignment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/create_assignment"/>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
+
+
+
