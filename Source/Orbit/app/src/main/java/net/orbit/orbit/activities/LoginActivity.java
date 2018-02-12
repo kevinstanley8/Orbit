@@ -163,6 +163,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loadHomeScreen()
     {
+        userService.storeUserInPreferences(mAuth);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
