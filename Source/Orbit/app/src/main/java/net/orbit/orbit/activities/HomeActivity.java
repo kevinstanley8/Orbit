@@ -33,6 +33,7 @@ import net.orbit.orbit.utils.OrbitUserPreferences;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -44,7 +45,7 @@ public class HomeActivity extends BaseActivity {
 
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
-    List<MainMenuItem> mainMenuItems;
+    List<MainMenuItem> mainMenuItems = new ArrayList<>();
     LogoutService logoutService = new LogoutService(this);
 
 
@@ -57,13 +58,13 @@ public class HomeActivity extends BaseActivity {
         String userRole = user.getRole().getName();
 
         // ROLE BASED LIST ASSIGNMENT FOR MENU GRID GENERATION
-        if(userRole == Constants.ROLE_ADMIN)
+        if(userRole.equals(Constants.ROLE_ADMIN))
             this.mainMenuItems = MenuList.adminMenuList;
-        if(userRole == Constants.ROLE_TEACHER)
+        else if(userRole.equals(Constants.ROLE_TEACHER))
             this.mainMenuItems = MenuList.teacherMenuList;
-        if(userRole == Constants.ROLE_PARENT)
+        else if(userRole.equals(Constants.ROLE_PARENT))
             this.mainMenuItems = MenuList.parentMenuList;
-        if(userRole == Constants.ROLE_STUDENT)
+        else if(userRole.equals(Constants.ROLE_STUDENT))
             this.mainMenuItems = MenuList.studentMenuList;
         super.onCreate(savedInstanceState);
 
@@ -160,9 +161,24 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, EnrollStudentInCourseActivity.class);
                     startActivity(newIntent);
                 }
-                if(temp.getLabel() == (R.string.menu_link_student))
+                if(temp.getLabel() == (R.string.choose_course))
                 {
-                    Intent newIntent = new Intent(HomeActivity.this, FindStudentActivity.class);
+                    Intent newIntent = new Intent(HomeActivity.this, ChooseCourseActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.view_course))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ViewCoursesTeacherActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.view_assignments))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ViewCourseAssignmentsActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.create_assignment))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, CreateAssignmentActivity.class);
                     startActivity(newIntent);
                 }
 

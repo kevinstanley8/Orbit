@@ -364,7 +364,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         orbitNav = new OrbitMenuNavigation(getApplicationContext());
         userName = (TextView)findViewById(R.id.userName);
-        //userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");
+        userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");
     }
 
     @Override
