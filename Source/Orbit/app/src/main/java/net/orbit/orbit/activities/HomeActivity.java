@@ -15,19 +15,25 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.internal.bind.MapTypeAdapterFactory;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.Role;
+import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
+
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.PropertiesService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -39,17 +45,28 @@ public class HomeActivity extends BaseActivity {
 
     PropertiesService propertiesService = new PropertiesService();
     OrbitRestClient orbitRestClient = new OrbitRestClient();
-    List<MainMenuItem> mainMenuItems;
+    List<MainMenuItem> mainMenuItems = new ArrayList<>();
     LogoutService logoutService = new LogoutService(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        this.mainMenuItems = MenuList.mainMenuItems;
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        User user = orbitPref.getUserPreferenceObj("loggedUser");
+        Log.i("UserFromSharedPref", user.toString());
+        String userRole = user.getRole().getName();
+
+        // ROLE BASED LIST ASSIGNMENT FOR MENU GRID GENERATION
+        if(userRole.equals(Constants.ROLE_ADMIN))
+            this.mainMenuItems = MenuList.adminMenuList;
+        else if(userRole.equals(Constants.ROLE_TEACHER))
+            this.mainMenuItems = MenuList.teacherMenuList;
+        else if(userRole.equals(Constants.ROLE_PARENT))
+            this.mainMenuItems = MenuList.parentMenuList;
+        else if(userRole.equals(Constants.ROLE_STUDENT))
+            this.mainMenuItems = MenuList.studentMenuList;
         super.onCreate(savedInstanceState);
-        final int teacherUpper = 6, teacherLower = 3;
-        final int logoff = 6;
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_home, relativeLayout);
@@ -90,19 +107,21 @@ public class HomeActivity extends BaseActivity {
                  LayoutInflater inflater = (LayoutInflater) mContext
                          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
+
+                 grid = new View(mContext);
+
                  if (convertView == null)
                  {
+                     MainMenuItem temp = menuItems.get(position);
                      grid = new View(mContext);
                      grid = inflater.inflate(R.layout.grid_item, null);
                      TextView textView = (TextView) grid.findViewById(R.id.gridText);
-                     ImageView imageView = (ImageView)grid.findViewById(R.id.gridImage);
-
-                     MainMenuItem temp = menuItems.get(position);
+                     ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
                      textView.setText(getString(temp.getLabel()));
                      imageView.setImageResource(temp.getImage());
-                 } else {
-                     grid = (View) convertView;
-                 }
+                 } else
+                     grid = convertView;
 
                  return grid;
              }
@@ -142,9 +161,24 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, EnrollStudentInCourseActivity.class);
                     startActivity(newIntent);
                 }
-                if(temp.getLabel() == (R.string.menu_link_student))
+                if(temp.getLabel() == (R.string.choose_course))
                 {
-                    Intent newIntent = new Intent(HomeActivity.this, FindStudentActivity.class);
+                    Intent newIntent = new Intent(HomeActivity.this, ChooseCourseActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.view_course))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ViewCoursesTeacherActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.view_assignments))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ViewCourseAssignmentsActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.create_assignment))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, CreateAssignmentActivity.class);
                     startActivity(newIntent);
                 }
 

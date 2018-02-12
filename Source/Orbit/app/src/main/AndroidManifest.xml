@@ -69,9 +69,21 @@
             android:name=".activities.ChooseCourseActivity"
             android:label="@string/choose_course"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ViewCourseActivity"
+        <activity
+            android:name=".activities.ViewCourseActivity"
             android:label="@string/view_course"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ViewCourseAssignmentsActivity"
+            android:label="View Course Assignments"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.CreateAssignmentActivity"
+            android:label="Create Assignment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ViewAssignmentGradesActivity"
+            android:label="View Single Assignment"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

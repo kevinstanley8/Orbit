@@ -67,6 +67,11 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
 
     }
 
+    public void test()
+    {
+
+    }
+
     public void updateCourseList(List<Course> courseList){
 
 
@@ -83,6 +88,11 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             Adapter.courses.add(c);
         }
         reloadList();
+    }
+
+    public static void loadAssignments(int courseID)
+    {
+
     }
 
     public void reloadList()
@@ -148,11 +158,8 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             int position = getAdapterPosition();
             Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
             Context context = itemView.getContext();
-            Intent intent = new Intent(context, ViewCourseActivity.class);
-            intent.putExtra("courseName", course.getName());
-            intent.putExtra("courseId", course.getCourseId());
+            Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
             context.startActivity(intent);
-
         }
 
         @Override

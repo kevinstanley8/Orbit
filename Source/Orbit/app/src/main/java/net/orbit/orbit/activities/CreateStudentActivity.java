@@ -11,6 +11,7 @@ import android.widget.EditText;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.StudentService;
+import net.orbit.orbit.utils.Constants;
 
 /**
  * Created by David on 11/8/2017.
@@ -45,31 +46,31 @@ public class CreateStudentActivity extends BaseActivity
         final EditText studentCity = (EditText) findViewById(R.id.studentCity);
         final EditText studentState = (EditText) findViewById(R.id.studentState);
         final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
-        final String studentGrade = "To Be Filled at Later Date";
+        final String studentGrade = Constants.FILLOUT_LATER;
 
-        final String motherFirstName = "To Be Filled at Later Date";
-        final String motherLastName = "To Be Filled at Later Date";
-        final String motherSSN = "To Be Filled at Later Date";
-        final String motherAddress1 = "To Be Filled at Later Date";
-        final String motherAddress2 = "To Be Filled at Later Date";
-        final String motherCity = "To Be Filled at Later Date";
-        final String motherState = "To Be Filled at Later Date";
-        final String motherZipCode = "To Be Filled at Later Date";
-        final String motherHomePhone = "To Be Filled at Later Date";
-        final String motherCellPhone = "To Be Filled at Later Date";
-        final String motherEmail = "";
+        final String motherFirstName = Constants.FILLOUT_LATER;
+        final String motherLastName = Constants.FILLOUT_LATER;
+        final String motherSSN = Constants.FILLOUT_LATER;
+        final String motherAddress1 = Constants.FILLOUT_LATER;
+        final String motherAddress2 = Constants.FILLOUT_LATER;
+        final String motherCity = Constants.FILLOUT_LATER;
+        final String motherState = Constants.FILLOUT_LATER;
+        final String motherZipCode = Constants.FILLOUT_LATER;
+        final String motherHomePhone = Constants.FILLOUT_LATER;
+        final String motherCellPhone = Constants.FILLOUT_LATER;
+        final String motherEmail = Constants.FILLOUT_LATER;
 
-        final String fatherFirstName = "To Be Filled at Later Date";
-        final String fatherLastName = "To Be Filled at Later Date";
-        final String fatherSSN = "To Be Filled at Later Date";
-        final String fatherAddress1 = "To Be Filled at Later Date";
-        final String fatherAddress2 = "To Be Filled at Later Date";
-        final String fatherCity = "To Be Filled at Later Date";
-        final String fatherState = "To Be Filled at Later Date";
-        final String fatherZipCode = "To Be Filled at Later Date";
-        final String fatherHomePhone = "To Be Filled at Later Date";
-        final String fatherCellPhone = "To Be Filled at Later Date";
-        final String fatherEmail = "To Be Filled at Later Date";
+        final String fatherFirstName = Constants.FILLOUT_LATER;
+        final String fatherLastName = Constants.FILLOUT_LATER;
+        final String fatherSSN = Constants.FILLOUT_LATER;
+        final String fatherAddress1 = Constants.FILLOUT_LATER;
+        final String fatherAddress2 = Constants.FILLOUT_LATER;
+        final String fatherCity = Constants.FILLOUT_LATER;
+        final String fatherState = Constants.FILLOUT_LATER;
+        final String fatherZipCode = Constants.FILLOUT_LATER;
+        final String fatherHomePhone = Constants.FILLOUT_LATER;
+        final String fatherCellPhone = Constants.FILLOUT_LATER;
+        final String fatherEmail = Constants.FILLOUT_LATER;
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

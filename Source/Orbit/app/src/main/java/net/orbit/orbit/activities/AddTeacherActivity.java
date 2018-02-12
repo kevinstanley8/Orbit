@@ -11,6 +11,7 @@ import android.widget.EditText;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.TeacherService;
+import net.orbit.orbit.utils.Constants;
 
 public class AddTeacherActivity extends BaseActivity {
     TeacherService teacherService = new TeacherService(this);
@@ -33,15 +34,14 @@ public class AddTeacherActivity extends BaseActivity {
         final Button cancelButton = (Button) findViewById(R.id.cancel_action);
 
         final EditText mFirstName   = (EditText)findViewById(R.id.firstName);
-        final String mFirstrgName = String.valueOf((EditText)findViewById(R.id.firstName));
         final EditText mLastName   = (EditText)findViewById(R.id.lastName);
-        final EditText mDob   = (EditText)findViewById(R.id.dateOfBirth);
+        final String mDob   = Constants.FILLOUT_LATER;
         final EditText mSsn   = (EditText)findViewById(R.id.ssn);
-        final EditText mAddress1   = (EditText)findViewById(R.id.address1);
-        final EditText mAddress2   = (EditText)findViewById(R.id.address2);
-        final EditText mCity   = (EditText)findViewById(R.id.city);
-        final EditText mState   = (EditText)findViewById(R.id.state);
-        final EditText mZip   = (EditText)findViewById(R.id.zip);
+        final String mAddress1   = Constants.FILLOUT_LATER;
+        final String mAddress2   = Constants.FILLOUT_LATER;
+        final String mCity   = Constants.FILLOUT_LATER;
+        final String mState   = Constants.FILLOUT_LATER;
+        final String mZip   = Constants.FILLOUT_LATER;
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -59,13 +59,13 @@ public class AddTeacherActivity extends BaseActivity {
                 Teacher newTeacher = new Teacher
                             (mFirstName.getText().toString(),
                                     mLastName.getText().toString(),
-                                    mDob.getText().toString(),
+                                    mDob,
                                     mSsn.getText().toString(),
-                                    mAddress1.getText().toString(),
-                                    mAddress2.getText().toString(),
-                                    mCity.getText().toString(),
-                                    mState.getText().toString(),
-                                    mZip.getText().toString());
+                                    mAddress1,
+                                    mAddress2,
+                                    mCity,
+                                    mState,
+                                    mZip);
 
                 teacherService.addTeacher(newTeacher);
 

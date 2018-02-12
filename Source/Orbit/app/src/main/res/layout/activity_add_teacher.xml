@@ -32,65 +32,11 @@
         android:layout_marginBottom="15dp" />
 
     <EditText
-        android:id="@+id/dateOfBirth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="DOB"
-        android:inputType="date"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
         android:id="@+id/ssn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="SSN"
         android:inputType="numberPassword"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
-        android:id="@+id/address1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address 1"
-        android:inputType="textPostalAddress"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
-        android:id="@+id/address2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address 2"
-        android:inputType="textPostalAddress"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
-        android:id="@+id/city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="City"
-        android:inputType="text"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
-        android:id="@+id/state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="State"
-        android:inputType="text"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
-        android:id="@+id/zip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Zip"
-        android:inputType="number"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"/>
 
