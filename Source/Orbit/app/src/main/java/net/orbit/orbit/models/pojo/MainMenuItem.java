@@ -21,9 +21,7 @@ public class MainMenuItem
         this.label = label;
     }
 
-    public void setTitle(int  title) {
-        this.title = title;
-    }
+    public void setTitle(int  title) { this.title = title; }
 
     public void setImage(int image) {
         this.image = image;
@@ -40,4 +38,6 @@ public class MainMenuItem
     public int getImage() {
         return image;
     }
+
+
 }

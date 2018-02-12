@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.MainMenuItem;
+import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.LogoutService;
@@ -29,6 +32,7 @@ import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * BaseActivity - class that app other app activities will extend.  This will provide the nav menu by default.  When
@@ -51,6 +55,10 @@ public class BaseActivity extends AppCompatActivity {
     private String drawerClosedTitle = "";
 
     private LogoutService logoutService;
+
+    private List<MainMenuItem> mainMenuItems;
+    private DrawerListAdapter adapter;
+
 
     public String getDrawerOpenTitle() {
         return drawerOpenTitle;
@@ -150,6 +158,7 @@ public class BaseActivity extends AppCompatActivity {
         public static final int LOG_OFF = 6;
         public static final int VIEW_COURSES = 7;
         public static final int ENROLL_STUDENT_IN_COURSE = 8;
+
 
 
 
@@ -260,7 +269,7 @@ public class BaseActivity extends AppCompatActivity {
         // Populate the Navigtion Drawer with options
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
         mDrawerList = (ListView) findViewById(R.id.navList);
-        DrawerListAdapter adapter = new DrawerListAdapter(this, mNavItems);
+        this.adapter = new DrawerListAdapter(this, mNavItems);
         mDrawerList.setAdapter(adapter);
 
         // Drawer Item click listeners
@@ -308,23 +317,51 @@ public class BaseActivity extends AppCompatActivity {
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
         User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
-        Role userRole = user.getRole();
+        String userRole = user.getRole().getName();
 
-        if (userRole.getName().equals(Constants.ROLE_ADMIN)) {
-            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_add_teacher), getString(R.string.menu_add_teacher), R.drawable.menu_teacher));
-            mNavItems.add(new NavItem(getString(R.string.menu_view_teacher), getString(R.string.menu_view_teacher), R.drawable.menu_view_teachers));
-            mNavItems.add(new NavItem(getString(R.string.menu_choose_student), getString(R.string.menu_choose_student), R.drawable.menu_choose_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_enroll_student_in_course), getString(R.string.menu_enroll_student_in_course), R.drawable.menu_enroll_student_in_course));
-        } else if (userRole.getName().equals(Constants.ROLE_TEACHER)) {
-            mNavItems.add(new NavItem(getString(R.string.menu_add_student), getString(R.string.menu_add_student), R.drawable.menu_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_link_student), getString(R.string.menu_link_student), R.drawable.menu_link_parent_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_view_courses), getString(R.string.menu_view_courses), R.drawable.menu_choose_student));
-            mNavItems.add(new NavItem(getString(R.string.menu_enroll_student_in_course), getString(R.string.menu_enroll_student_in_course), R.drawable.menu_enroll_student_in_course));
+        if (userRole.equals(Constants.ROLE_ADMIN))
+        {
+            this.mainMenuItems = MenuList.adminMenuList;
+            for(MainMenuItem item : mainMenuItems)
+            {
+                String label = getString(item.getLabel());
+                String title = getString(item.getTitle());
+                mNavItems.add(new NavItem(label, title, item.getImage()));
+                adapter.notifyDataSetChanged();
+            }
+        } else if (userRole.equals(Constants.ROLE_TEACHER))
+        {
+            this.mainMenuItems = MenuList.teacherMenuList;
+            for(MainMenuItem item : mainMenuItems)
+            {
+                    String label = getString(item.getLabel());
+                    String title = getString(item.getTitle());
+                    mNavItems.add(new NavItem(label, title, item.getImage()));
+                    adapter.notifyDataSetChanged();
+            }
 
+        } else if (userRole.equals(Constants.ROLE_PARENT))
+        {
+            this.mainMenuItems = MenuList.parentMenuList;
+            for(MainMenuItem item : mainMenuItems)
+            {
+                    String label = getString(item.getLabel());
+                    String title = getString(item.getTitle());
+                    mNavItems.add(new NavItem(label, title, item.getImage()));
+                    adapter.notifyDataSetChanged();
+            }
+
+        } else if (userRole.equals(Constants.ROLE_STUDENT))
+        {
+            this.mainMenuItems = MenuList.studentMenuList;
+            for(MainMenuItem item : mainMenuItems)
+            {
+                    String label = getString(item.getLabel());
+                    String title = getString(item.getTitle());
+                    mNavItems.add(new NavItem(label, title, item.getImage()));
+                    adapter.notifyDataSetChanged();
+            }
         }
-        mNavItems.add(new NavItem(getString(R.string.menu_logout), getString(R.string.menu_logout), R.drawable.menu_logout));
         orbitNav = new OrbitMenuNavigation(getApplicationContext());
         userName = (TextView)findViewById(R.id.userName);
         userName.setText(user.getEmail() + " (" + user.getRole().getName() + ")");
