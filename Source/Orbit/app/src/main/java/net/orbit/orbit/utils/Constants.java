@@ -7,7 +7,7 @@ package net.orbit.orbit.utils;
 public class Constants {
 
     // Date formating
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_FORMAT = "MM/dd/yyyy";
 
     // User
     public static final int USER_INVALID_ATTEMPTS = 0;
