@@ -6,7 +6,9 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.orbit.orbit.activities.BaseActivity">
+    tools:context="net.orbit.orbit.activities.BaseActivity"
+    android:background="@drawable/gradient"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

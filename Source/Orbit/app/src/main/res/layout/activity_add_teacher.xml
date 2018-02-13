@@ -1,62 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="net.orbit.orbit.activities.AddTeacherActivity">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/gradient"
+tools:context="net.orbit.orbit.activities.LoginActivity">
+
+<ImageView
+    android:id="@+id/imageView"
+    android:layout_width="90dp"
+    android:layout_height="90dp"
+    android:layout_marginTop="15dp"
+    app:srcCompat="@drawable/ic_menu_add_teacher"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true" />
+
+<EditText
+    android:id="@+id/firstName"
+    android:layout_width="250dp"
+    android:layout_height="60dp"
+    android:background="#11000000"
+    android:drawableLeft="@drawable/ic_account_box_white_24px"
+    android:drawablePadding="5dp"
+    android:ems="10"
+    android:hint="First Name"
+    android:inputType="textPersonName"
+    android:paddingLeft="5dp"
+    android:textSize="16dp"
+    android:textColor="@color/colorAccent"
+    android:layout_marginBottom="20dp"
+    android:layout_above="@+id/lastName"
+    android:layout_centerHorizontal="true" />
+
+<EditText
+    android:id="@+id/lastName"
+    android:layout_width="250dp"
+    android:layout_height="60dp"
+    android:paddingLeft="5dp"
+    android:background="#11000000"
+    android:drawableLeft="@drawable/ic_account_box_white_24px"
+    android:drawablePadding="5dp"
+    android:ems="10"
+    android:hint="Last Name"
+    android:inputType="textPersonName"
+    android:textSize="16dp"
+    android:textColor="@color/colorAccent"
+    android:layout_marginBottom="80dp"
+    android:layout_above="@+id/ssn"
+    android:layout_alignBottom="@+id/ssn"
+    android:layout_alignLeft="@+id/firstName"
+    android:layout_alignStart="@+id/firstName" />
+
+<EditText
+    android:id="@+id/ssn"
+    android:layout_width="250dp"
+    android:layout_height="60dp"
+    android:paddingLeft="3dp"
+    android:background="#11000000"
+    android:drawableLeft="@drawable/ic_password"
+    android:ems="10"
+    android:hint="SSN"
+    android:inputType="numberPassword"
+    android:textSize="16dp"
+    android:textColor="@color/colorAccent"
+    android:layout_marginBottom="80dp"
+    android:layout_alignBottom="@+id/cardView"
+    android:layout_alignLeft="@+id/lastName"
+    android:layout_alignStart="@+id/lastName" />
+
+<android.support.v7.widget.CardView
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="10dp"
+    android:id="@+id/cardView"
+    android:layout_above="@+id/textView2"
+    android:layout_centerHorizontal="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/addTeacher">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Add Teacher"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+<android.support.v7.widget.CardView
+    android:id="@+id/cardView1"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_centerHorizontal="true"
+    android:layout_alignTop="@+id/textView2"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="10dp"
+    android:layout_marginTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cancel_action">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Cancel"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-        android:orientation="vertical">
-    <EditText
-        android:id="@+id/firstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="First Name"
-        android:inputType="textPersonName"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <EditText
-        android:id="@+id/lastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp" />
-
-    <EditText
-        android:id="@+id/ssn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="SSN"
-        android:inputType="numberPassword"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
-
-    <Button
-        android:id="@+id/addTeacher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/addTeacher"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
-
-    <Button
-        android:id="@+id/cancel_action"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/cancel"
-        android:layout_marginTop="15dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:id="@+id/linearLayout">
     </LinearLayout>
-</ScrollView>
 
-</LinearLayout>
+</RelativeLayout>
