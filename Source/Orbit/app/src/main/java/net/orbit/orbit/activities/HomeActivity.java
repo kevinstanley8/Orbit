@@ -54,8 +54,9 @@ public class HomeActivity extends BaseActivity {
     {
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
         User user = orbitPref.getUserPreferenceObj("loggedUser");
-        Log.i("UserFromSharedPref", user.toString());
-        String userRole = user.getRole().getName();
+        //Log.i("UserFromSharedPref", user.toString());
+        //String userRole = user.getRole().getName();
+        String userRole = Constants.ROLE_ADMIN;
 
         // ROLE BASED LIST ASSIGNMENT FOR MENU GRID GENERATION
         if(userRole.equals(Constants.ROLE_ADMIN))

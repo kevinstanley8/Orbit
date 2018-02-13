@@ -212,7 +212,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Role role = mapRoles.get(r);
                             // Get current date
                             Date dateObj = new Date();
-                            String date = new SimpleDateFormat(Constants.DATE_FORMAT).format(dateObj);
+                            String date = new SimpleDateFormat(Constants.DATE_FORMAT_LAST_LOGIN).format(dateObj);
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
                             AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString(), dob.getText().toString());
 
@@ -274,40 +274,18 @@ public class RegisterActivity extends AppCompatActivity {
             DatePickerDialog dpd = new DatePickerDialog(getActivity(),
                     AlertDialog.THEME_HOLO_LIGHT,this,year,month,day);
 
-            /*
-                add(int field, int value)
-                    Adds the given amount to a Calendar field.
-             */
             // Add 3 days to Calendar
-            calendar.add(Calendar.DATE, 3);
+            calendar.add(Calendar.DATE, 1);
 
-            /*
-                getTimeInMillis()
-                    Returns the time represented by this Calendar,
-                    recomputing the time from its fields if necessary.
-
-                getDatePicker()
-                Gets the DatePicker contained in this dialog.
-
-                setMinDate(long minDate)
-                    Sets the minimal date supported by this NumberPicker
-                    in milliseconds since January 1, 1970 00:00:00 in getDefault() time zone.
-
-                setMaxDate(long maxDate)
-                    Sets the maximal date supported by this DatePicker in milliseconds
-                    since January 1, 1970 00:00:00 in getDefault() time zone.
-             */
 
             // Set the Calendar new date as maximum date of date picker
             dpd.getDatePicker().setMaxDate(calendar.getTimeInMillis());
 
             // Subtract 6 days from Calendar updated date
-            calendar.add(Calendar.DATE, -6);
+            calendar.add(Calendar.DATE, -10000);
 
             // Set the Calendar new date as minimum date of date picker
             dpd.getDatePicker().setMinDate(calendar.getTimeInMillis());
-
-            // So, now date picker selectable date range is 7 days only
 
             // Return the DatePickerDialog
             return  dpd;
@@ -324,8 +302,7 @@ public class RegisterActivity extends AppCompatActivity {
             Date chosenDate = cal.getTime();
 
             // Format the date using style and locale
-            DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
-            String formattedDate = df.format(chosenDate);
+            String formattedDate = new SimpleDateFormat(Constants.DATE_FORMAT).format(chosenDate);
 
             // Display the chosen date to app interface
             date.setText(formattedDate);
