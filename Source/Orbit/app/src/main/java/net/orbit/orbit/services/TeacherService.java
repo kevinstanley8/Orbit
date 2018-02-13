@@ -49,7 +49,7 @@ public class TeacherService {
 
         // Sets the URL for the API url
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
-        orbitRestClient.post(this.context, "add-menu_teacher", entity, "application/json",
+        orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {

@@ -34,10 +34,12 @@
         android:layout_marginBottom="15dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_account_box_white_24px"
+        android:padding="3dp"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:textSize="16dp"/>
 
     <EditText
@@ -49,10 +51,12 @@
         android:layout_marginBottom="15dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_account_box_white_24px"
+        android:padding="3dp"
+        android:drawablePadding="5dp"
         android:ems="10"
         android:hint="Last Name"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:textSize="16dp"/>
 
     <TextView
@@ -60,7 +64,8 @@
         android:layout_width="250dp"
         android:layout_height="45dp"
         android:gravity="center_vertical"
-
+        android:padding="3dp"
+        android:drawablePadding="5dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:background="#11000000"
@@ -82,7 +87,7 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:textSize="16dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:layout_marginBottom="15dp"
         android:layout_above="@+id/password"
         android:layout_centerHorizontal="true" />
@@ -97,7 +102,7 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:textSize="16dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:layout_marginBottom="60dp"
         android:layout_alignBottom="@+id/roleSpinner"
         android:layout_alignLeft="@+id/email"

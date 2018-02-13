@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.R;
@@ -30,8 +31,8 @@ public class AddTeacherActivity extends BaseActivity {
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_add_teacher, relativeLayout);
 
-        final Button addTeacherButton = (Button) findViewById(R.id.addTeacher);
-        final Button cancelButton = (Button) findViewById(R.id.cancel_action);
+        final RelativeLayout addTeacherButton = (RelativeLayout) findViewById(R.id.addTeacher);
+        final RelativeLayout cancelButton = (RelativeLayout) findViewById(R.id.cancel_action);
 
         final EditText mFirstName   = (EditText)findViewById(R.id.firstName);
         final EditText mLastName   = (EditText)findViewById(R.id.lastName);

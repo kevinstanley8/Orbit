@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.StudentDTO;
@@ -29,7 +30,7 @@ public class FindStudentActivity extends BaseActivity {
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_find_student, relativeLayout);
 
-        final Button findStudent = (Button) findViewById(R.id.findStudent);
+        final RelativeLayout findStudent = (RelativeLayout) findViewById(R.id.findStudent);
 
         final EditText studentFirstName = (EditText) findViewById(R.id.studentFirstName);
         final EditText studentLastName = (EditText) findViewById(R.id.studentLastName);
