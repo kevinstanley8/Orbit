@@ -7,18 +7,22 @@ public class Grade {
     private String year;
     private Student student;
     private Course course;
+    private Assignment assignment;
+    private char updateType;
     private Boolean isSelected = false;
 
     public Grade() {
 
     }
 
-    public Grade(int gradeId, String grade, String year, Student student, Course course) {
+    public Grade(int gradeId, String grade, String year, Student student, Course course, Assignment assignment, char updateType) {
         this.gradeId = gradeId;
         this.grade = grade;
         this.year = year;
         this.student = student;
         this.course = course;
+        this.assignment = assignment;
+        this.updateType = updateType;
     }
 
     public int getGradeId() {
@@ -61,6 +65,22 @@ public class Grade {
         this.course = course;
     }
 
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
+
+    public char getUpdateType() {
+        return updateType;
+    }
+
+    public void setUpdateType(char updateType) {
+        this.updateType = updateType;
+    }
+
     public Boolean getSelected() {
         return isSelected;
     }
@@ -71,7 +91,7 @@ public class Grade {
 
     @Override
     public String toString() {
-        return "Grade [gradeId=" + gradeId + ", grade=" + grade + ", year=" + year + ", student=" + student.toString() + ", course=" + course.toString() + "]";
+        return "Grade [gradeId=" + gradeId + ", grade=" + grade + ", year=" + year + ", student=" + student.toString() + ", course=" + course.toString() + ", assignment=" + assignment.toString() + ", updateType=" + updateType + "]";
     }
 
 }

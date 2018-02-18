@@ -7,10 +7,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import net.orbit.orbit.activities.ViewAssignmentGradesActivity;
 import net.orbit.orbit.activities.ViewCourseAssignmentsActivity;
 import net.orbit.orbit.models.dto.CreateAssignmentDTO;
+import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.utils.Constants;
@@ -40,11 +42,20 @@ public class GradeService {
         this.context = context;
     }
 
-    public void getAllStudentGradesForAssignment(final ViewAssignmentGradesActivity activity, int assignmentID){
-        Log.d("GradeService", "Getting all the enrolled students and grades for assignment ID: " + assignmentID);
+    public void getAllStudentGradesForAssignment(final ViewAssignmentGradesActivity activity, final GetGradesForAssignmentDTO getGradesForAssignmentDTO){
+        Gson gson = new Gson();
+        String json = gson.toJson(getGradesForAssignmentDTO);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("GradeService", "Getting all the enrolled students and grades for course ID " + getGradesForAssignmentDTO.getCourseID() + " assignment ID: " + getGradesForAssignmentDTO.getAssignmentID());
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
 
-        orbitRestClient.get("all-grades-for-assignment/" + assignmentID, null, new JsonHttpResponseHandler(){
+        orbitRestClient.get("all-grades-for-assignment/" + getGradesForAssignmentDTO.getCourseID() + "/" + getGradesForAssignmentDTO.getAssignmentID(), new RequestParams("getGradesForAssignmentDTO", entity), new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray grades) {
@@ -56,56 +67,11 @@ public class GradeService {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("AssignmentService", "Error when getting assignments for course: " + errorResponse);
+                Log.e("GradeService", "Error when getting grades for assignment: " + getGradesForAssignmentDTO.getAssignmentID());
             }
 
         });
     }
-
-    /*public void createGrade(CreateAssignmentDTO createAssignmentDTO){
-        Gson gson = new Gson();
-        String json = gson.toJson(createAssignmentDTO);
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(json.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
-        orbitRestClient.post(this.context, "create-assignment", entity, "application/json",
-                new JsonHttpResponseHandler(){
-                    @Override
-                    public void onStart() {
-                        // called before request is started
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject assignment) {
-                        // called when success happens
-                        Gson gson = new Gson();
-                        Assignment newAssignment = gson.fromJson(assignment.toString(), Assignment.class);
-
-                        Log.i("AccountService", "Created Assignment" + newAssignment.getAssignmentId());
-                        // We have a match student. Need to do linking here.
-                        Toast.makeText(context, "New Assignment: " + newAssignment.getName() + " created!", Toast.LENGTH_SHORT).show();
-                        context.startActivity(ViewCourseAssignmentsActivity.createIntent(context, newAssignment.getCourse().getCourseId()));
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
-                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("StudentService", "Error when linking student: " + errorResponse);
-                        Toast.makeText(context, "Error linking student, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                    }
-                });
-    }*/
 
 
 }

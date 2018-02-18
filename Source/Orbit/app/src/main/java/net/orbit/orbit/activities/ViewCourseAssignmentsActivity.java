@@ -130,7 +130,7 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             int assignmentID = ViewCourseAssignmentsActivity.Adapter.assignments.get(position).getAssignmentId();
 
             Context context = itemView.getContext();
-            Intent intent = ViewAssignmentGradesActivity.createIntent(context, assignmentID);
+            Intent intent = ViewAssignmentGradesActivity.createIntent(context, courseID, assignmentID);
             context.startActivity(intent);
 
         }

@@ -17,9 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.AssignmentService;
+import net.orbit.orbit.services.GradeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +29,12 @@ import java.util.List;
 public class ViewAssignmentGradesActivity extends BaseActivity {
     public static int assignmentID = 0;
     private RecyclerView recyclerView;
-    AssignmentService assignmentService = new AssignmentService(this);
+    private GradeService gradeService = new GradeService(this);
     private static int courseID = 0;
 
-    public static Intent createIntent(Context context, int assignmentID) {
+    public static Intent createIntent(Context context, int courseID, int assignmentID) {
         Intent i = new Intent(context, ViewAssignmentGradesActivity.class);
+        ViewAssignmentGradesActivity.courseID = courseID;
         ViewAssignmentGradesActivity.assignmentID = assignmentID;
         return i;
     }
@@ -47,7 +50,8 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ViewAssignmentGradesActivity.Adapter(this));
 
-        //assignmentService.getAllAssignmentsForCourse(this, ViewAssignmentGradesActivity.courseID);
+        GetGradesForAssignmentDTO getGradesForAssignmentDTO = new GetGradesForAssignmentDTO(ViewAssignmentGradesActivity.courseID, ViewAssignmentGradesActivity.assignmentID);
+        gradeService.getAllStudentGradesForAssignment(this, getGradesForAssignmentDTO);
     }
 
     public void updateGradeList(List<Grade> gradeList)
@@ -90,6 +94,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         public void onBindViewHolder(ViewAssignmentGradesActivity.ViewHolder holder, int position) {
             Grade grade = grades.get(position);
 
+            holder.txtStudentName.setText(grade.getStudent().getStudentLastName() + ", " + grade.getStudent().getStudentFirstName());
             holder.txtGrade.setText(grade.getGrade());
 
             /*if(grade.getIsSelected())
