@@ -10,7 +10,6 @@
         <ImageView
             android:id="@+id/gridImage"
             android:scaleType="fitCenter"
-            android:background="#ffffff"
             android:padding="0dp"
             android:layout_width="115dp"
             android:layout_height="100dp"
