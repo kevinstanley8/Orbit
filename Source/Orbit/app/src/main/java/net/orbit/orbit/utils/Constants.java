@@ -30,5 +30,8 @@ public class Constants {
     // String for values that are not filled out thru app UI
     public static final String FILLOUT_LATER = "TO BE FILLED AT A LATER DATE";
 
-
+    // Issue (Bug) Priority
+    public static final String ISSUE_LOW_PRIORITY = "Low";
+    public static final String ISSUE_MEDIUM_PRIORITY = "Medium";
+    public static final String ISSUE_HIGH_PRIORITY = "High";
 }

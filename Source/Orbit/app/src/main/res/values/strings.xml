@@ -38,6 +38,7 @@
     <string name="view_assignments">View Assignments</string>
     <string name="open">Open Drawer</string>
     <string name="create_assignment">Create Assignment</string>
+    <string name="report_a_bug">Report A Bug</string>
 
 
 </resources>

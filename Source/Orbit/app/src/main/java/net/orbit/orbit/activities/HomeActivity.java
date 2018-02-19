@@ -181,6 +181,11 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, CreateAssignmentActivity.class);
                     startActivity(newIntent);
                 }
+                if(temp.getLabel() == (R.string.report_a_bug))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ReportABugActivity.class);
+                    startActivity(newIntent);
+                }
 
             }
         });

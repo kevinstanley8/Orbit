@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             public void run() {
                 startActivity(HomeActivity.createIntent(test));
             }
-        },500);
+        },1000);
 
     }
 

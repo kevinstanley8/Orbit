@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
-import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.utils.Constants;
@@ -158,7 +156,10 @@ public class BaseActivity extends AppCompatActivity {
         public static final int LOG_OFF = 6;
         public static final int VIEW_COURSES = 7;
         public static final int ENROLL_STUDENT_IN_COURSE = 8;
-
+        public static final int CHOOSE_COURSE = 9;
+        public static final int VIEW_ASSIGNMENTS = 10;
+        public static final int CREATE_ASSIGNMENT = 11;
+        public static final int REPORT_A_BUG = 12;
 
 
 
@@ -200,6 +201,14 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = LOG_OFF;
             else if(item.mTitle.trim().equals("View Courses"))
                 selectedItem = VIEW_COURSES;
+            else if(item.mTitle.trim().equals("Choose Course"))
+                selectedItem = CHOOSE_COURSE;
+            else if(item.mTitle.trim().equals("View Assignments"))
+                selectedItem = VIEW_ASSIGNMENTS;
+            else if(item.mTitle.trim().equals("Create Assignment"))
+                selectedItem = CREATE_ASSIGNMENT;
+            else if(item.mTitle.trim().equals("Report A Bug"))
+                selectedItem = REPORT_A_BUG;
 
 
             switch(selectedItem)
@@ -222,6 +231,14 @@ public class BaseActivity extends AppCompatActivity {
                 case VIEW_COURSES: startActivityForResult(ViewCoursesTeacherActivity.createIntent(context), result);
                     break;
                 case ENROLL_STUDENT_IN_COURSE: startActivityForResult(EnrollStudentInCourseActivity.createIntent(context), result);
+                    break;
+                case CHOOSE_COURSE: startActivityForResult(ChooseCourseActivity.createIntent(context), result);
+                    break;
+                case VIEW_ASSIGNMENTS: startActivityForResult(ViewCourseAssignmentsActivity.createIntent(context), result);
+                    break;
+                case CREATE_ASSIGNMENT: startActivityForResult(CreateAssignmentActivity.createIntent(context), result);
+                    break;
+                case REPORT_A_BUG: startActivityForResult(ReportABugActivity.createIntent(context), result);
                     break;
             }
         }
