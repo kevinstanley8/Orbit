@@ -119,7 +119,7 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            image = (ImageView) itemView.findViewById(R.drawable.ic_description_black_24dp);
+            image = (ImageView) itemView.findViewById(R.drawable.ic_perm_identity_white_24px);
             txtAssignmentName = (TextView) itemView.findViewById(R.id.txtAssignmentName);
             isSelected = false;
         }

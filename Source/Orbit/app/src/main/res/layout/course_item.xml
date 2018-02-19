@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/iconImage"
-            android:src="@drawable/ic_class_black_24px"
+            android:src="@drawable/ic_class_white_24px"
             android:scaleType="centerCrop"/>
 
     </FrameLayout>

@@ -169,7 +169,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            memeImage = (ImageView) itemView.findViewById(R.drawable.ic_person_black_24px);
+            memeImage = (ImageView) itemView.findViewById(R.drawable.ic_perm_identity_white_24px);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
             isSelected = false;
         }
