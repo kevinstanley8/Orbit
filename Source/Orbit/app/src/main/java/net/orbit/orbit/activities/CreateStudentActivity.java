@@ -146,7 +146,7 @@ public class CreateStudentActivity extends BaseActivity
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
                     // Initialize a new date picker dialog fragment
-                    DialogFragment dFragment = new RegisterActivity.DatePickerFragment();
+                    DialogFragment dFragment = new CreateStudentActivity.DatePickerFragment();
 
                     // Show the date picker dialog fragment
                     dFragment.show(getFragmentManager(), "Date Picker");

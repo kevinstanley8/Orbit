@@ -84,7 +84,7 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:layout_marginTop="10dp"
-        android:hint="DOB (10/20/1980)"
+        android:hint="Date of birth"
         android:inputType="textPersonName"
         android:textSize="16dp"
         android:textColor="@color/colorAccent"
