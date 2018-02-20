@@ -13,7 +13,7 @@
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/menu_create_assignment"
+        android:src="@drawable/ic_menu_create_assignment"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
