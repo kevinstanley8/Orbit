@@ -35,11 +35,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AddTeacherActivity"
-            android:label="AddTeacherActivity"
+            android:label="@string/title_add_Teacher"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.CreateStudentActivity"
-            android:label="CreateStudentActivity"
+            android:label="@string/title_create_student"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.BaseActivity"
@@ -84,7 +84,7 @@
         <activity
             android:name=".activities.ViewAssignmentGradesActivity"
             android:label="View Single Assignment"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-
         <activity
             android:name=".activities.ReportABugActivity"
             android:label="@string/report_a_bug"

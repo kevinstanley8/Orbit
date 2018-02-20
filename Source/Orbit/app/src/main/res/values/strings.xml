@@ -39,6 +39,8 @@
     <string name="open">Open Drawer</string>
     <string name="create_assignment">Create Assignment</string>
     <string name="report_a_bug">Report A Bug</string>
+    <string name="title_create_student">Create Student</string>
+    <string name="title_add_Teacher">Add Teacher</string>
 
 
 </resources>
