@@ -53,7 +53,7 @@ public class StudentService
 
         // Sets the URL for the API url
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
-        orbitRestClient.post(this.context, "create-menu_student", entity, "application/json",
+        orbitRestClient.post(this.context, "create-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
@@ -63,14 +63,14 @@ public class StudentService
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray student) {
                         // called when success happens
-                        Log.i("CreateStudentActivity", "Successfully created new menu_teacher: " + student);
+                        Log.i("CreateStudentActivity", "Successfully created new student: " + student);
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("CreateStudentActivity", "Error when creating new menu_student: " + errorResponse);
+                        Log.e("CreateStudentActivity", "Error when creating new student: " + errorResponse);
                     }
 
                     @Override
