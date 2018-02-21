@@ -52,38 +52,38 @@ public class CreateStudentActivity extends BaseActivity
 
         final EditText studentFirstName = (EditText) findViewById(R.id.studentFirstName);
         final EditText studentLastName = (EditText) findViewById(R.id.studentLastName);
-        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
-        final EditText studentAddress1 = (EditText) findViewById(R.id.studentAddress1);
-        final EditText studentAddress2 = (EditText) findViewById(R.id.studentAddress2);
-        final EditText studentCity = (EditText) findViewById(R.id.studentCity);
-        final EditText studentState = (EditText) findViewById(R.id.studentState);
-        final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
+//        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
+//        final EditText studentAddress1 = (EditText) findViewById(R.id.studentAddress1);
+//        final EditText studentAddress2 = (EditText) findViewById(R.id.studentAddress2);
+//        final EditText studentCity = (EditText) findViewById(R.id.studentCity);
+//        final EditText studentState = (EditText) findViewById(R.id.studentState);
+//        final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
         final TextView dateTextView = (TextView) findViewById(R.id.studentDateOfBirth);
-        final String studentGrade = Constants.FILLOUT_LATER;
-
-        final String motherFirstName = Constants.FILLOUT_LATER;
-        final String motherLastName = Constants.FILLOUT_LATER;
-        final String motherSSN = Constants.FILLOUT_LATER;
-        final String motherAddress1 = Constants.FILLOUT_LATER;
-        final String motherAddress2 = Constants.FILLOUT_LATER;
-        final String motherCity = Constants.FILLOUT_LATER;
-        final String motherState = Constants.FILLOUT_LATER;
-        final String motherZipCode = Constants.FILLOUT_LATER;
-        final String motherHomePhone = Constants.FILLOUT_LATER;
-        final String motherCellPhone = Constants.FILLOUT_LATER;
-        final String motherEmail = Constants.FILLOUT_LATER;
-
-        final String fatherFirstName = Constants.FILLOUT_LATER;
-        final String fatherLastName = Constants.FILLOUT_LATER;
-        final String fatherSSN = Constants.FILLOUT_LATER;
-        final String fatherAddress1 = Constants.FILLOUT_LATER;
-        final String fatherAddress2 = Constants.FILLOUT_LATER;
-        final String fatherCity = Constants.FILLOUT_LATER;
-        final String fatherState = Constants.FILLOUT_LATER;
-        final String fatherZipCode = Constants.FILLOUT_LATER;
-        final String fatherHomePhone = Constants.FILLOUT_LATER;
-        final String fatherCellPhone = Constants.FILLOUT_LATER;
-        final String fatherEmail = Constants.FILLOUT_LATER;
+//        final String studentGrade = Constants.FILLOUT_LATER;
+//
+//        final String motherFirstName = Constants.FILLOUT_LATER;
+//        final String motherLastName = Constants.FILLOUT_LATER;
+//        final String motherSSN = Constants.FILLOUT_LATER;
+//        final String motherAddress1 = Constants.FILLOUT_LATER;
+//        final String motherAddress2 = Constants.FILLOUT_LATER;
+//        final String motherCity = Constants.FILLOUT_LATER;
+//        final String motherState = Constants.FILLOUT_LATER;
+//        final String motherZipCode = Constants.FILLOUT_LATER;
+//        final String motherHomePhone = Constants.FILLOUT_LATER;
+//        final String motherCellPhone = Constants.FILLOUT_LATER;
+//        final String motherEmail = Constants.FILLOUT_LATER;
+//
+//        final String fatherFirstName = Constants.FILLOUT_LATER;
+//        final String fatherLastName = Constants.FILLOUT_LATER;
+//        final String fatherSSN = Constants.FILLOUT_LATER;
+//        final String fatherAddress1 = Constants.FILLOUT_LATER;
+//        final String fatherAddress2 = Constants.FILLOUT_LATER;
+//        final String fatherCity = Constants.FILLOUT_LATER;
+//        final String fatherState = Constants.FILLOUT_LATER;
+//        final String fatherZipCode = Constants.FILLOUT_LATER;
+//        final String fatherHomePhone = Constants.FILLOUT_LATER;
+//        final String fatherCellPhone = Constants.FILLOUT_LATER;
+//        final String fatherEmail = Constants.FILLOUT_LATER;
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -101,38 +101,7 @@ public class CreateStudentActivity extends BaseActivity
                 Student newStudent = new Student(
                                 studentFirstName.getText().toString(),
                                 studentLastName.getText().toString(),
-                                dateTextView.getText().toString(),
-                                studentSSN.getText().toString(),
-                                studentAddress1.getText().toString(),
-                                studentAddress2.getText().toString(),
-                                studentCity.getText().toString(),
-                                studentState.getText().toString(),
-                                studentZipCode.getText().toString(),
-                                studentGrade,
-                                motherFirstName,
-                                motherLastName,
-                                motherSSN,
-                                motherAddress1,
-                                motherAddress2,
-                                motherCity,
-                                motherState,
-                                motherZipCode,
-                                motherHomePhone,
-                                motherCellPhone,
-                                motherEmail,
-                                fatherFirstName,
-                                fatherLastName,
-                                fatherSSN,
-                                fatherAddress1,
-                                fatherAddress2,
-                                fatherCity,
-                                fatherState,
-                                fatherZipCode,
-                                fatherHomePhone,
-                                fatherCellPhone,
-                                fatherEmail,
-                                0
-                                );
+                                dateTextView.getText().toString());
 
                 studentService.addStudent(newStudent);
 
