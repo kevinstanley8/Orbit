@@ -50,7 +50,7 @@ public class FindStudentActivity extends BaseActivity {
                 );
 
                 OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-                String uid = orbitPref.getUserPreference("userUID");
+                String uid = orbitPref.getPreference("userUID");
                 studentService.findStudent(studentDto, uid);
 
             }

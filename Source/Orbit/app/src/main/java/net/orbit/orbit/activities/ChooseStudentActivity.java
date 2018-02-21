@@ -38,7 +38,7 @@ public class ChooseStudentActivity extends BaseActivity {
 
         //get UID of current user
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        String uid = orbitPref.getUserPreference("userUID");
+        String uid = orbitPref.getPreference("userUID");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -55,7 +55,7 @@ public class CourseService {
             public void onSuccess(Teacher teacher) {
                 Log.i("CourseService", "Found teacher and call back is working: " + teacher);
                 OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
-                orbitPref.storeUserPreference("loggedUser", teacher);
+                orbitPref.storePreference("loggedInTeacher", teacher);
                 orbitRestClient.get("get-courses-by-teacher-id/" + teacher.getTeacherID(), null, new JsonHttpResponseHandler(){
 
                     @Override

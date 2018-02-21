@@ -98,7 +98,7 @@ public class UserService {
                         User dbUser = gson.fromJson(user.toString(), User.class);
                         if (savetoSP) {
                             OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
-                            orbitPref.storeUserPreference("loggedUser", dbUser);
+                            orbitPref.storePreference("loggedUser", dbUser);
                         }
 
                     }

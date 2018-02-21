@@ -31,22 +31,11 @@ public class OrbitUserPreferences {
     }
 
     /**
-     * Storing text in shared preferences
-     * @param prefName
-     * @param prefValue
-     */
-    public void storeUserPreference(String prefName, String prefValue)
-    {
-        editor.putString(prefName, prefValue); // Storing long
-        editor.commit();
-    }
-
-    /**
      * Storing object in shared preferences
      * @param prefName
      * @param type
      */
-    public <T> void storeUserPreference(String prefName, T type)
+    public <T> void storePreference(String prefName, T type)
     {
         Gson gson = new Gson();
         String json = gson.toJson(type);
@@ -59,7 +48,7 @@ public class OrbitUserPreferences {
      * @param prefName
      * @param list
      */
-    public <T> void storeUserPreference(String prefName, List<T> list)
+    public <T> void storeListPreference(String prefName, List<T> list)
     {
         String json = new Gson().toJson(list, new TypeToken<List<T>>(){}.getType());
         editor.putString(prefName, json);
@@ -71,7 +60,7 @@ public class OrbitUserPreferences {
      * @param prefName
      * @return
      */
-    public String getUserPreference(String prefName)
+    public String getPreference(String prefName)
     {
         String prefValue = pref.getString(prefName, null);
         return prefValue;
