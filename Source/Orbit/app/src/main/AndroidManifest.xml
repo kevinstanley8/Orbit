@@ -10,11 +10,15 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
+        android:name=".messaging.main.BaseApplication"
+
         android:allowBackup="true"
         android:icon="@drawable/orbit_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!---
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name" />
@@ -25,6 +29,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+-->
+        <activity android:name=".messaging.main.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register"
@@ -89,6 +102,50 @@
             android:name=".activities.ReportABugActivity"
             android:label="@string/report_a_bug"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <!--
+
+
+
+
+        -->
+
+        <activity android:name=".messaging.main.MainActivity"
+        android:label="@string/select_channel_type"/>
+        <activity
+            android:name=".messaging.main.SettingsActivity"
+            android:label="@string/settings" />
+        <activity
+            android:name=".messaging.main.BlockedMembersListActivity"
+            android:label="@string/blocked_members_list" />
+
+        <activity android:name=".messaging.utils.PhotoViewerActivity" />
+        <activity
+            android:name=".messaging.utils.MediaPlayerActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".messaging.groupchannel.GroupChannelActivity"
+            android:label="@string/create_open_channel"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".messaging.groupchannel.InviteMemberActivity"
+            android:label="@string/invite_member" />
+        <activity
+            android:name=".messaging.groupchannel.MemberListActivity"
+            android:label="@string/member_list" />
+        <activity
+            android:name=".messaging.groupchannel.MemberInfoActivity"
+            android:label="@string/member_info" />
+        <activity
+            android:name=".messaging.groupchannel.CreateGroupChannelActivity"
+            android:label="@string/create_group_channel" />
+        <activity
+            android:name=".messaging.openchannel.CreateOpenChannelActivity"
+            android:label="@string/participant_list" />
+        <activity android:name=".messaging.openchannel.OpenChannelActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".messaging.openchannel.ParticipantListActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

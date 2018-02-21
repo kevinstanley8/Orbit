@@ -19,6 +19,8 @@ import com.google.gson.internal.bind.MapTypeAdapterFactory;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.messaging.main.LoginActivity;
+import net.orbit.orbit.messaging.main.MainActivity;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.models.pojo.MainMenuItem;
@@ -184,6 +186,11 @@ public class HomeActivity extends BaseActivity {
                 if(temp.getLabel() == (R.string.report_a_bug))
                 {
                     Intent newIntent = new Intent(HomeActivity.this, ReportABugActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.message_center))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(newIntent);
                 }
 
