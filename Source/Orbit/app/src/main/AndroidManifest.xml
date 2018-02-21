@@ -10,15 +10,12 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
-        android:name=".messaging.main.BaseApplication"
-
         android:allowBackup="true"
         android:icon="@drawable/orbit_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!---
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name" />
@@ -29,14 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
--->
-        <activity android:name=".messaging.main.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--  SendBird stuff, might not be ness.
+                <activity android:name=".messaging.main.LoginActivity">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>
+-->
+
 
         <activity
             android:name=".activities.RegisterActivity"
@@ -106,6 +106,7 @@
         <!--
 
 
+        Send Bird Activities
 
 
         -->

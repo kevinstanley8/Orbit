@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.sendbird.android.SendBird;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.messaging.utils.PreferenceUtils;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.models.pojo.User;
@@ -286,28 +285,14 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        /******
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
+        /***
+         * SendBird
          */
-        PreferenceUtils.init(getApplicationContext());
+        OrbitUserPreferences.init(getApplicationContext());
 
         SendBird.init(APP_ID, getApplicationContext());
-
-
-        /*****
-         *
-         *
-         *
-         *
-         *
-         *
+        /***
+         * SendBird
          */
 
         relativeLayout = (RelativeLayout)findViewById(R.id.mainContent);

@@ -43,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         mUserIdConnectEditText = (TextInputEditText) findViewById(R.id.edittext_login_user_id);
         mUserNicknameEditText = (TextInputEditText) findViewById(R.id.edittext_login_user_nickname);
 
-//        mUserIdConnectEditText.setText(PreferenceUtils.getUserId());
-  //      mUserNicknameEditText.setText(PreferenceUtils.getNickname());
+        mUserIdConnectEditText.setText(PreferenceUtils.getUserId());
+        mUserNicknameEditText.setText(PreferenceUtils.getNickname());
 
         mConnectButton = (Button) findViewById(R.id.button_login_connect);
         mConnectButton.setOnClickListener(new View.OnClickListener() {
