@@ -60,7 +60,7 @@ public class OrbitUserPreferences {
      * @param prefName
      * @return
      */
-    public String getPreference(String prefName)
+    public String getStringPreference(String prefName)
     {
         String prefValue = pref.getString(prefName, null);
         return prefValue;

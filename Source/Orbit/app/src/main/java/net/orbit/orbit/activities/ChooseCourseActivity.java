@@ -98,7 +98,7 @@ public class ChooseCourseActivity extends BaseActivity {
         Type type = new TypeToken<List<Course>>() {}.getType();
         List<Course> savedCourseList = new ArrayList<>();
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        savedCourseList = gson.fromJson(orbitPref.getPreference("courseList"), type);
+        savedCourseList = gson.fromJson(orbitPref.getStringPreference("courseList"), type);
 
         //only set the course list if a List was found saved in Shared Preferences
         if(savedCourseList != null && savedCourseList.size() > 0) {

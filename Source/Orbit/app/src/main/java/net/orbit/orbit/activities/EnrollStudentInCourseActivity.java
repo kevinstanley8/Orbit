@@ -102,7 +102,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         Type type = new TypeToken<List<Student>>() {}.getType();
         List<Student> savedStudentList = new ArrayList<>();
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        savedStudentList = gson.fromJson(orbitPref.getPreference("studentList"), type);
+        savedStudentList = gson.fromJson(orbitPref.getStringPreference("studentList"), type);
 
         //only set the meme list if a List was found saved in Shared Preferences
         if(savedStudentList != null && savedStudentList.size() > 0) {
