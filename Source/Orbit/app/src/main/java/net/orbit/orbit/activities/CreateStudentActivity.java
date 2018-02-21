@@ -15,11 +15,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
+import net.orbit.orbit.utils.ServerCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -103,7 +107,20 @@ public class CreateStudentActivity extends BaseActivity
                                 studentLastName.getText().toString(),
                                 dateTextView.getText().toString());
 
-                studentService.addStudent(newStudent);
+                studentService.addStudent(newStudent, new ServerCallback<Student>(){
+
+                    @Override
+                    public void onSuccess(Student result) {
+                        Toast.makeText(CreateStudentActivity.this, "Student " + result.getStudentFirstName() + " " + result.getStudentLastName() + " created.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFail(ErrorResponse errorMessage) {
+                        Toast.makeText(CreateStudentActivity.this, "Student creation failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });

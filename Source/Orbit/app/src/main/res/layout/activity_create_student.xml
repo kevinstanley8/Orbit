@@ -80,7 +80,8 @@
         android:layout_height="50dp"
         android:layout_alignLeft="@+id/studentFirstName"
         android:layout_alignStart="@+id/studentFirstName"
-        android:layout_below="@+id/studentSSN"
+        android:layout_below="@+id/studentLastName"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="10dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_date_range_white_24px"
@@ -196,18 +197,19 @@
         android:layout_centerHorizontal="true">
 
         <RelativeLayout
+            android:id="@+id/createStudent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/createStudent">
+            >
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Create Student"
                 android:textColor="#fff"
-                android:textSize="18sp"
-                android:id="@+id/textView3" />
+                android:textSize="18sp"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

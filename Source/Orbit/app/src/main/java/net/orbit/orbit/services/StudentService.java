@@ -11,14 +11,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import net.orbit.orbit.activities.ChooseStudentActivity;
 import net.orbit.orbit.activities.EnrollStudentInCourseActivity;
 import net.orbit.orbit.activities.HomeActivity;
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.AccountLink;
 import net.orbit.orbit.models.dto.AccountLinkDTO;
 import net.orbit.orbit.models.dto.EnrollStudentInClassDTO;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.dto.StudentDTO;
-import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
-import net.orbit.orbit.utils.PropertiesService;
+import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +39,7 @@ public class StudentService extends BaseService {
     public StudentService(Context context){
         this.context = context;
     }
-    public void addStudent(Student newStudent){
+    public void addStudent(Student newStudent, final ServerCallback<Student> callback){
         Gson gson = new Gson();
         String json = gson.toJson(newStudent);
         StringEntity entity = null;
@@ -59,16 +59,21 @@ public class StudentService extends BaseService {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray student) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject jsonStudent) {
                         // called when success happens
-                        Log.i("CreateStudentActivity", "Successfully created new student: " + student);
-
+                        Log.i("CreateStudentActivity", "Successfully created new student: " + jsonStudent);
+                        Gson gson = new Gson();
+                        Student student = gson.fromJson(jsonStudent.toString(), Student.class);
+                        callback.onSuccess(student);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("CreateStudentActivity", "Error when creating new student: " + errorResponse);
+                        Gson gson = new Gson();
+                        ErrorResponse er = gson.fromJson(errorResponse.toString(), ErrorResponse.class);
+                        callback.onFail(er);
                     }
 
                     @Override
