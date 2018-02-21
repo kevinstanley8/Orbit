@@ -20,7 +20,6 @@ import android.widget.Toast;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.ServerCallback;
@@ -43,6 +42,12 @@ public class CreateStudentActivity extends BaseActivity
         return i;
     }
 
+    private void restartActivity(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -56,13 +61,14 @@ public class CreateStudentActivity extends BaseActivity
 
         final EditText studentFirstName = (EditText) findViewById(R.id.studentFirstName);
         final EditText studentLastName = (EditText) findViewById(R.id.studentLastName);
+        final TextView dateTextView = (TextView) findViewById(R.id.studentDateOfBirth);
+
 //        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
 //        final EditText studentAddress1 = (EditText) findViewById(R.id.studentAddress1);
 //        final EditText studentAddress2 = (EditText) findViewById(R.id.studentAddress2);
 //        final EditText studentCity = (EditText) findViewById(R.id.studentCity);
 //        final EditText studentState = (EditText) findViewById(R.id.studentState);
 //        final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
-        final TextView dateTextView = (TextView) findViewById(R.id.studentDateOfBirth);
 //        final String studentGrade = Constants.FILLOUT_LATER;
 //
 //        final String motherFirstName = Constants.FILLOUT_LATER;
@@ -99,7 +105,17 @@ public class CreateStudentActivity extends BaseActivity
 
         createStudent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 Log.d("CreateStudentActivity", "Create A New Student.");
+
+                if(        studentFirstName.getText().toString().matches("")
+                        || studentLastName.getText().toString().matches("")
+                        || dateTextView.getText().toString().matches("")){
+                    Toast.makeText(CreateStudentActivity.this, "Form is invalid. Please enter all fields.",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
 
                 //Creates a new menu_student Object to send to API
                 Student newStudent = new Student(
@@ -113,12 +129,14 @@ public class CreateStudentActivity extends BaseActivity
                     public void onSuccess(Student result) {
                         Toast.makeText(CreateStudentActivity.this, "Student " + result.getStudentFirstName() + " " + result.getStudentLastName() + " created.",
                                 Toast.LENGTH_SHORT).show();
+                        restartActivity();
                     }
 
                     @Override
                     public void onFail(ErrorResponse errorMessage) {
                         Toast.makeText(CreateStudentActivity.this, "Student creation failed.",
                                 Toast.LENGTH_SHORT).show();
+                        restartActivity();
                     }
                 });
 
