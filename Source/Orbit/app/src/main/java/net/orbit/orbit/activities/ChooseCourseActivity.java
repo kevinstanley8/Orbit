@@ -27,7 +27,8 @@ import java.util.List;
 
 public class ChooseCourseActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    CourseService courseService = new CourseService(this);
+    private CourseService courseService = new CourseService(this);
+    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ChooseCourseActivity.class);
@@ -88,7 +89,6 @@ public class ChooseCourseActivity extends BaseActivity {
 
     public void saveCourseList()
     {
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         orbitPref.storeListPreference("courseList", ChooseCourseActivity.Adapter.courses);
     }
 
@@ -97,7 +97,6 @@ public class ChooseCourseActivity extends BaseActivity {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Course>>() {}.getType();
         List<Course> savedCourseList = new ArrayList<>();
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
         savedCourseList = gson.fromJson(orbitPref.getStringPreference("courseList"), type);
 
         //only set the course list if a List was found saved in Shared Preferences
