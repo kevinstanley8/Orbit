@@ -24,10 +24,11 @@ import java.util.ArrayList;
  * Created by sristic on 2/19/18.
  */
 public class ReportABugActivity extends BaseActivity {
-    EditText issueName;
-    EditText issueDescription;
-    Spinner issuePrioritySpinner;
-    TicketService ticketService = new TicketService(this);
+    private EditText issueName;
+    private EditText issueDescription;
+    private Spinner issuePrioritySpinner;
+    private TicketService ticketService = new TicketService(this);
+    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,6 @@ public class ReportABugActivity extends BaseActivity {
         }
 
         if (proceed) {
-            OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
             User user = orbitPref.getUserPreferenceObj("loggedUser");
             Ticket ticket = new Ticket(name, description, priority, user);
             ticketService.addTicket(ticket);

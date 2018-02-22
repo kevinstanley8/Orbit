@@ -29,6 +29,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class UserService {
     private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
     private PropertiesService propertiesService = new PropertiesService(this.context);
+    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
     private Context context;
 
     public UserService(Context context){
@@ -97,7 +98,6 @@ public class UserService {
                         Gson gson = new Gson();
                         User dbUser = gson.fromJson(user.toString(), User.class);
                         if (savetoSP) {
-                            OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
                             orbitPref.storePreference("loggedUser", dbUser);
                         }
 

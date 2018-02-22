@@ -57,6 +57,8 @@ public class BaseActivity extends AppCompatActivity {
     private List<MainMenuItem> mainMenuItems;
     private DrawerListAdapter adapter;
 
+    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+
 
     public String getDrawerOpenTitle() {
         return drawerOpenTitle;
@@ -335,7 +337,6 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void updateNavBar(){
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
         User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
         String userRole = user.getRole().getName();
