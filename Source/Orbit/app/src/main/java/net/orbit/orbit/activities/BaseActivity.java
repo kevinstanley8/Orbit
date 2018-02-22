@@ -255,6 +255,10 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public void testMethod(){
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle

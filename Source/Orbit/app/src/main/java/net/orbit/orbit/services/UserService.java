@@ -27,9 +27,9 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  */
 
 public class UserService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    Context context;
+    private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+    private PropertiesService propertiesService = new PropertiesService(this.context);
+    private Context context;
 
     public UserService(Context context){
         this.context = context;

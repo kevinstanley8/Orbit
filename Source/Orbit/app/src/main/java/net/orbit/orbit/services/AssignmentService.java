@@ -31,10 +31,10 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  */
 
 public class AssignmentService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    SecurityService securityService = new SecurityService();
-    TeacherService teacherService = new TeacherService();
+    OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+    PropertiesService propertiesService = new PropertiesService(this.context);
+    SecurityService securityService = new SecurityService(this.context);
+    TeacherService teacherService = new TeacherService(this.context);
     Context context;
 
     public AssignmentService(Context context){

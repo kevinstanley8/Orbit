@@ -15,7 +15,7 @@ public class PropertyReader {
     private Properties properties;
 
     public PropertyReader(Context context){
-        this.context=context;
+        this.context = context;
         properties = new Properties();
     }
 

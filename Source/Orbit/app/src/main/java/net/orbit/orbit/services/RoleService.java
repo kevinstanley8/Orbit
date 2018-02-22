@@ -21,10 +21,10 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class RoleService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    SecurityService securityService = new SecurityService();
-    Context context;
+    private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+    private PropertiesService propertiesService = new PropertiesService(this.context);
+    private SecurityService securityService = new SecurityService(this.context);
+    private Context context;
 
     public RoleService(Context context){
         this.context = context;

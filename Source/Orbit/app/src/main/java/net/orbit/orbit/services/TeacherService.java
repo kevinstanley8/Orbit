@@ -27,15 +27,13 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  */
 
 public class TeacherService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    Context context;
+    private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+    private PropertiesService propertiesService = new PropertiesService(this.context);
+    private Context context;
 
     public TeacherService(Context context){
         this.context = context;
     }
-
-    public TeacherService() { }
 
     public void addTeacher(Teacher newTeacher){
         Gson gson = new Gson();
@@ -48,7 +46,7 @@ public class TeacherService {
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -106,8 +104,8 @@ public class TeacherService {
 
     }
 
-    public void getTeacherByUid(String UID, final ViewCoursesTeacherActivity activity , final ServerCallback<Teacher> callback){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(activity, Constants.ORBIT_API_URL));
+    public void getTeacherByUid(String UID, final ServerCallback<Teacher> callback){
+        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
 
             @Override

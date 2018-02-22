@@ -12,9 +12,9 @@ import net.orbit.orbit.utils.OrbitUserPreferences;
  * Created by sristic on 1/31/18.
  */
 
-public class LogoutService extends BaseActivity{
+public class LogoutService {
 
-    Context context;
+    private Context context;
 
     public LogoutService(Context context){
         this.context = context;

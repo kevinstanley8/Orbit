@@ -43,16 +43,17 @@ public class HomeActivity extends BaseActivity {
 
 
 
-    PropertiesService propertiesService = new PropertiesService();
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
+    private PropertiesService propertiesService = new PropertiesService(this);
+    private  OrbitRestClient orbitRestClient = new OrbitRestClient(this);
     List<MainMenuItem> mainMenuItems = new ArrayList<>();
-    LogoutService logoutService = new LogoutService(this);
+    private LogoutService logoutService = new LogoutService(this);
+    OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+
         User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
         String userRole = user.getRole().getName();

@@ -14,12 +14,18 @@ import cz.msebera.android.httpclient.HttpEntity;
  */
 
 public class OrbitRestClient {
+
     // TODO Make this value a properties value
     //private static final String BASE_URL = "http://18.220.78.140/orbit-api/";
     //private static final String BASE_URL = "http://10.0.2.2:8080/";
     private String baseUrl;
-
+    private Context context;
     private static AsyncHttpClient client = new AsyncHttpClient();
+
+    public OrbitRestClient(Context context){
+        this.context = context;
+    }
+
 
     public void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
