@@ -41,19 +41,16 @@ import cz.msebera.android.httpclient.Header;
 
 public class HomeActivity extends BaseActivity {
 
-
-
     private PropertiesService propertiesService = new PropertiesService(this);
     private  OrbitRestClient orbitRestClient = new OrbitRestClient(this);
     List<MainMenuItem> mainMenuItems = new ArrayList<>();
     private LogoutService logoutService = new LogoutService(this);
-    OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
+    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
         String userRole = user.getRole().getName();

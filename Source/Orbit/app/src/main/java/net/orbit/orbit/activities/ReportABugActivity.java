@@ -85,7 +85,7 @@ public class ReportABugActivity extends BaseActivity {
         }
 
         if (proceed) {
-            OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+            OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
             User user = orbitPref.getUserPreferenceObj("loggedUser");
             Ticket ticket = new Ticket(name, description, priority, user);
             ticketService.addTicket(ticket);

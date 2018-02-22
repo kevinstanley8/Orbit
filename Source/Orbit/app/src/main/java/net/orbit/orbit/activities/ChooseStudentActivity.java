@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ChooseStudentActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    private StudentService studentService = new StudentService();
+    private StudentService studentService = new StudentService(this);
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ChooseStudentActivity.class);

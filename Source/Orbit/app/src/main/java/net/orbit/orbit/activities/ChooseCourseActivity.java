@@ -88,7 +88,7 @@ public class ChooseCourseActivity extends BaseActivity {
 
     public void saveCourseList()
     {
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         orbitPref.storeListPreference("courseList", ChooseCourseActivity.Adapter.courses);
     }
 
