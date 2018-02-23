@@ -58,11 +58,6 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         studentService.findAllStudents(this);
     }
 
-    /*protected void onResume() {
-        super.onResume();
-        reloadList();
-    }*/
-
     private void enrollStudents()
     {
         List<Student> enrollList = new ArrayList<>();
@@ -85,9 +80,9 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
 
     public void updateStudentList(List<Student> studentList)
     {
-        for(int i = 0; i < studentList.size(); i++)
+        for(Student s : studentList)
         {
-            EnrollStudentInCourseActivity.Adapter.students.add((Student)studentList.get(i));
+            EnrollStudentInCourseActivity.Adapter.students.add(s);
         }
 
         reloadList();
