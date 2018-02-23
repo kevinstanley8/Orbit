@@ -95,6 +95,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
             index++;
         }
 
+        GradeService gradeService = new GradeService(this);
         gradeService.saveGrades(saveGradesDTO);
     }
 
