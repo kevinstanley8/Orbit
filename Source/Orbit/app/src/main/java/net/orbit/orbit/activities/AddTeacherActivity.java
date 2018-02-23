@@ -67,7 +67,7 @@ public class AddTeacherActivity extends BaseActivity {
                                     mState,
                                     mZip);
 
-                TeacherService teacherService = new TeacherService(getApplicationContext());
+                TeacherService teacherService = new TeacherService(AddTeacherActivity.this);
                 teacherService.addTeacher(newTeacher);
 
             }

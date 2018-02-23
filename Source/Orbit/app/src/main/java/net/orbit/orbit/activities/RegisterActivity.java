@@ -206,8 +206,8 @@ public class RegisterActivity extends AppCompatActivity {
                         else
                         {
 
-                            UserService userService = new UserService(getApplicationContext());
-                            final OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+                            UserService userService = new UserService(RegisterActivity.this);
+                            final OrbitUserPreferences orbitPref = new OrbitUserPreferences(RegisterActivity.this);
                             String userUID = mAuth.getCurrentUser().getUid();
                             String r = (String) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
                             EditText firstName = (EditText)findViewById(R.id.firstName);

@@ -122,7 +122,7 @@ public class CreateStudentActivity extends BaseActivity
                                 studentLastName.getText().toString(),
                                 dateTextView.getText().toString());
 
-                StudentService studentService = new StudentService(getApplicationContext());
+                StudentService studentService = new StudentService(CreateStudentActivity.this);
                 studentService.addStudent(newStudent, new ServerCallback<Student>(){
 
                     @Override

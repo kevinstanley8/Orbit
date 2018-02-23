@@ -131,7 +131,7 @@ public class HomeActivity extends BaseActivity {
 
                 if(temp.getLabel() == (R.string.menu_logout))
                 {
-                    LogoutService logoutService = new LogoutService(getApplicationContext());
+                    LogoutService logoutService = new LogoutService(HomeActivity.this);
                     finish();
                     logoutService.logout();
                 }
@@ -219,7 +219,7 @@ public class HomeActivity extends BaseActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 if (errorResponse != null) {
-                    OrbitRestClient orbitRestClient = new OrbitRestClient(getApplicationContext());
+                    OrbitRestClient orbitRestClient = new OrbitRestClient(HomeActivity.this);
                     Log.e("HomeActivity", "Error connection to DB: " + errorResponse.toString());
                     AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
                     alertDialog.setTitle("DB Connection");
