@@ -26,8 +26,6 @@ import java.util.List;
 
 public class EnrollStudentInCourseActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    private StudentService studentService = new StudentService(this);
-    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, EnrollStudentInCourseActivity.class);
@@ -55,6 +53,8 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         //loadList();
 
         //if(EnrollStudentInCourseActivity.Adapter.students == null || EnrollStudentInCourseActivity.Adapter.students.size() < 0)
+
+        StudentService studentService = new StudentService(this);
         studentService.findAllStudents(this);
     }
 
@@ -72,11 +72,14 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
                 enrollList.add(EnrollStudentInCourseActivity.Adapter.students.get(i));
         }
 
+        StudentService studentService = new StudentService(this);
         studentService.enrollStudentsInCourse(enrollList, 1);
     }
 
     public void saveStudentList()
     {
+
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         orbitPref.storeListPreference("studentList", EnrollStudentInCourseActivity.Adapter.students);
     }
 
@@ -101,6 +104,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Student>>() {}.getType();
         List<Student> savedStudentList = new ArrayList<>();
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         savedStudentList = gson.fromJson(orbitPref.getStringPreference("studentList"), type);
 
         //only set the meme list if a List was found saved in Shared Preferences

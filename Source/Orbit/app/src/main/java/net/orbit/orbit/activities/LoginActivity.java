@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loadHomeScreen()
     {
-        UserService userService = new UserService(getApplicationContext());
+        UserService userService = new UserService(test);
         userService.storeUserInPreferences(mAuth);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login Successful!",
                                     Toast.LENGTH_SHORT).show();
-                            UserService userService = new UserService(getApplicationContext());
+                            UserService userService = new UserService(test);
                             userService.storeUserInPreferences(mAuth);
                             loadHomeScreen();
                         } else {

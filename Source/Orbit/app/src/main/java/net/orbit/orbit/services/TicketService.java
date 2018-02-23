@@ -25,8 +25,6 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  */
 
 public class TicketService {
-    private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-    private PropertiesService propertiesService = new PropertiesService(this.context);
     private Context context;
 
     public TicketService(Context context){
@@ -44,6 +42,8 @@ public class TicketService {
         }
 
         // Sets the URL for the API url
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "add-ticket", entity, "application/json",
                 new JsonHttpResponseHandler(){

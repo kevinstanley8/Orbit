@@ -34,8 +34,6 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class StudentService
 {
-    private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-    private PropertiesService propertiesService = new PropertiesService(this.context);
     private Context context;
 
     public StudentService(Context context){
@@ -52,6 +50,8 @@ public class StudentService
         }
 
         // Sets the URL for the API url
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "create-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
@@ -91,6 +91,8 @@ public class StudentService
         }
 
         // Sets the URL for the API url
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "get-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
@@ -141,6 +143,8 @@ public class StudentService
         }
 
         // Sets the URL for the API url
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "link-student", entity, "application/json",
                 new JsonHttpResponseHandler(){
@@ -178,6 +182,8 @@ public class StudentService
 
     public void findLinkedStudents(final ChooseStudentActivity activity, String UID)
     {
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get("find-linked/" + UID, null, new JsonHttpResponseHandler(){
             @Override
@@ -212,6 +218,8 @@ public class StudentService
 
     public void findAllStudents(final EnrollStudentInCourseActivity activity)
     {
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,"orbit.api.url"));
         orbitRestClient.get("all-students/", null, new JsonHttpResponseHandler(){
             @Override
@@ -263,6 +271,8 @@ public class StudentService
         }
 
         // Sets the URL for the API url
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "enroll-students-course", entity, "application/json",
                 new JsonHttpResponseHandler(){

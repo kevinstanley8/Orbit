@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.activities.BaseActivity;
 import net.orbit.orbit.activities.ChooseCourseActivity;
 import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.activities.ViewCoursesTeacherActivity;
@@ -36,11 +37,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  */
 
 public class CourseService {
-    private OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-    private PropertiesService propertiesService = new PropertiesService(this.context);
-    private SecurityService securityService = new SecurityService(this.context);
-    private TeacherService teacherService = new TeacherService(this.context);
-    private OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+
     private Context context;
 
     public CourseService(Context context){
@@ -49,8 +46,12 @@ public class CourseService {
 
     public void getAllCoursesAssignedToCurrentTeacher(final ViewCoursesTeacherActivity activity){
         Log.d("CourseService", "Getting all the courses assigned to current Teacher.");
+        final OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
+        SecurityService securityService = new SecurityService(this.context);
+        TeacherService teacherService = new TeacherService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
-
         String UID = securityService.getCurrentUsersUid();
         teacherService.getTeacherByUid(UID, new ServerCallback<Teacher>() {
             @Override
@@ -85,6 +86,8 @@ public class CourseService {
 
     public void getAllCourses(final ChooseCourseActivity activity){
         Log.d("CourseService", "Getting all the courses.");
+        final OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         orbitRestClient.get("all-courses/", null, new JsonHttpResponseHandler(){
 
@@ -105,6 +108,9 @@ public class CourseService {
     }
 
     public void assignCourseToTeacher(List<Course> courseList){
+        final OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         Teacher teacher = orbitPref.getTeacherPreferenceObj("loggedInTeacher");
         AssignCourseToTeacherDTO assignDTO = new AssignCourseToTeacherDTO();
         for(Course c : courseList){

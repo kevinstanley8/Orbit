@@ -27,8 +27,6 @@ import java.util.List;
 public class ViewCoursesTeacherActivity extends BaseActivity {
     private RecyclerView recyclerView;
 
-    CourseService courseService = new CourseService(this);
-
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ViewCoursesTeacherActivity.class);
         return i;
@@ -61,6 +59,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         recyclerView.setAdapter(new Adapter(this));
 
         Adapter.courses = new ArrayList<>();
+        CourseService courseService = new CourseService(this);
         courseService.getAllCoursesAssignedToCurrentTeacher(this);
 
     }
