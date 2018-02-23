@@ -162,13 +162,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     {
         UserService userService = new UserService(test);
         userService.storeUserInPreferences(mAuth);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(HomeActivity.createIntent(test));
-            }
-        },1000);
-
     }
 
     private void loginAccount(String email, String password) {

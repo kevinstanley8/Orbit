@@ -8,12 +8,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.AccountDetailsDTO;
+import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 import net.orbit.orbit.utils.PropertiesService;
+import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +38,7 @@ public class UserService extends BaseService {
     }
 
 
-    public void addUser(AccountDetailsDTO accountDetails){
+    public void addUser(AccountDetailsDTO accountDetails, final ServerCallback<User> callback){
         Gson gson = new Gson();
         String json = gson.toJson(accountDetails);
         StringEntity entity = null;
@@ -54,15 +57,21 @@ public class UserService extends BaseService {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray user) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject jsonUser) {
                         // called when success happens
-                        Log.i("RegisterActivity", "Successfully added new user: " + user);
+                        Log.i("RegisterActivity", "Successfully added new user: " + jsonUser);
+                        Gson gson = new Gson();
+                        User user = gson.fromJson(jsonUser.toString(), User.class);
+                        callback.onSuccess(user);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("RegisterActivity", "Error when adding new user: " + errorResponse);
+                        Gson gson = new Gson();
+                        ErrorResponse er = gson.fromJson(errorResponse.toString(), ErrorResponse.class);
+                        callback.onFail(er);
                     }
 
                     @Override
