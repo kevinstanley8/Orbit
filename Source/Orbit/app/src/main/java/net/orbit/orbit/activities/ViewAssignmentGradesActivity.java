@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
+import net.orbit.orbit.models.dto.SaveGradesDTO;
 import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.AssignmentService;
@@ -31,6 +32,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private GradeService gradeService = new GradeService(this);
     private static int courseID = 0;
+    private List<Grade> gradeList = new ArrayList<Grade>();
 
     public static Intent createIntent(Context context, int courseID, int assignmentID) {
         Intent i = new Intent(context, ViewAssignmentGradesActivity.class);
@@ -50,6 +52,13 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ViewAssignmentGradesActivity.Adapter(this));
 
+        findViewById(R.id.btnSaveGrades).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveGrades();
+            }
+        });
+
         GetGradesForAssignmentDTO getGradesForAssignmentDTO = new GetGradesForAssignmentDTO(ViewAssignmentGradesActivity.courseID, ViewAssignmentGradesActivity.assignmentID);
         gradeService.getAllStudentGradesForAssignment(this, getGradesForAssignmentDTO);
     }
@@ -59,9 +68,34 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         for(Grade g : gradeList)
         {
             ViewAssignmentGradesActivity.Adapter.grades.add(g);
+            this.gradeList.add(g);
         }
 
         reloadList();
+    }
+
+    public void saveGrades()
+    {
+        //***** figure out why Grade.toString() is giving a null pointer
+        ArrayList<EditText> myEditTextList = new ArrayList<EditText>();
+
+        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
+            if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
+                myEditTextList.add( (EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) );
+
+        SaveGradesDTO saveGradesDTO = new SaveGradesDTO();
+        int index = 0;
+        for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size(); j++)
+        //for(Grade grade : ViewAssignmentGradesActivity.Adapter.grades)
+        {
+            //get the grade from the screen and save it
+            //Grade grade = ViewAssignmentGradesActivity.Adapter.grades.get(j);
+            ((Grade)this.gradeList.get(j)).setGrade(myEditTextList.get(index).getText().toString());
+            saveGradesDTO.addGrade((Grade)this.gradeList.get(j));
+            index++;
+        }
+
+        gradeService.saveGrades(saveGradesDTO);
     }
 
     public void reloadList()
