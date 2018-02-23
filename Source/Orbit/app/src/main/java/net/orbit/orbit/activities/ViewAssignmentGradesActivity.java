@@ -29,7 +29,6 @@ import java.util.List;
 public class ViewAssignmentGradesActivity extends BaseActivity {
     public static int assignmentID = 0;
     private RecyclerView recyclerView;
-    private GradeService gradeService = new GradeService(this);
     private static int courseID = 0;
 
     public static Intent createIntent(Context context, int courseID, int assignmentID) {
@@ -51,6 +50,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         recyclerView.setAdapter(new ViewAssignmentGradesActivity.Adapter(this));
 
         GetGradesForAssignmentDTO getGradesForAssignmentDTO = new GetGradesForAssignmentDTO(ViewAssignmentGradesActivity.courseID, ViewAssignmentGradesActivity.assignmentID);
+        GradeService gradeService = new GradeService(this);
         gradeService.getAllStudentGradesForAssignment(this, getGradesForAssignmentDTO);
     }
 
