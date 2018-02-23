@@ -31,12 +31,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by Kevin Stanley on 2/06/18.
  */
 
-public class GradeService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    SecurityService securityService = new SecurityService();
-    TeacherService teacherService = new TeacherService();
-    Context context;
+public class GradeService extends  BaseService{
+    private Context context;
 
     public GradeService(Context context){
         this.context = context;
@@ -53,8 +49,7 @@ public class GradeService {
         }
 
         Log.d("GradeService", "Getting all the enrolled students and grades for course ID " + getGradesForAssignmentDTO.getCourseID() + " assignment ID: " + getGradesForAssignmentDTO.getAssignmentID());
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
-
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("all-grades-for-assignment/" + getGradesForAssignmentDTO.getCourseID() + "/" + getGradesForAssignmentDTO.getAssignmentID(), new RequestParams("getGradesForAssignmentDTO", entity), new JsonHttpResponseHandler(){
 
             @Override
