@@ -34,7 +34,6 @@ public class FindStudentActivity extends BaseActivity {
         final EditText studentFirstName = (EditText) findViewById(R.id.studentFirstName);
         final EditText studentLastName = (EditText) findViewById(R.id.studentLastName);
         final EditText studentDOB = (EditText) findViewById(R.id.studentDateOfBirth);
-        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
 
         findStudent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,15 +43,12 @@ public class FindStudentActivity extends BaseActivity {
                 StudentDTO studentDto = new StudentDTO(
                         studentFirstName.getText().toString(),
                         studentLastName.getText().toString(),
-                        studentDOB.getText().toString(),
-                        studentSSN.getText().toString()
+                        studentDOB.getText().toString()
                 );
 
 
                 StudentService studentService = new StudentService(FindStudentActivity.this);
-                OrbitUserPreferences orbitPref = new OrbitUserPreferences(FindStudentActivity.this);
-                String uid = orbitPref.getStringPreference("userUID");
-                studentService.findStudent(studentDto, uid);
+                studentService.findStudent(studentDto);
 
             }
         });

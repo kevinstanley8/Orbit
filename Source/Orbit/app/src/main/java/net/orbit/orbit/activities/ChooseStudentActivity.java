@@ -38,20 +38,18 @@ public class ChooseStudentActivity extends BaseActivity {
         //get UID of current user
 
         StudentService studentService = new StudentService(this);
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
-        String uid = orbitPref.getStringPreference("userUID");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter(this));
 
-        studentService.findLinkedStudents(this, uid);
+        studentService.findLinkedStudents(this);
 
     }
 
     public void updateStudentList(List<Student> studentList)
     {
-        
+        Adapter.students.clear();
         for(Student s : studentList){
             Adapter.students.add(s);
         }

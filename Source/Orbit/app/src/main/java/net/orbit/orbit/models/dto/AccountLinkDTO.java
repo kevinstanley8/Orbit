@@ -5,19 +5,19 @@ package net.orbit.orbit.models.dto;
  */
 
 public class AccountLinkDTO {
-    private String userID;
+    private int userID;
     private int studentID;
 
-    public AccountLinkDTO(String userID, int studentID) {
+    public AccountLinkDTO(int userID, int studentID) {
         this.userID = userID;
         this.studentID = studentID;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

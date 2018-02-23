@@ -17,7 +17,9 @@ import net.orbit.orbit.models.dto.AccountLinkDTO;
 import net.orbit.orbit.models.dto.EnrollStudentInClassDTO;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.dto.StudentDTO;
+import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
@@ -83,7 +85,10 @@ public class StudentService extends BaseService {
                 });
     }
 
-    public void findStudent(final StudentDTO studentDTO, final String userUID){
+    public void findStudent(final StudentDTO studentDTO){
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        final User user = orbitPref.getUserPreferenceObj("loggedUser");
+
         Gson gson = new Gson();
         String json = gson.toJson(studentDTO);
         StringEntity entity = null;
@@ -113,7 +118,7 @@ public class StudentService extends BaseService {
                         Gson gson = new Gson();
                         Student foundStudent = gson.fromJson(student.toString(), Student.class);
 
-                        AccountLinkDTO accountLinkDTO = new AccountLinkDTO(userUID, foundStudent.getStudentId());
+                        AccountLinkDTO accountLinkDTO = new AccountLinkDTO(user.getUserID(), foundStudent.getStudentId());
                         linkStudent(accountLinkDTO);
 
                     }
@@ -179,10 +184,13 @@ public class StudentService extends BaseService {
     }
 
 
-    public void findLinkedStudents(final ChooseStudentActivity activity, String UID)
+    public void findLinkedStudents(final ChooseStudentActivity activity)
     {
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
-        orbitRestClient.get("find-linked/" + UID, null, new JsonHttpResponseHandler(){
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        final User user = orbitPref.getUserPreferenceObj("loggedUser");
+
+        orbitRestClient.get("find-linked/" + user.getUserID(), null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 // called before request is started
