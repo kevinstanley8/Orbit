@@ -321,6 +321,15 @@ public class HomeActivity extends BaseActivity {
                 orbitPref.setNickname(userNickname);
             }
         });
+
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(OrbitUserPreferences.getConnected()) {
+            connectToSendBird(OrbitUserPreferences.getUserId(), OrbitUserPreferences.getNickname());
+        }
     }
 
 }

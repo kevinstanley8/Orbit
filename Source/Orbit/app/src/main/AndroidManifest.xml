@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
+    <!--- SendBird Stuff-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/orbit_icon"
@@ -135,6 +139,25 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".messaging.openchannel.ParticipantListActivity"
             android:windowSoftInputMode="stateHidden" />
+
+        <!---
+
+    Notifications for Messages
+
+    -->
+
+        <service android:name=".messaging.fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".messaging.fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
+
+
 
 </manifest>
