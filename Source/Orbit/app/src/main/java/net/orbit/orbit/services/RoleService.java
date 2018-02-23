@@ -10,6 +10,7 @@ import net.orbit.orbit.activities.RegisterActivity;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.PropertiesService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,11 +21,8 @@ import cz.msebera.android.httpclient.Header;
  * Created by sristic on 12/5/17.
  */
 
-public class RoleService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    SecurityService securityService = new SecurityService();
-    Context context;
+public class RoleService extends BaseService{
+    private Context context;
 
     public RoleService(Context context){
         this.context = context;
@@ -32,7 +30,7 @@ public class RoleService {
     }
 
     public void viewRoles(final RegisterActivity activity){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("all-roles", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -62,7 +60,8 @@ public class RoleService {
     }
 
     public void hasTeacherRole(){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        SecurityService securityService = new SecurityService(this.context);
         String UID = securityService.getCurrentUsersUid();
         orbitRestClient.get("has-teacher-role/" + UID, null, new JsonHttpResponseHandler(){
             @Override

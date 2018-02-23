@@ -23,7 +23,6 @@ import java.util.List;
 
 public class ViewCourseAssignmentsActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    AssignmentService assignmentService = new AssignmentService(this);
     private static int courseID = 0;
 
     public static Intent createIntent(Context context, int courseID) {
@@ -52,6 +51,16 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             }
         });
 
+        FloatingActionButton mFabEnrollStudents = (FloatingActionButton) findViewById(R.id.fab_enroll_students);
+        mFabEnrollStudents.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("EnrollStudents", "We want to add a new Assignment.");
+                Intent enrollStudentActivity = EnrollStudentInCourseActivity.createIntent(ViewCourseAssignmentsActivity.this, ViewCourseAssignmentsActivity.courseID);
+                ViewCourseAssignmentsActivity.this.startActivity(enrollStudentActivity);
+            }
+        });
+
+        AssignmentService assignmentService = new AssignmentService(this);
         assignmentService.getAllAssignmentsForCourse(this, ViewCourseAssignmentsActivity.courseID);
     }
 
@@ -130,7 +139,7 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             int assignmentID = ViewCourseAssignmentsActivity.Adapter.assignments.get(position).getAssignmentId();
 
             Context context = itemView.getContext();
-            Intent intent = ViewAssignmentGradesActivity.createIntent(context, assignmentID);
+            Intent intent = ViewAssignmentGradesActivity.createIntent(context, courseID, assignmentID);
             context.startActivity(intent);
 
         }

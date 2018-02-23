@@ -13,7 +13,6 @@ import net.orbit.orbit.models.dto.CreateAssignmentDTO;
 import net.orbit.orbit.services.AssignmentService;
 
 public class CreateAssignmentActivity extends BaseActivity {
-    private AssignmentService assignmentService = new AssignmentService(this);
     public static int courseID;
 
     public static Intent createIntent(Context context, int courseID) {
@@ -45,6 +44,7 @@ public class CreateAssignmentActivity extends BaseActivity {
         txtMaxPoints = (EditText)findViewById(R.id.txtMaxPoints);
 
         CreateAssignmentDTO assignmentDTO = new CreateAssignmentDTO(CreateAssignmentActivity.courseID, txtAssignmentName.getText().toString(), txtMaxPoints.getText().toString());
+        AssignmentService assignmentService = new AssignmentService(this);
         assignmentService.createAssignment(assignmentDTO);
     }
 }

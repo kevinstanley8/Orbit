@@ -11,8 +11,6 @@ import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.services.TeacherService;
 
 public class AllTeachersActivity extends BaseActivity {
-    TeacherService teacherService = new TeacherService(this);
-
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, AllTeachersActivity.class);
@@ -31,6 +29,7 @@ public class AllTeachersActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TeacherService teacherService = new TeacherService(this);
         teacherService.viewTeachers(this);
     }
 

@@ -9,7 +9,7 @@ public class Course {
     private Boolean isSelected = false;
 
     public Course() {
-
+        this.teacher = new Teacher();
     }
 
     public Course(int courseId, String name, String year, Teacher teacher) {

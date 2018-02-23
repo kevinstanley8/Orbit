@@ -1,5 +1,7 @@
 package net.orbit.orbit.services;
 
+import android.content.Context;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -8,6 +10,11 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class SecurityService {
+    private Context context;
+
+    public SecurityService(Context context){
+        this.context = context;
+    }
 
     public String getCurrentUsersUid(){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

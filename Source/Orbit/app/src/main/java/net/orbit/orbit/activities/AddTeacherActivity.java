@@ -15,7 +15,6 @@ import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.Constants;
 
 public class AddTeacherActivity extends BaseActivity {
-    TeacherService teacherService = new TeacherService(this);
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, AddTeacherActivity.class);
@@ -68,6 +67,7 @@ public class AddTeacherActivity extends BaseActivity {
                                     mState,
                                     mZip);
 
+                TeacherService teacherService = new TeacherService(AddTeacherActivity.this);
                 teacherService.addTeacher(newTeacher);
 
             }

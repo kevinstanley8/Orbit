@@ -30,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.AccountDetailsDTO;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
@@ -37,6 +38,7 @@ import net.orbit.orbit.services.RoleService;
 import net.orbit.orbit.services.UserService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.ServerCallback;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -54,8 +56,6 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     Spinner roleSpinner;
-    UserService userService = new UserService(this);
-    RoleService roleService = new RoleService(this);
     Map<String, Role> mapRoles = new HashMap<>();
     private int mYear,mMonth,mDay;
 
@@ -69,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        RoleService roleService = new RoleService(this);
         roleService.viewRoles(this);
         mapRoles.clear();
         roleSpinner = (Spinner) findViewById(R.id.roleSpinner);
@@ -204,6 +205,9 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                         else
                         {
+
+                            UserService userService = new UserService(RegisterActivity.this);
+                            final OrbitUserPreferences orbitPref = new OrbitUserPreferences(RegisterActivity.this);
                             String userUID = mAuth.getCurrentUser().getUid();
                             String r = (String) ( (Spinner) findViewById(R.id.roleSpinner) ).getSelectedItem();
                             EditText firstName = (EditText)findViewById(R.id.firstName);
@@ -237,15 +241,27 @@ public class RegisterActivity extends AppCompatActivity {
                              */
                             Log.i("role", role.toString());
                             // Add user to database
-                            userService.addUser(accountDetails);
-                            userService.storeUserInPreferences(mAuth);
-                            Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
-                                    Toast.LENGTH_SHORT).show();
+                            userService.addUser(accountDetails, new ServerCallback<User>() {
+                                @Override
+                                public void onSuccess(User result) {
+                                    Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
+                                            Toast.LENGTH_SHORT).show();
+                                    orbitPref.storePreference("loggedUser", result);
+                                    setResult(0);
+                                    finish();
+                                }
 
-                            setResult(0);
-                            finish();
+                                @Override
+                                public void onFail(ErrorResponse errorMessage) {
+                                    Toast.makeText(RegisterActivity.this, "Failed to add user to DB.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                    setResult(1);
+                                    finish();
+
+                                }
+                            });
                         }
-                        // ...
                     }
                 });
     }

@@ -26,16 +26,12 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by brocktubre on 11/6/17.
  */
 
-public class TeacherService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    Context context;
+public class TeacherService extends BaseService{
+    private Context context;
 
     public TeacherService(Context context){
         this.context = context;
     }
-
-    public TeacherService() { }
 
     public void addTeacher(Teacher newTeacher){
         Gson gson = new Gson();
@@ -47,8 +43,7 @@ public class TeacherService {
             e.printStackTrace();
         }
 
-        // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -77,7 +72,7 @@ public class TeacherService {
     }
 
     public void viewTeachers(final AllTeachersActivity activity){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("all-teachers", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -106,8 +101,8 @@ public class TeacherService {
 
     }
 
-    public void getTeacherByUid(String UID, final ViewCoursesTeacherActivity activity , final ServerCallback<Teacher> callback){
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(activity, Constants.ORBIT_API_URL));
+    public void getTeacherByUid(String UID, final ServerCallback<Teacher> callback){
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
 
             @Override

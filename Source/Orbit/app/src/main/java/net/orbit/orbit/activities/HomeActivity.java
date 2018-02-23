@@ -29,7 +29,7 @@ import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
 
 import net.orbit.orbit.services.LogoutService;
-import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
@@ -45,19 +45,14 @@ import cz.msebera.android.httpclient.Header;
 
 public class HomeActivity extends BaseActivity {
 
-
-
-    PropertiesService propertiesService = new PropertiesService();
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
     List<MainMenuItem> mainMenuItems = new ArrayList<>();
-    LogoutService logoutService = new LogoutService(this);
-    OrbitUserPreferences orbitPref;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        orbitPref = new OrbitUserPreferences(getApplicationContext());
+
+
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         final User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
         String userRole = user.getRole().getName();
@@ -144,6 +139,8 @@ public class HomeActivity extends BaseActivity {
 
                 if(temp.getLabel() == (R.string.menu_logout))
                 {
+                    LogoutService logoutService = new LogoutService(HomeActivity.this);
+                    finish();
                     logoutService.logout();
                 }
                 if(temp.getLabel() == (R.string.menu_add_student))
@@ -202,10 +199,6 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        // Sets the URL for the API url
-        String apiUrl = propertiesService.getProperty(this, Constants.ORBIT_API_URL);
-        orbitRestClient.setBaseUrl(apiUrl);
-
         // Displays a alert window and lets you know if your DB connection is successful.
         // If menu_student data is returned, then the connection was successful.
         getDBConnectionAlert();
@@ -219,6 +212,11 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void getDBConnectionAlert() {
+        // Sets the URL for the API url
+        PropertiesService propertiesService = new PropertiesService(this);
+        String apiUrl = propertiesService.getProperty(this, Constants.ORBIT_API_URL);
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this);
+        orbitRestClient.setBaseUrl(apiUrl);
         orbitRestClient.get("all-students", null, new JsonHttpResponseHandler() {
             @Override
             public void onStart() {
@@ -236,6 +234,7 @@ public class HomeActivity extends BaseActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 if (errorResponse != null) {
+                    OrbitRestClient orbitRestClient = new OrbitRestClient(HomeActivity.this);
                     Log.e("HomeActivity", "Error connection to DB: " + errorResponse.toString());
                     AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
                     alertDialog.setTitle("DB Connection");
@@ -263,7 +262,7 @@ public class HomeActivity extends BaseActivity {
         // Show the loading indicator
         //showProgressBar(true);
         //mConnectButton.setEnabled(false);
-
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         ConnectionManager.login(userId, new SendBird.ConnectHandler() {
             @Override
             public void onConnected(com.sendbird.android.User user, SendBirdException e) {
@@ -318,7 +317,7 @@ public class HomeActivity extends BaseActivity {
 
                     return;
                 }
-
+                final OrbitUserPreferences orbitPref = new OrbitUserPreferences(HomeActivity.this);
                 orbitPref.setNickname(userNickname);
             }
         });

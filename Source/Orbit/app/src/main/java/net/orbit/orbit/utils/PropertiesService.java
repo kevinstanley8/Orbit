@@ -1,4 +1,4 @@
-package net.orbit.orbit.services;
+package net.orbit.orbit.utils;
 
 import android.content.Context;
 
@@ -13,9 +13,13 @@ import java.util.Properties;
 
 public class PropertiesService {
 
-    public PropertyReader propertyReader;
-    public Context context;
-    public Properties properties;
+    private Context context;
+    private PropertyReader propertyReader;
+    private Properties properties;
+
+    public PropertiesService(Context context) {
+        this.context = context;
+    }
 
     public String getProperty(Context context, String propName) {
         this.context = context;

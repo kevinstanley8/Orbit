@@ -15,11 +15,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
+import net.orbit.orbit.utils.ServerCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,12 +34,17 @@ import java.util.Date;
 
 public class CreateStudentActivity extends BaseActivity
 {
-    private StudentService studentService = new StudentService(this);
     private int mYear,mMonth,mDay;
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, CreateStudentActivity.class);
         return i;
+    }
+
+    private void restartActivity(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     protected void onCreate(Bundle savedInstanceState)
@@ -52,38 +60,39 @@ public class CreateStudentActivity extends BaseActivity
 
         final EditText studentFirstName = (EditText) findViewById(R.id.studentFirstName);
         final EditText studentLastName = (EditText) findViewById(R.id.studentLastName);
-        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
-        final EditText studentAddress1 = (EditText) findViewById(R.id.studentAddress1);
-        final EditText studentAddress2 = (EditText) findViewById(R.id.studentAddress2);
-        final EditText studentCity = (EditText) findViewById(R.id.studentCity);
-        final EditText studentState = (EditText) findViewById(R.id.studentState);
-        final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
         final TextView dateTextView = (TextView) findViewById(R.id.studentDateOfBirth);
-        final String studentGrade = Constants.FILLOUT_LATER;
 
-        final String motherFirstName = Constants.FILLOUT_LATER;
-        final String motherLastName = Constants.FILLOUT_LATER;
-        final String motherSSN = Constants.FILLOUT_LATER;
-        final String motherAddress1 = Constants.FILLOUT_LATER;
-        final String motherAddress2 = Constants.FILLOUT_LATER;
-        final String motherCity = Constants.FILLOUT_LATER;
-        final String motherState = Constants.FILLOUT_LATER;
-        final String motherZipCode = Constants.FILLOUT_LATER;
-        final String motherHomePhone = Constants.FILLOUT_LATER;
-        final String motherCellPhone = Constants.FILLOUT_LATER;
-        final String motherEmail = Constants.FILLOUT_LATER;
-
-        final String fatherFirstName = Constants.FILLOUT_LATER;
-        final String fatherLastName = Constants.FILLOUT_LATER;
-        final String fatherSSN = Constants.FILLOUT_LATER;
-        final String fatherAddress1 = Constants.FILLOUT_LATER;
-        final String fatherAddress2 = Constants.FILLOUT_LATER;
-        final String fatherCity = Constants.FILLOUT_LATER;
-        final String fatherState = Constants.FILLOUT_LATER;
-        final String fatherZipCode = Constants.FILLOUT_LATER;
-        final String fatherHomePhone = Constants.FILLOUT_LATER;
-        final String fatherCellPhone = Constants.FILLOUT_LATER;
-        final String fatherEmail = Constants.FILLOUT_LATER;
+//        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
+//        final EditText studentAddress1 = (EditText) findViewById(R.id.studentAddress1);
+//        final EditText studentAddress2 = (EditText) findViewById(R.id.studentAddress2);
+//        final EditText studentCity = (EditText) findViewById(R.id.studentCity);
+//        final EditText studentState = (EditText) findViewById(R.id.studentState);
+//        final EditText studentZipCode = (EditText) findViewById(R.id.studentZip);
+//        final String studentGrade = Constants.FILLOUT_LATER;
+//
+//        final String motherFirstName = Constants.FILLOUT_LATER;
+//        final String motherLastName = Constants.FILLOUT_LATER;
+//        final String motherSSN = Constants.FILLOUT_LATER;
+//        final String motherAddress1 = Constants.FILLOUT_LATER;
+//        final String motherAddress2 = Constants.FILLOUT_LATER;
+//        final String motherCity = Constants.FILLOUT_LATER;
+//        final String motherState = Constants.FILLOUT_LATER;
+//        final String motherZipCode = Constants.FILLOUT_LATER;
+//        final String motherHomePhone = Constants.FILLOUT_LATER;
+//        final String motherCellPhone = Constants.FILLOUT_LATER;
+//        final String motherEmail = Constants.FILLOUT_LATER;
+//
+//        final String fatherFirstName = Constants.FILLOUT_LATER;
+//        final String fatherLastName = Constants.FILLOUT_LATER;
+//        final String fatherSSN = Constants.FILLOUT_LATER;
+//        final String fatherAddress1 = Constants.FILLOUT_LATER;
+//        final String fatherAddress2 = Constants.FILLOUT_LATER;
+//        final String fatherCity = Constants.FILLOUT_LATER;
+//        final String fatherState = Constants.FILLOUT_LATER;
+//        final String fatherZipCode = Constants.FILLOUT_LATER;
+//        final String fatherHomePhone = Constants.FILLOUT_LATER;
+//        final String fatherCellPhone = Constants.FILLOUT_LATER;
+//        final String fatherEmail = Constants.FILLOUT_LATER;
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -95,46 +104,41 @@ public class CreateStudentActivity extends BaseActivity
 
         createStudent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 Log.d("CreateStudentActivity", "Create A New Student.");
+
+                if(        studentFirstName.getText().toString().matches("")
+                        || studentLastName.getText().toString().matches("")
+                        || dateTextView.getText().toString().matches("")){
+                    Toast.makeText(CreateStudentActivity.this, "Form is invalid. Please enter all fields.",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
 
                 //Creates a new menu_student Object to send to API
                 Student newStudent = new Student(
                                 studentFirstName.getText().toString(),
                                 studentLastName.getText().toString(),
-                                dateTextView.getText().toString(),
-                                studentSSN.getText().toString(),
-                                studentAddress1.getText().toString(),
-                                studentAddress2.getText().toString(),
-                                studentCity.getText().toString(),
-                                studentState.getText().toString(),
-                                studentZipCode.getText().toString(),
-                                studentGrade,
-                                motherFirstName,
-                                motherLastName,
-                                motherSSN,
-                                motherAddress1,
-                                motherAddress2,
-                                motherCity,
-                                motherState,
-                                motherZipCode,
-                                motherHomePhone,
-                                motherCellPhone,
-                                motherEmail,
-                                fatherFirstName,
-                                fatherLastName,
-                                fatherSSN,
-                                fatherAddress1,
-                                fatherAddress2,
-                                fatherCity,
-                                fatherState,
-                                fatherZipCode,
-                                fatherHomePhone,
-                                fatherCellPhone,
-                                fatherEmail,
-                                0
-                                );
+                                dateTextView.getText().toString());
 
-                studentService.addStudent(newStudent);
+                StudentService studentService = new StudentService(CreateStudentActivity.this);
+                studentService.addStudent(newStudent, new ServerCallback<Student>(){
+
+                    @Override
+                    public void onSuccess(Student result) {
+                        Toast.makeText(CreateStudentActivity.this, "Student " + result.getStudentFirstName() + " " + result.getStudentLastName() + " created.",
+                                Toast.LENGTH_SHORT).show();
+                        restartActivity();
+                    }
+
+                    @Override
+                    public void onFail(ErrorResponse errorMessage) {
+                        Toast.makeText(CreateStudentActivity.this, "Student creation failed.",
+                                Toast.LENGTH_SHORT).show();
+                        restartActivity();
+                    }
+                });
 
             }
         });

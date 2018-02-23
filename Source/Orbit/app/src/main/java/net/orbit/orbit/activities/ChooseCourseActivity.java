@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.services.CourseService;
+import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.lang.reflect.Type;
@@ -27,7 +28,6 @@ import java.util.List;
 
 public class ChooseCourseActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    CourseService courseService = new CourseService(this);
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ChooseCourseActivity.class);
@@ -53,8 +53,8 @@ public class ChooseCourseActivity extends BaseActivity {
         });
 
         if(ChooseCourseActivity.Adapter.courses.size() == 0){
+            CourseService courseService = new CourseService(this);
             courseService.getAllCourses(this);
-
         }
     }
 
@@ -66,7 +66,7 @@ public class ChooseCourseActivity extends BaseActivity {
                 assignList.add(c);
             }
         }
-
+        CourseService courseService = new CourseService(this);
         courseService.assignCourseToTeacher(assignList);
     }
 
@@ -88,8 +88,8 @@ public class ChooseCourseActivity extends BaseActivity {
 
     public void saveCourseList()
     {
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        orbitPref.storeUserPreference("courseList", ChooseCourseActivity.Adapter.courses);
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
+        orbitPref.storeListPreference("courseList", ChooseCourseActivity.Adapter.courses);
     }
 
     public void loadList()
@@ -97,8 +97,8 @@ public class ChooseCourseActivity extends BaseActivity {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Course>>() {}.getType();
         List<Course> savedCourseList = new ArrayList<>();
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        savedCourseList = gson.fromJson(orbitPref.getUserPreference("courseList"), type);
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
+        savedCourseList = gson.fromJson(orbitPref.getStringPreference("courseList"), type);
 
         //only set the course list if a List was found saved in Shared Preferences
         if(savedCourseList != null && savedCourseList.size() > 0) {
@@ -138,11 +138,6 @@ public class ChooseCourseActivity extends BaseActivity {
             else
                 holder.itemView.setBackgroundColor(Color.WHITE);
 
-            //set created text info section
-            // StringBuilder sb = new StringBuilder();
-
-            //String testImage = "http://media2.s-nbcnews.com/j/streams/2013/june/130617/6c7911377-tdy-130617-leo-toasts-1.nbcnews-ux-2880-1000.jpg";
-            //Glide.with(context).load(testImage).into(holder.memeImage);
         }
 
         @Override

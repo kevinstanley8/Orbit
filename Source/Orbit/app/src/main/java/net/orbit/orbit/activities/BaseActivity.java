@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.sendbird.android.SendBird;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.models.pojo.User;
@@ -62,8 +63,6 @@ public class BaseActivity extends AppCompatActivity {
     //user setters to set menu title when menu drawer is open and closed
     private String drawerOpenTitle = "";
     private String drawerClosedTitle = "";
-
-    private LogoutService logoutService;
 
     private List<MainMenuItem> mainMenuItems;
     private DrawerListAdapter adapter;
@@ -190,7 +189,7 @@ public class BaseActivity extends AppCompatActivity {
         public void gotoMenuItem(int position)
         {
             NavItem item = (NavItem)mNavItems.get(position);
-            logoutService = new LogoutService(context);
+            LogoutService logoutService = new LogoutService(this.context);
 
             // translation of menu item titles -> defined menu constants
             int selectedItem = 0;
@@ -237,6 +236,7 @@ public class BaseActivity extends AppCompatActivity {
                 case CHOOSE_STUDENT: startActivityForResult(ChooseStudentActivity.createIntent(context), result);
                     break;
                 case LOG_OFF:
+                    finish();
                     logoutService.logout();
                     break;
                 case VIEW_COURSES: startActivityForResult(ViewCoursesTeacherActivity.createIntent(context), result);
@@ -263,6 +263,10 @@ public class BaseActivity extends AppCompatActivity {
             Toast.makeText(context, message,
                     Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    public void testMethod(){
 
     }
 
@@ -352,7 +356,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void updateNavBar(){
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
         String userRole = user.getRole().getName();

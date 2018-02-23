@@ -8,11 +8,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.AccountDetailsDTO;
+import net.orbit.orbit.models.pojo.Student;
+import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PropertiesService;
+import net.orbit.orbit.utils.ServerCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,17 +31,15 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by sristic on 12/4/17.
  */
 
-public class UserService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    Context context;
+public class UserService extends BaseService {
+    private Context context;
 
     public UserService(Context context){
         this.context = context;
     }
 
 
-    public void addUser(AccountDetailsDTO accountDetails){
+    public void addUser(AccountDetailsDTO accountDetails, final ServerCallback<User> callback){
         Gson gson = new Gson();
         String json = gson.toJson(accountDetails);
         StringEntity entity = null;
@@ -46,7 +49,7 @@ public class UserService {
             e.printStackTrace();
         }
 
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "add-user", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -55,15 +58,21 @@ public class UserService {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray user) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject jsonUser) {
                         // called when success happens
-                        Log.i("RegisterActivity", "Successfully added new user: " + user);
+                        Log.i("RegisterActivity", "Successfully added new user: " + jsonUser);
+                        Gson gson = new Gson();
+                        User user = gson.fromJson(jsonUser.toString(), User.class);
+                        callback.onSuccess(user);
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("RegisterActivity", "Error when adding new user: " + errorResponse);
+                        Gson gson = new Gson();
+                        ErrorResponse er = gson.fromJson(errorResponse.toString(), ErrorResponse.class);
+                        callback.onFail(er);
                     }
 
                     @Override
@@ -78,13 +87,13 @@ public class UserService {
      * @param uid
      * @param savetoSP - Save to Shared Preferences
      */
-    public void findUserByUID(final String uid, final boolean savetoSP){
+    public void findUserByUID(final String uid, final boolean savetoSP, final ServerCallback<User> callback){
         if (uid == null) {
             return;
 
         }
         String url = "get-user/" + uid;
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get(url, null, new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
@@ -97,8 +106,7 @@ public class UserService {
                         Gson gson = new Gson();
                         User dbUser = gson.fromJson(user.toString(), User.class);
                         if (savetoSP) {
-                            OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
-                            orbitPref.storeUserPreference("loggedUser", dbUser);
+                            callback.onSuccess(dbUser);
                         }
 
                     }
@@ -116,9 +124,21 @@ public class UserService {
                 });
     }
 
-    public void storeUserInPreferences(FirebaseAuth mAuth) {
+    public void storeUserInPreferences(FirebaseAuth mAuth, final ServerCallback<Boolean> callback) {
         FirebaseUser user = mAuth.getCurrentUser();
-        this.findUserByUID(user.getUid(), true);
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        this.findUserByUID(user.getUid(), true, new ServerCallback<User>() {
+            @Override
+            public void onSuccess(User dbUser) {
+                orbitPref.storePreference("loggedUser", dbUser);
+                callback.onSuccess(true);
+            }
+
+            @Override
+            public void onFail(ErrorResponse errorMessage) {
+
+            }
+        });
     }
 
 }

@@ -42,7 +42,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.services.UserService;
+import net.orbit.orbit.utils.ServerCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +79,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private Context test = this;
-
-    private UserService userService = new UserService(this);
-
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -163,14 +162,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void loadHomeScreen()
     {
-        userService.storeUserInPreferences(mAuth);
-        new Handler().postDelayed(new Runnable() {
+        UserService userService = new UserService(test);
+        userService.storeUserInPreferences(mAuth, new ServerCallback<Boolean>(){
+
             @Override
-            public void run() {
+            public void onSuccess(Boolean result) {
                 startActivity(HomeActivity.createIntent(test));
             }
-        },1000);
 
+            @Override
+            public void onFail(ErrorResponse errorMessage) {
+
+            }
+        });
     }
 
     private void loginAccount(String email, String password) {
@@ -186,7 +190,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login Successful!",
                                     Toast.LENGTH_SHORT).show();
-                            userService.storeUserInPreferences(mAuth);
                             loadHomeScreen();
                         } else {
                             // If sign in fails, display a message to the user.

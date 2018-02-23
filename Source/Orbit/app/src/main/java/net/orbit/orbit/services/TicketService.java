@@ -7,12 +7,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.models.pojo.Ticket;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.PropertiesService;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -24,16 +23,12 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by sristic on 2/19/18.
  */
 
-public class TicketService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient();
-    PropertiesService propertiesService = new PropertiesService();
-    Context context;
+public class TicketService extends BaseService{
+    private Context context;
 
     public TicketService(Context context){
         this.context = context;
     }
-
-    public TicketService() { }
 
     public void addTicket(Ticket ticket){
         Gson gson = new Gson();
@@ -46,7 +41,7 @@ public class TicketService {
         }
 
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "add-ticket", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override

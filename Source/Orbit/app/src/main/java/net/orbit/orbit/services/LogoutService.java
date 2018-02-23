@@ -12,16 +12,16 @@ import net.orbit.orbit.utils.OrbitUserPreferences;
  * Created by sristic on 1/31/18.
  */
 
-public class LogoutService extends BaseActivity{
+public class LogoutService {
 
-    Context context;
+    private Context context;
 
     public LogoutService(Context context){
         this.context = context;
     }
 
     public void logout(){
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(context);
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
         FirebaseAuth.getInstance().signOut();
         orbitPref.clear();
         context.startActivity(LoginActivity.createIntent(context));
