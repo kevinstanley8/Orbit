@@ -34,7 +34,6 @@ import java.util.Date;
 
 public class CreateStudentActivity extends BaseActivity
 {
-    private StudentService studentService = new StudentService(this);
     private int mYear,mMonth,mDay;
 
     public static Intent createIntent(Context context) {
@@ -123,6 +122,7 @@ public class CreateStudentActivity extends BaseActivity
                                 studentLastName.getText().toString(),
                                 dateTextView.getText().toString());
 
+                StudentService studentService = new StudentService(getApplicationContext());
                 studentService.addStudent(newStudent, new ServerCallback<Student>(){
 
                     @Override
