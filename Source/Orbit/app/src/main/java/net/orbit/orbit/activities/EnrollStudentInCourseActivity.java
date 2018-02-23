@@ -66,10 +66,10 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
     private void enrollStudents()
     {
         List<Student> enrollList = new ArrayList<>();
-        for(int i = 0; i < EnrollStudentInCourseActivity.Adapter.students.size(); i++)
+        for(Student s : EnrollStudentInCourseActivity.Adapter.students)
         {
-            if(EnrollStudentInCourseActivity.Adapter.students.get(i).getIsSelected())
-                enrollList.add(EnrollStudentInCourseActivity.Adapter.students.get(i));
+            if(s.getIsSelected())
+                enrollList.add(s);
         }
 
         StudentService studentService = new StudentService(this);
