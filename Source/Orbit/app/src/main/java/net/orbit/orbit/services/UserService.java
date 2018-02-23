@@ -10,6 +10,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.AccountDetailsDTO;
+import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.utils.Constants;
@@ -86,14 +87,13 @@ public class UserService extends BaseService {
      * @param uid
      * @param savetoSP - Save to Shared Preferences
      */
-    public void findUserByUID(final String uid, final boolean savetoSP){
+    public void findUserByUID(final String uid, final boolean savetoSP, final ServerCallback<User> callback){
         if (uid == null) {
             return;
 
         }
         String url = "get-user/" + uid;
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
-        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
         orbitRestClient.get(url, null, new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
@@ -106,7 +106,7 @@ public class UserService extends BaseService {
                         Gson gson = new Gson();
                         User dbUser = gson.fromJson(user.toString(), User.class);
                         if (savetoSP) {
-                            orbitPref.storePreference("loggedUser", dbUser);
+                            callback.onSuccess(dbUser);
                         }
 
                     }
@@ -124,9 +124,21 @@ public class UserService extends BaseService {
                 });
     }
 
-    public void storeUserInPreferences(FirebaseAuth mAuth) {
+    public void storeUserInPreferences(FirebaseAuth mAuth, final ServerCallback<Boolean> callback) {
         FirebaseUser user = mAuth.getCurrentUser();
-        this.findUserByUID(user.getUid(), true);
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        this.findUserByUID(user.getUid(), true, new ServerCallback<User>() {
+            @Override
+            public void onSuccess(User dbUser) {
+                orbitPref.storePreference("loggedUser", dbUser);
+                callback.onSuccess(true);
+            }
+
+            @Override
+            public void onFail(ErrorResponse errorMessage) {
+
+            }
+        });
     }
 
 }

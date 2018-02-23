@@ -227,7 +227,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onSuccess(User result) {
                                     Toast.makeText(RegisterActivity.this, R.string.newAccountCreated,
                                             Toast.LENGTH_SHORT).show();
-                                        orbitPref.storePreference("loggedUser", result);
+                                    orbitPref.storePreference("loggedUser", result);
+                                    setResult(0);
+                                    finish();
                                 }
 
                                 @Override
@@ -240,11 +242,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 }
                             });
-                            // userService.storeUserInPreferences(mAuth);
-                            setResult(0);
-                            finish();
                         }
-                        // ...
                     }
                 });
     }
