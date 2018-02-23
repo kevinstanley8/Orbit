@@ -12,7 +12,8 @@ public class Grade {
     private Boolean isSelected = false;
 
     public Grade() {
-
+        this.assignment = new Assignment();
+        this.course = new Course();
     }
 
     public Grade(int gradeId, String grade, String year, Student student, Course course, Assignment assignment, char updateType) {
