@@ -31,13 +31,4 @@ public class BaseService {
         }
         return this.orbitRestClient;
     }
-
-    public OrbitUserPreferences getOrbitUserPreferences(Context context){
-        if(this.orbitUserPreferences == null){
-            return this.orbitUserPreferences = new OrbitUserPreferences(context);
-        }
-        return this.orbitUserPreferences;
-    }
-
-
 }

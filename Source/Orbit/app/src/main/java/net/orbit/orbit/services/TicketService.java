@@ -23,7 +23,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by sristic on 2/19/18.
  */
 
-public class TicketService {
+public class TicketService extends BaseService{
     private Context context;
 
     public TicketService(Context context){
@@ -41,9 +41,7 @@ public class TicketService {
         }
 
         // Sets the URL for the API url
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "add-ticket", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override

@@ -21,7 +21,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by sristic on 12/5/17.
  */
 
-public class RoleService {
+public class RoleService extends BaseService{
     private Context context;
 
     public RoleService(Context context){
@@ -30,9 +30,7 @@ public class RoleService {
     }
 
     public void viewRoles(final RegisterActivity activity){
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("all-roles", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
@@ -62,10 +60,8 @@ public class RoleService {
     }
 
     public void hasTeacherRole(){
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         SecurityService securityService = new SecurityService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
         String UID = securityService.getCurrentUsersUid();
         orbitRestClient.get("has-teacher-role/" + UID, null, new JsonHttpResponseHandler(){
             @Override

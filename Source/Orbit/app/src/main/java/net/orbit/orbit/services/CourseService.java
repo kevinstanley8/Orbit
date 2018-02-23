@@ -45,7 +45,7 @@ public class CourseService extends BaseService{
     public void getAllCoursesAssignedToCurrentTeacher(final ViewCoursesTeacherActivity activity){
         Log.d("CourseService", "Getting all the courses assigned to current Teacher.");
         final OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
-        final OrbitUserPreferences orbitPref = getOrbitUserPreferences(this.context);
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
         SecurityService securityService = new SecurityService(this.context);
         TeacherService teacherService = new TeacherService(this.context);
         String UID = securityService.getCurrentUsersUid();
@@ -82,9 +82,7 @@ public class CourseService extends BaseService{
 
     public void getAllCourses(final ChooseCourseActivity activity){
         Log.d("CourseService", "Getting all the courses.");
-        final OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        final OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("all-courses/", null, new JsonHttpResponseHandler(){
 
             @Override
@@ -104,9 +102,8 @@ public class CourseService extends BaseService{
     }
 
     public void assignCourseToTeacher(List<Course> courseList){
-        final OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        final OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
         Teacher teacher = orbitPref.getTeacherPreferenceObj("loggedInTeacher");
         AssignCourseToTeacherDTO assignDTO = new AssignCourseToTeacherDTO();
         for(Course c : courseList){
@@ -122,7 +119,6 @@ public class CourseService extends BaseService{
             e.printStackTrace();
         }
         // Sets the URL for the API url
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "assign-course-to-teacher/" + teacher.getTeacherID(), entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override

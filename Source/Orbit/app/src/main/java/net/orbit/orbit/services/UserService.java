@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by sristic on 12/4/17.
  */
 
-public class UserService {
+public class UserService extends BaseService {
     private Context context;
 
     public UserService(Context context){
@@ -45,9 +45,7 @@ public class UserService {
             e.printStackTrace();
         }
 
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "add-user", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
@@ -85,10 +83,8 @@ public class UserService {
 
         }
         String url = "get-user/" + uid;
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.get(url, null, new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {

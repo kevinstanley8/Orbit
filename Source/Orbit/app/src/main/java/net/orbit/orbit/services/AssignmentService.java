@@ -28,7 +28,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  * Created by Kevin Stanley on 2/06/18.
  */
 
-public class AssignmentService {
+public class AssignmentService extends BaseService{
 
     private Context context;
 
@@ -38,9 +38,7 @@ public class AssignmentService {
 
     public void getAllAssignmentsForCourse(final ViewCourseAssignmentsActivity activity, int courseID){
         Log.d("AssignmentService", "Getting all the assignments for course ID: " + courseID);
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("all-assignments-for-course/" + courseID, null, new JsonHttpResponseHandler(){
 
             @Override
@@ -70,9 +68,7 @@ public class AssignmentService {
         }
 
         // Sets the URL for the API urlOrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-        PropertiesService propertiesService = new PropertiesService(this.context);
-        orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "create-assignment", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override

@@ -43,7 +43,8 @@ public class TeacherService extends BaseService{
             e.printStackTrace();
         }
 
-        getOrbitRestClient(this.context).post(this.context, "add-teacher", entity, "application/json",
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.post(this.context, "add-teacher", entity, "application/json",
                 new JsonHttpResponseHandler(){
                     @Override
                     public void onStart() {
@@ -71,7 +72,8 @@ public class TeacherService extends BaseService{
     }
 
     public void viewTeachers(final AllTeachersActivity activity){
-        getOrbitRestClient(this.context).get("all-teachers", null, new JsonHttpResponseHandler(){
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.get("all-teachers", null, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 // called before request is started
@@ -100,7 +102,8 @@ public class TeacherService extends BaseService{
     }
 
     public void getTeacherByUid(String UID, final ServerCallback<Teacher> callback){
-        getOrbitRestClient(this.context).get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.get("get-teacher-by-uid/" + UID, null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonTeacher) {
