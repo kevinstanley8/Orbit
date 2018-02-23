@@ -10,6 +10,7 @@ import net.orbit.orbit.activities.RegisterActivity;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.PropertiesService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

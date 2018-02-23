@@ -7,12 +7,11 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.models.pojo.Ticket;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.PropertiesService;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;

@@ -1,4 +1,4 @@
-package net.orbit.orbit.services;
+package net.orbit.orbit.utils;
 
 import android.content.Context;
 

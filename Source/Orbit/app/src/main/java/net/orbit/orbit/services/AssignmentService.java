@@ -8,14 +8,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.activities.ViewCourseAssignmentsActivity;
-import net.orbit.orbit.models.dto.AccountLinkDTO;
 import net.orbit.orbit.models.dto.CreateAssignmentDTO;
-import net.orbit.orbit.models.pojo.AccountLink;
 import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
+import net.orbit.orbit.utils.PropertiesService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,11 +29,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
  */
 
 public class AssignmentService {
-    OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
-    PropertiesService propertiesService = new PropertiesService(this.context);
-    SecurityService securityService = new SecurityService(this.context);
-    TeacherService teacherService = new TeacherService(this.context);
-    Context context;
+
+    private Context context;
 
     public AssignmentService(Context context){
         this.context = context;
@@ -43,8 +38,9 @@ public class AssignmentService {
 
     public void getAllAssignmentsForCourse(final ViewCourseAssignmentsActivity activity, int courseID){
         Log.d("AssignmentService", "Getting all the assignments for course ID: " + courseID);
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context, Constants.ORBIT_API_URL));
-
         orbitRestClient.get("all-assignments-for-course/" + courseID, null, new JsonHttpResponseHandler(){
 
             @Override
@@ -73,7 +69,9 @@ public class AssignmentService {
             e.printStackTrace();
         }
 
-        // Sets the URL for the API url
+        // Sets the URL for the API urlOrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        OrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        PropertiesService propertiesService = new PropertiesService(this.context);
         orbitRestClient.setBaseUrl(propertiesService.getProperty(this.context,Constants.ORBIT_API_URL));
         orbitRestClient.post(this.context, "create-assignment", entity, "application/json",
                 new JsonHttpResponseHandler(){

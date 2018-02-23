@@ -15,17 +15,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.internal.bind.MapTypeAdapterFactory;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
 
 import net.orbit.orbit.services.LogoutService;
-import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
