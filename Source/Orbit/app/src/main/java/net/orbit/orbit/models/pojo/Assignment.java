@@ -15,7 +15,7 @@ public class Assignment {
 
     public Assignment()
     {
-
+        this.course = new Course();
     }
 
     public Assignment(int assignmentId, String year, String name, String type, String maxPoints, Course course)

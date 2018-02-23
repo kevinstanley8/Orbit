@@ -20,6 +20,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.dto.SaveGradesDTO;
 import net.orbit.orbit.models.pojo.Assignment;
+import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.AssignmentService;
 import net.orbit.orbit.services.GradeService;
@@ -67,6 +68,8 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
     {
         for(Grade g : gradeList)
         {
+            /*if(g.getAssignment().getCourse() == null)
+                g.getAssignment().setCourse(new Course());*/
             ViewAssignmentGradesActivity.Adapter.grades.add(g);
             this.gradeList.add(g);
         }
@@ -86,11 +89,10 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         SaveGradesDTO saveGradesDTO = new SaveGradesDTO();
         int index = 0;
         for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size(); j++)
-        //for(Grade grade : ViewAssignmentGradesActivity.Adapter.grades)
         {
             //get the grade from the screen and save it
-            //Grade grade = ViewAssignmentGradesActivity.Adapter.grades.get(j);
             ((Grade)this.gradeList.get(j)).setGrade(myEditTextList.get(index).getText().toString());
+            ((Grade)this.gradeList.get(j)).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
             saveGradesDTO.addGrade((Grade)this.gradeList.get(j));
             index++;
         }

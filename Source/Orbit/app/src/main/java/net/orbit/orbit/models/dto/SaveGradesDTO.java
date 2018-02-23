@@ -32,7 +32,7 @@ public class SaveGradesDTO {
     @Override
     public String toString() {
         return "SaveGradesDTO{" +
-                "gradeList='" + gradeList + '\'' +
+                "gradeList='" + gradeList.toString() + '\'' +
                 '}';
     }
 

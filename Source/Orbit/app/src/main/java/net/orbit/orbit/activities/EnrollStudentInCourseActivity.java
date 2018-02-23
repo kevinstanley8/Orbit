@@ -26,9 +26,11 @@ import java.util.List;
 
 public class EnrollStudentInCourseActivity extends BaseActivity {
     private RecyclerView recyclerView;
+    private static int courseID = 0;
 
-    public static Intent createIntent(Context context) {
+    public static Intent createIntent(Context context, int courseID) {
         Intent i = new Intent(context, EnrollStudentInCourseActivity.class);
+        EnrollStudentInCourseActivity.courseID = courseID;
         return i;
     }
 
@@ -68,7 +70,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         }
 
         StudentService studentService = new StudentService(this);
-        studentService.enrollStudentsInCourse(enrollList, 1);
+        studentService.enrollStudentsInCourse(enrollList, EnrollStudentInCourseActivity.courseID);
     }
 
     public void saveStudentList()

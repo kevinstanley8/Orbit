@@ -51,6 +51,15 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             }
         });
 
+        FloatingActionButton mFabEnrollStudents = (FloatingActionButton) findViewById(R.id.fab_enroll_students);
+        mFabEnrollStudents.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("EnrollStudents", "We want to add a new Assignment.");
+                Intent enrollStudentActivity = EnrollStudentInCourseActivity.createIntent(ViewCourseAssignmentsActivity.this, ViewCourseAssignmentsActivity.courseID);
+                ViewCourseAssignmentsActivity.this.startActivity(enrollStudentActivity);
+            }
+        });
+
         AssignmentService assignmentService = new AssignmentService(this);
         assignmentService.getAllAssignmentsForCourse(this, ViewCourseAssignmentsActivity.courseID);
     }
