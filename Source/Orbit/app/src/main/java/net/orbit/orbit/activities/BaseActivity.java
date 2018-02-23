@@ -53,8 +53,6 @@ public class BaseActivity extends AppCompatActivity {
     private String drawerOpenTitle = "";
     private String drawerClosedTitle = "";
 
-    private LogoutService logoutService;
-
     private List<MainMenuItem> mainMenuItems;
     private DrawerListAdapter adapter;
 
@@ -180,7 +178,7 @@ public class BaseActivity extends AppCompatActivity {
         public void gotoMenuItem(int position)
         {
             NavItem item = (NavItem)mNavItems.get(position);
-            logoutService = new LogoutService(context);
+            LogoutService logoutService = new LogoutService(this.context);
 
             // translation of menu item titles -> defined menu constants
             int selectedItem = 0;
@@ -227,6 +225,7 @@ public class BaseActivity extends AppCompatActivity {
                 case CHOOSE_STUDENT: startActivityForResult(ChooseStudentActivity.createIntent(context), result);
                     break;
                 case LOG_OFF:
+                    finish();
                     logoutService.logout();
                     break;
                 case VIEW_COURSES: startActivityForResult(ViewCoursesTeacherActivity.createIntent(context), result);

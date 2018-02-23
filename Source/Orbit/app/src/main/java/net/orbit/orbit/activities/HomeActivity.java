@@ -132,6 +132,7 @@ public class HomeActivity extends BaseActivity {
                 if(temp.getLabel() == (R.string.menu_logout))
                 {
                     LogoutService logoutService = new LogoutService(getApplicationContext());
+                    finish();
                     logoutService.logout();
                 }
                 if(temp.getLabel() == (R.string.menu_add_student))
