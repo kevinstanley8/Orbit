@@ -51,11 +51,10 @@ public class ChooseStudentActivity extends BaseActivity {
 
     public void updateStudentList(List<Student> studentList)
     {
-        for(int i = 0; i < studentList.size(); i++)
-        {
-            Adapter.students.add((Student)studentList.get(i));
+        
+        for(Student s : studentList){
+            Adapter.students.add(s);
         }
-
         reloadList();
     }
 
