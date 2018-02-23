@@ -27,17 +27,6 @@
             </intent-filter>
         </activity>
 
-<!--  SendBird stuff, might not be ness.
-                <activity android:name=".messaging.main.LoginActivity">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
--->
-
-
         <activity
             android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register"

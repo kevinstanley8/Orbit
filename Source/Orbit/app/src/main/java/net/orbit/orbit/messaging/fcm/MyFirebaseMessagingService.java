@@ -32,8 +32,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import net.orbit.orbit.R;
 import net.orbit.orbit.messaging.groupchannel.GroupChannelActivity;
 
-import net.orbit.orbit.messaging.utils.PreferenceUtils;
-
+import net.orbit.orbit.utils.OrbitUserPreferences;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -110,7 +109,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentIntent(pendingIntent);
 
-        if (PreferenceUtils.getNotificationsShowPreviews()) {
+        if (OrbitUserPreferences.getNotificationsShowPreviews()) {
             notificationBuilder.setContentText(messageBody);
         } else {
             notificationBuilder.setContentText("Somebody sent you a message.");

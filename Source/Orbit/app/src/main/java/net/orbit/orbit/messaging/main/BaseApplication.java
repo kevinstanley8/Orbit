@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.sendbird.android.SendBird;
 import net.orbit.orbit.messaging.utils.PreferenceUtils;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 public class BaseApplication extends Application {
 
@@ -14,7 +15,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        PreferenceUtils.init(getApplicationContext());
+        OrbitUserPreferences.init(getApplicationContext());
 
         SendBird.init(APP_ID, getApplicationContext());
     }

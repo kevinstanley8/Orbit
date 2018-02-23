@@ -23,7 +23,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -45,7 +44,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.messaging.utils.DateUtils;
 import net.orbit.orbit.messaging.utils.FileUtils;
 import net.orbit.orbit.messaging.utils.ImageUtils;
-import net.orbit.orbit.messaging.utils.PreferenceUtils;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 import net.orbit.orbit.messaging.utils.PushUtils;
 
 import java.io.File;
@@ -138,7 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         //+ ProfileUrl
-        String profileUrl = PreferenceUtils.getProfileUrl();
+        String profileUrl = OrbitUserPreferences.getProfileUrl();
         if (profileUrl.length() > 0) {
             ImageUtils.displayRoundImageFromUrl(SettingsActivity.this, profileUrl, mImageViewProfile);
         }
@@ -152,7 +151,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //+ Nickname
         mEditTextNickname.setEnabled(false);
-        final String nickname = PreferenceUtils.getNickname();
+        final String nickname = OrbitUserPreferences.getNickname();
         if (nickname.length() > 0) {
             mEditTextNickname.setText(nickname);
         }
@@ -207,12 +206,12 @@ public class SettingsActivity extends AppCompatActivity {
         //- Nickname
 
         //+ Notifications
-        boolean notifications = PreferenceUtils.getNotifications();
+        boolean notifications = OrbitUserPreferences.getNotifications();
         mSwitchNotifications.setChecked(notifications);
-        mSwitchNotificationsShowPreviews.setChecked(PreferenceUtils.getNotificationsShowPreviews());
+        mSwitchNotificationsShowPreviews.setChecked(OrbitUserPreferences.getNotificationsShowPreviews());
         checkNotifications(notifications);
 
-        boolean doNotDisturb = PreferenceUtils.getNotificationsDoNotDisturb();
+        boolean doNotDisturb = OrbitUserPreferences.getNotificationsDoNotDisturb();
         mSwitchNotificationsDoNotDisturb.setChecked(doNotDisturb);
         checkDoNotDisturb(doNotDisturb);
 
@@ -229,7 +228,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            PreferenceUtils.setNotifications(isChecked);
+                            OrbitUserPreferences.setNotifications(isChecked);
                             checkNotifications(isChecked);
                         }
                     });
@@ -243,7 +242,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            PreferenceUtils.setNotifications(isChecked);
+                            OrbitUserPreferences.setNotifications(isChecked);
                             checkNotifications(isChecked);
                         }
                     });
@@ -254,7 +253,7 @@ public class SettingsActivity extends AppCompatActivity {
         mSwitchNotificationsShowPreviews.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferenceUtils.setNotificationsShowPreviews(isChecked);
+                OrbitUserPreferences.setNotificationsShowPreviews(isChecked);
             }
         });
 
@@ -289,7 +288,7 @@ public class SettingsActivity extends AppCompatActivity {
                 mCalendar.set(Calendar.MINUTE, startMin);
                 long fromMillis = mCalendar.getTimeInMillis();
 
-                PreferenceUtils.setNotificationsDoNotDisturbFrom(String.valueOf(fromMillis));
+                OrbitUserPreferences.setNotificationsDoNotDisturbFrom(String.valueOf(fromMillis));
                 mTextViewNotificationsDoNotDisturbTo.setText(DateUtils.formatTimeWithMarker(fromMillis));
 
                 mCalendar.clear();
@@ -297,7 +296,7 @@ public class SettingsActivity extends AppCompatActivity {
                 mCalendar.set(Calendar.MINUTE, endMin);
                 long toMillis = mCalendar.getTimeInMillis();
 
-                PreferenceUtils.setNotificationsDoNotDisturbTo(String.valueOf(toMillis));
+                OrbitUserPreferences.setNotificationsDoNotDisturbTo(String.valueOf(toMillis));
                 mTextViewNotificationsDoNotDisturbTo.setText(DateUtils.formatTimeWithMarker(toMillis));
 
                 mSwitchNotificationsDoNotDisturb.setChecked(isDoNotDisturbOn);
@@ -306,20 +305,20 @@ public class SettingsActivity extends AppCompatActivity {
         //- Notifications
 
         //+ Group Channel Distinct
-        mCheckBoxGroupChannelDistinct.setChecked(PreferenceUtils.getGroupChannelDistinct());
+        mCheckBoxGroupChannelDistinct.setChecked(OrbitUserPreferences.getGroupChannelDistinct());
 
         mCheckBoxGroupChannelDistinct.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferenceUtils.setGroupChannelDistinct(isChecked);
+                OrbitUserPreferences.setGroupChannelDistinct(isChecked);
             }
         });
         //- Group Channel Distinct
     }
 
     private void saveDoNotDisturb(final boolean doNotDisturb) {
-        String doNotDisturbFrom = PreferenceUtils.getNotificationsDoNotDisturbFrom();
-        String doNotDisturbTo = PreferenceUtils.getNotificationsDoNotDisturbTo();
+        String doNotDisturbFrom = OrbitUserPreferences.getNotificationsDoNotDisturbFrom();
+        String doNotDisturbTo = OrbitUserPreferences.getNotificationsDoNotDisturbTo();
         if (doNotDisturbFrom.length() > 0 && doNotDisturbTo.length() > 0) {
             int startHour = DateUtils.getHourOfDay(Long.valueOf(doNotDisturbFrom));
             int startMin = DateUtils.getMinute(Long.valueOf(doNotDisturbFrom));
@@ -334,7 +333,7 @@ public class SettingsActivity extends AppCompatActivity {
                         mSwitchNotificationsDoNotDisturb.setChecked(!doNotDisturb);
                         mSwitchNotificationsDoNotDisturb.setOnCheckedChangeListener(mCheckedChangeListener);
 
-                        PreferenceUtils.setNotificationsDoNotDisturb(!doNotDisturb);
+                        OrbitUserPreferences.setNotificationsDoNotDisturb(!doNotDisturb);
                         checkDoNotDisturb(!doNotDisturb);
                         return;
                     }
@@ -343,7 +342,7 @@ public class SettingsActivity extends AppCompatActivity {
                     mSwitchNotificationsDoNotDisturb.setChecked(doNotDisturb);
                     mSwitchNotificationsDoNotDisturb.setOnCheckedChangeListener(mCheckedChangeListener);
 
-                    PreferenceUtils.setNotificationsDoNotDisturb(doNotDisturb);
+                    OrbitUserPreferences.setNotificationsDoNotDisturb(doNotDisturb);
                     checkDoNotDisturb(doNotDisturb);
                 }
             });
@@ -353,12 +352,12 @@ public class SettingsActivity extends AppCompatActivity {
     private void setDoNotDisturbTime(final boolean from, final TextView textView) {
         long timeMillis = System.currentTimeMillis();
         if (from) {
-            String doNotDisturbFrom = PreferenceUtils.getNotificationsDoNotDisturbFrom();
+            String doNotDisturbFrom = OrbitUserPreferences.getNotificationsDoNotDisturbFrom();
             if (doNotDisturbFrom.length() > 0) {
                 timeMillis = Long.valueOf(doNotDisturbFrom);
             }
         } else {
-            String doNotDisturbTo = PreferenceUtils.getNotificationsDoNotDisturbTo();
+            String doNotDisturbTo = OrbitUserPreferences.getNotificationsDoNotDisturbTo();
             if (doNotDisturbTo.length() > 0) {
                 timeMillis = Long.valueOf(doNotDisturbTo);
             }
@@ -373,13 +372,13 @@ public class SettingsActivity extends AppCompatActivity {
                 long millis = mCalendar.getTimeInMillis();
 
                 if (from) {
-                    if (!String.valueOf(millis).equals(PreferenceUtils.getNotificationsDoNotDisturbFrom())) {
-                        PreferenceUtils.setNotificationsDoNotDisturbFrom(String.valueOf(millis));
+                    if (!String.valueOf(millis).equals(OrbitUserPreferences.getNotificationsDoNotDisturbFrom())) {
+                        OrbitUserPreferences.setNotificationsDoNotDisturbFrom(String.valueOf(millis));
                         saveDoNotDisturb(true);
                     }
                 } else {
-                    if (!String.valueOf(millis).equals(PreferenceUtils.getNotificationsDoNotDisturbTo())) {
-                        PreferenceUtils.setNotificationsDoNotDisturbTo(String.valueOf(millis));
+                    if (!String.valueOf(millis).equals(OrbitUserPreferences.getNotificationsDoNotDisturbTo())) {
+                        OrbitUserPreferences.setNotificationsDoNotDisturbTo(String.valueOf(millis));
                         saveDoNotDisturb(true);
                     }
                 }
@@ -391,7 +390,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void checkNotifications(boolean notifications) {
         if (notifications) {
             mLinearLayoutNotifications.setVisibility(View.VISIBLE);
-            boolean doNotDisturb = PreferenceUtils.getNotificationsDoNotDisturb();
+            boolean doNotDisturb = OrbitUserPreferences.getNotificationsDoNotDisturb();
             checkDoNotDisturb(doNotDisturb);
         } else {
             mLinearLayoutNotifications.setVisibility(View.GONE);
@@ -405,14 +404,14 @@ public class SettingsActivity extends AppCompatActivity {
             mLinearLayoutDoNotDisturb.setVisibility(View.GONE);
         }
 
-        String doNotDisturbFrom = PreferenceUtils.getNotificationsDoNotDisturbFrom();
+        String doNotDisturbFrom = OrbitUserPreferences.getNotificationsDoNotDisturbFrom();
         if (doNotDisturbFrom.length() > 0) {
             mTextViewNotificationsDoNotDisturbFrom.setText(DateUtils.formatTimeWithMarker(Long.valueOf(doNotDisturbFrom)));
         } else {
             mTextViewNotificationsDoNotDisturbFrom.setText("");
         }
 
-        String doNotDisturbTo = PreferenceUtils.getNotificationsDoNotDisturbTo();
+        String doNotDisturbTo = OrbitUserPreferences.getNotificationsDoNotDisturbTo();
         if (doNotDisturbTo.length() > 0) {
             mTextViewNotificationsDoNotDisturbTo.setText(DateUtils.formatTimeWithMarker(Long.valueOf(doNotDisturbTo)));
         } else {
@@ -590,7 +589,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void updateCurrentUserProfileImage(final File profileImage, final ImageView imageView) {
-        final String nickname = PreferenceUtils.getNickname();
+        final String nickname = OrbitUserPreferences.getNickname();
         SendBird.updateCurrentUserInfoWithProfileImage(nickname, profileImage, new SendBird.UserInfoUpdateHandler() {
             @Override
             public void onUpdated(SendBirdException e) {
@@ -604,7 +603,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 try {
-                    PreferenceUtils.setProfileUrl(SendBird.getCurrentUser().getProfileUrl());
+                    OrbitUserPreferences.setProfileUrl(SendBird.getCurrentUser().getProfileUrl());
                     ImageUtils.displayRoundImageFromUrl(SettingsActivity.this, Uri.fromFile(profileImage).toString(), imageView);
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -614,7 +613,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void updateCurrentUserInfo(final String userNickname) {
-        final String profileUrl = PreferenceUtils.getProfileUrl();
+        final String profileUrl = OrbitUserPreferences.getProfileUrl();
         SendBird.updateCurrentUserInfo(userNickname, profileUrl, new SendBird.UserInfoUpdateHandler() {
             @Override
             public void onUpdated(SendBirdException e) {
@@ -627,7 +626,7 @@ public class SettingsActivity extends AppCompatActivity {
                     return;
                 }
 
-                PreferenceUtils.setNickname(userNickname);
+                OrbitUserPreferences.setNickname(userNickname);
             }
         });
     }

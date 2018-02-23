@@ -14,7 +14,8 @@ import android.widget.Button;
 import com.sendbird.android.GroupChannel;
 import com.sendbird.android.SendBirdException;
 import net.orbit.orbit.R;
-import  net.orbit.orbit.messaging.utils.PreferenceUtils;
+import net.orbit.orbit.utils.OrbitUserPreferences;
+//import  net.orbit.orbit.messaging.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,15 +80,15 @@ public class CreateGroupChannelActivity extends AppCompatActivity
             public void onClick(View v) {
                 if (mCurrentState == STATE_SELECT_USERS) {
 //                if (mCurrentState == STATE_SELECT_DISTINCT) {
-                    mIsDistinct = PreferenceUtils.getGroupChannelDistinct();
+                    mIsDistinct = OrbitUserPreferences.getGroupChannelDistinct();
                     createGroupChannel(mSelectedIds, mIsDistinct);
                 }
             }
         });
         mCreateButton.setEnabled(false);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_create_group_channel);
-        setSupportActionBar(mToolbar);
+//        mToolbar = (Toolbar) findViewById(R.id.toolbar_create_group_channel);
+  //      setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_left_white_24_dp);

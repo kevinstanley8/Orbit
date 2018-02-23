@@ -14,11 +14,10 @@ import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.messaging.groupchannel.GroupChannelActivity;
 import net.orbit.orbit.messaging.openchannel.OpenChannelActivity;
-import net.orbit.orbit.messaging.utils.PreferenceUtils;
-import net.orbit.orbit.services.SendBirdLogout;
-
+import net.orbit.orbit.utils.OrbitUserPreferences;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
@@ -29,11 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final SendBirdLogout sblout = new SendBirdLogout(getApplicationContext());
-
-
-//        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
- //       setSupportActionBar(mToolbar);
 
         findViewById(R.id.linear_layout_group_channels).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Unregister push tokens and disconnect
-                sblout.disconnect();
+                disconnect();
             }
         });
 
@@ -66,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Changed to use a service that changes active screen to HomeActivity
+     * Tried to extract as a Service, null pointer happened, left here.
      *
      * Unregisters all push tokens for the current user so that they do not receive any notifications,
      * then disconnects from SendBird.
+     */
 
     private void disconnect() {
         SendBird.unregisterPushTokenAllForCurrentUser(new SendBird.UnregisterPushTokenHandler() {
@@ -87,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
                 ConnectionManager.logout(new SendBird.DisconnectHandler() {
                     @Override
                     public void onDisconnected() {
-                        PreferenceUtils.setConnected(false);
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        OrbitUserPreferences.setConnected(false);
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -96,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

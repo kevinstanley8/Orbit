@@ -5,7 +5,7 @@ import android.content.Context;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 import com.sendbird.android.User;
-import net.orbit.orbit.messaging.utils.PreferenceUtils;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 public class ConnectionManager {
 
@@ -54,7 +54,7 @@ public class ConnectionManager {
                 handler.onConnected(false);
             }
         } else if (SendBird.getConnectionState() == SendBird.ConnectionState.CLOSED) { // push notification or system kill
-            String userId = PreferenceUtils.getUserId();
+            String userId = OrbitUserPreferences.getUserId();
             SendBird.connect(userId, new SendBird.ConnectHandler() {
                 @Override
                 public void onConnected(User user, SendBirdException e) {
