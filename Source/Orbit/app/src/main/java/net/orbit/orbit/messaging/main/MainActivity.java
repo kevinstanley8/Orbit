@@ -17,6 +17,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.messaging.groupchannel.GroupChannelActivity;
 import net.orbit.orbit.messaging.openchannel.OpenChannelActivity;
 import net.orbit.orbit.messaging.utils.PreferenceUtils;
+import net.orbit.orbit.services.SendBirdLogout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final SendBirdLogout sblout = new SendBirdLogout(getApplicationContext());
+
 
 //        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
  //       setSupportActionBar(mToolbar);
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Unregister push tokens and disconnect
-                disconnect();
+                sblout.disconnect();
             }
         });
 
@@ -63,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Changed to use a service that changes active screen to HomeActivity
+     *
      * Unregisters all push tokens for the current user so that they do not receive any notifications,
      * then disconnects from SendBird.
-     */
+
     private void disconnect() {
         SendBird.unregisterPushTokenAllForCurrentUser(new SendBird.UnregisterPushTokenHandler() {
             @Override
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -28,6 +28,7 @@ import net.orbit.orbit.models.pojo.MenuList;
 
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.PropertiesService;
+import net.orbit.orbit.services.SendBirdLogin;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
@@ -55,7 +56,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(getApplicationContext());
-        User user = orbitPref.getUserPreferenceObj("loggedUser");
+        final User user = orbitPref.getUserPreferenceObj("loggedUser");
         Log.i("UserFromSharedPref", user.toString());
         String userRole = user.getRole().getName();
 
@@ -190,6 +191,9 @@ public class HomeActivity extends BaseActivity {
                 }
                 if(temp.getLabel() == (R.string.message_center))
                 {
+                    /*** Connects user to SendBird by Email ***/
+                    SendBirdLogin sbl = new SendBirdLogin(getApplicationContext());
+                    sbl.connectToSendBird(user.getEmail(), user.getEmail());
                     Intent newIntent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(newIntent);
                 }
