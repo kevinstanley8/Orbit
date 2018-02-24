@@ -18,6 +18,7 @@ import net.orbit.orbit.models.dto.SaveGradesDTO;
 import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.models.pojo.CourseGrade;
 import net.orbit.orbit.models.pojo.Grade;
+import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
@@ -116,6 +117,10 @@ public class GradeService extends  BaseService{
 
 
     public void getCourseGrades(final CourseGradesActivity activity, final int studentID){
+
+        //need to figure out how to find student ID based on logged in user.
+        //student logins will come from account link table
+        //parent logins will have to choose which student they want to see
 
         Log.d("GradeService", "Getting all course grades for student ID " + studentID);
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);

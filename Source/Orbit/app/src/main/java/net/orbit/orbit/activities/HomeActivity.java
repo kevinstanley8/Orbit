@@ -180,6 +180,11 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, ReportABugActivity.class);
                     startActivity(newIntent);
                 }
+                if(temp.getLabel() == (R.string.menu_my_grades))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, CourseGradesActivity.class);
+                    startActivity(newIntent);
+                }
 
             }
         });

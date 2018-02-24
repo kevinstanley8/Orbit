@@ -30,11 +30,13 @@
         android:background="@drawable/gradient"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        android:gravity="center"/>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="50dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:id="@+id/frameLayout"
         >
@@ -42,7 +44,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/txtGrade"/>
+            android:id="@+id/txtGrade"
+            android:text=""
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
 
     </FrameLayout>
 
