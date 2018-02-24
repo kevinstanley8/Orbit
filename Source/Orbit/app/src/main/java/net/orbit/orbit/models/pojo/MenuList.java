@@ -35,6 +35,7 @@ public class MenuList
 
 
     public static final List<MainMenuItem> studentMenuList = Arrays.asList(
+            new MainMenuItem(R.string.menu_my_grades,R.string.menu_my_grades, R.drawable.menu_view_courses),
             new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.ic_menu_report_bug),
             new MainMenuItem(R.string.menu_logout, R.string.menu_logout, R.drawable.menu_logout));
 

@@ -83,11 +83,15 @@
         <activity
             android:name=".activities.ViewAssignmentGradesActivity"
             android:label="View Single Assignment"
-            android:theme="@style/AppTheme.NoActionBar" />-
+            android:theme="@style/AppTheme.NoActionBar" />
+        -
         <activity
             android:name=".activities.ReportABugActivity"
             android:label="@string/report_a_bug"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.CourseGradesActivity"
+            android:label="@string/menu_my_grades"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -9,12 +9,14 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import net.orbit.orbit.activities.CourseGradesActivity;
 import net.orbit.orbit.activities.ViewAssignmentGradesActivity;
 import net.orbit.orbit.activities.ViewCourseAssignmentsActivity;
 import net.orbit.orbit.models.dto.CreateAssignmentDTO;
 import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.dto.SaveGradesDTO;
 import net.orbit.orbit.models.pojo.Assignment;
+import net.orbit.orbit.models.pojo.CourseGrade;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
@@ -110,6 +112,29 @@ public class GradeService extends  BaseService{
                         // called when request is retried
                     }
                 });
+    }
+
+
+    public void getCourseGrades(final CourseGradesActivity activity, final int studentID){
+
+        Log.d("GradeService", "Getting all course grades for student ID " + studentID);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.get("course-grades/" + studentID, null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray grades) {
+                Gson gson = new Gson();
+                List<CourseGrade> gradeList = gson.fromJson(grades.toString(), new TypeToken<List<CourseGrade>>(){}.getType());
+                activity.updateCourseGradeList(gradeList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("GradeService", "Error when getting course grades for student ID: " + studentID);
+            }
+
+        });
     }
 
 
