@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -68,7 +69,10 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
             if(s.getIsSelected())
                 enrollList.add(s);
         }
-
+        if (enrollList.size() < 1) {
+            Toast.makeText(this, "Please select at least one student!" , Toast.LENGTH_SHORT).show();
+            return;
+        }
         StudentService studentService = new StudentService(this);
         studentService.enrollStudentsInCourse(enrollList, EnrollStudentInCourseActivity.courseID);
     }
@@ -82,6 +86,15 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
 
     public void updateStudentList(List<Student> studentList)
     {
+
+        if (studentList.size() < 1) {
+            TextView noStudents = (TextView)findViewById(R.id.noStudents);
+            noStudents.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        recyclerView.setVisibility(View.VISIBLE);
+
         for(Student s : studentList)
         {
             EnrollStudentInCourseActivity.Adapter.students.add(s);

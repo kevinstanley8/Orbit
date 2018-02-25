@@ -28,6 +28,7 @@
         android:hint="First Name"
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
+        android:textColorHint="@color/placeholderColor"
         android:textSize="16dp"
         android:textColor="@color/colorAccent"
         android:layout_marginBottom="20dp"
@@ -38,6 +39,7 @@
         android:id="@+id/studentLastName"
         android:layout_width="250dp"
         android:layout_height="60dp"
+        android:textColorHint="@color/placeholderColor"
         android:paddingLeft="5dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_account_box_white_24px"
@@ -53,19 +55,21 @@
         android:layout_alignLeft="@+id/studentFirstName"
         android:layout_alignStart="@+id/studentFirstName" />
 
-    <EditText
+    <TextView
         android:id="@+id/studentDateOfBirth"
         android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:textColorHint="@color/placeholderColor"
         android:paddingLeft="3dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_date_range_white_24px"
         android:drawablePadding="5dp"
         android:ems="10"
+        android:clickable="true"
         android:hint="DOB (10/20/1980)"
-        android:inputType="textPersonName"
         android:textSize="16dp"
         android:textColor="@color/colorAccent"
+        android:gravity="center_vertical"
         android:layout_marginBottom="80dp"
         android:layout_alignBottom="@+id/cardView"
         android:layout_alignLeft="@+id/studentFirstName"
@@ -91,6 +95,33 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Link Student"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/cardView"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cancel_action">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Cancel"
                 android:textColor="#fff"
                 android:textSize="18sp" />
         </RelativeLayout>

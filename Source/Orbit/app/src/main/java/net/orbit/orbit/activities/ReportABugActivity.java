@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,9 +33,8 @@ public class ReportABugActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_a_bug);
 
-        getLayoutInflater().inflate(R.layout.activity_view_course, relativeLayout);
+        getLayoutInflater().inflate(R.layout.activity_report_a_bug, relativeLayout);
 
         issueName = (EditText)findViewById(R.id.issueName);
         issueDescription = (EditText)findViewById(R.id.issueDescription);
@@ -50,6 +51,13 @@ public class ReportABugActivity extends BaseActivity {
                 android.R.layout.simple_spinner_item, issuePriorityList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         issuePrioritySpinner.setAdapter(dataAdapter);
+
+        final RelativeLayout cancelButton = (RelativeLayout) findViewById(R.id.cancel_action);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // On submitting the form
         submitIssueBtn.setOnClickListener(new View.OnClickListener() {
@@ -70,27 +78,30 @@ public class ReportABugActivity extends BaseActivity {
         String description = issueDescription.getText().toString();
         String priority = (String) ( (Spinner) findViewById(R.id.issuePriority) ).getSelectedItem();
 
-        boolean proceed = true;
+        View focusView = null;
 
         // Validation
         if (TextUtils.isEmpty(name)) {
             issueName.setError(getString(R.string.error_field_required));
-            proceed = false;
+            focusView = issueName;
+            focusView.requestFocus();
+            return;
         }
 
         if (TextUtils.isEmpty(description)) {
             issueDescription.setError(getString(R.string.error_field_required));
-            proceed = false;
+            focusView = issueDescription;
+            focusView.requestFocus();
+            return;
         }
 
-        if (proceed) {
-
-            TicketService ticketService = new TicketService(this);
-            OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
-            User user = orbitPref.getUserPreferenceObj("loggedUser");
-            Ticket ticket = new Ticket(name, description, priority, user);
-            ticketService.addTicket(ticket);
-        }
+        TicketService ticketService = new TicketService(this);
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
+        User user = orbitPref.getUserPreferenceObj("loggedUser");
+        Ticket ticket = new Ticket(name, description, priority, user);
+        ticketService.addTicket(ticket);
+        issueName.setText("");
+        issueDescription.setText("");
     }
 
 }

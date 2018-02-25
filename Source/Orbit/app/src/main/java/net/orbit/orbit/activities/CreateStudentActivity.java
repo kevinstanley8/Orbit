@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -107,14 +108,27 @@ public class CreateStudentActivity extends BaseActivity
 
                 Log.d("CreateStudentActivity", "Create A New Student.");
 
-                if(        studentFirstName.getText().toString().matches("")
-                        || studentLastName.getText().toString().matches("")
-                        || dateTextView.getText().toString().matches("")){
-                    Toast.makeText(CreateStudentActivity.this, "Form is invalid. Please enter all fields.",
-                            Toast.LENGTH_LONG).show();
+                View focusView = null;
+                if (TextUtils.isEmpty(studentFirstName.getText().toString())) {
+                    studentFirstName.setError(getString(R.string.error_field_required));
+                    focusView = studentFirstName;
+                    focusView.requestFocus();
                     return;
                 }
-
+                if (TextUtils.isEmpty(studentLastName.getText().toString())) {
+                    studentLastName.setError(getString(R.string.error_field_required));
+                    focusView = studentLastName;
+                    focusView.requestFocus();
+                    return;
+                }
+                if (dateTextView.getText().toString().equals("")) {
+                    dateTextView.setError(getString(R.string.error_field_required));
+                    focusView = dateTextView;
+                    focusView.requestFocus();
+                    return;
+                } else {
+                    dateTextView.setError(null);
+                }
 
                 //Creates a new menu_student Object to send to API
                 Student newStudent = new Student(

@@ -19,6 +19,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:minHeight="56dp"
         android:background="?attr/colorPrimary"
         android:id="@+id/toolbar"/>
 

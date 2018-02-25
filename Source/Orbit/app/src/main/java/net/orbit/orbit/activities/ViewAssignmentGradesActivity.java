@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
@@ -66,6 +68,14 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
 
     public void updateGradeList(List<Grade> gradeList)
     {
+
+        if (gradeList.size() < 1) {
+            TextView noGrades = (TextView)findViewById(R.id.noGrades);
+            noGrades.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        recyclerView.setVisibility(View.VISIBLE);
         for(Grade g : gradeList)
         {
             /*if(g.getAssignment().getCourse() == null)

@@ -49,6 +49,14 @@ public class ChooseStudentActivity extends BaseActivity {
 
     public void updateStudentList(List<Student> studentList)
     {
+        if (studentList.size() < 1) {
+            TextView noStudents = (TextView)findViewById(R.id.noStudents);
+            noStudents.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        recyclerView.setVisibility(View.VISIBLE);
+
         Adapter.students.clear();
         for(Student s : studentList){
             Adapter.students.add(s);

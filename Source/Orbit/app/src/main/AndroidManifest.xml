@@ -84,7 +84,6 @@
             android:name=".activities.ViewAssignmentGradesActivity"
             android:label="View Single Assignment"
             android:theme="@style/AppTheme.NoActionBar" />
-        -
         <activity
             android:name=".activities.ReportABugActivity"
             android:label="@string/report_a_bug"

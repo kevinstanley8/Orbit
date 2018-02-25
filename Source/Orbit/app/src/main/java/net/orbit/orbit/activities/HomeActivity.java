@@ -150,6 +150,11 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, ChooseStudentActivity.class);
                     startActivity(newIntent);
                 }
+                if(temp.getLabel() == (R.string.menu_link_student))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, FindStudentActivity.class);
+                    startActivity(newIntent);
+                }
                 if(temp.getLabel() == (R.string.menu_enroll_student_in_course))
                 {
                     Intent newIntent = new Intent(HomeActivity.this, EnrollStudentInCourseActivity.class);
