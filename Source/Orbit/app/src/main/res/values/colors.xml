@@ -5,6 +5,7 @@
     <!--<color name="colorAccent">#FF4081</color> PINK -->
     <color name="colorAccent">#FFFF</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="placeholderColor">#70DBDB</color>
 
     <!---
 

@@ -3,6 +3,7 @@ package net.orbit.orbit.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.Constants;
 
 public class AddTeacherActivity extends BaseActivity {
+
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, AddTeacherActivity.class);
@@ -35,13 +37,15 @@ public class AddTeacherActivity extends BaseActivity {
 
         final EditText mFirstName   = (EditText)findViewById(R.id.firstName);
         final EditText mLastName   = (EditText)findViewById(R.id.lastName);
-        final String mDob   = Constants.FILLOUT_LATER;
         final EditText mSsn   = (EditText)findViewById(R.id.ssn);
+        final String mDob   = Constants.FILLOUT_LATER;
         final String mAddress1   = Constants.FILLOUT_LATER;
         final String mAddress2   = Constants.FILLOUT_LATER;
         final String mCity   = Constants.FILLOUT_LATER;
         final String mState   = Constants.FILLOUT_LATER;
         final String mZip   = Constants.FILLOUT_LATER;
+
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -54,6 +58,26 @@ public class AddTeacherActivity extends BaseActivity {
         addTeacherButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("AddTeacherActivity", "Add a new Test Teacher.");
+
+                View focusView = null;
+                if (TextUtils.isEmpty(mFirstName.getText().toString())) {
+                    mFirstName.setError(getString(R.string.error_field_required));
+                    focusView = mFirstName;
+                    focusView.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(mLastName.getText().toString())) {
+                    mLastName.setError(getString(R.string.error_field_required));
+                    focusView = mLastName;
+                    focusView.requestFocus();
+                    return;
+                }
+                if (TextUtils.isEmpty(mSsn.getText().toString())) {
+                    mSsn.setError(getString(R.string.error_field_required));
+                    focusView = mSsn;
+                    focusView.requestFocus();
+                    return;
+                }
 
                 //Creates a new menu_teacher Object to send to API
                 Teacher newTeacher = new Teacher

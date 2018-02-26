@@ -78,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private RelativeLayout mEmailSignInButton;
+    private TextView mRegisterButton;
     private Context test = this;
 
     private FirebaseAuth mAuth;
@@ -97,19 +99,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        // This code bellow is giving some trouble (have to do some more research on it)
-//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-//                    attemptLogin();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
 
-        RelativeLayout mEmailSignInButton = (RelativeLayout) findViewById(R.id.email_sign_in_button);
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        mEmailSignInButton = (RelativeLayout) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        TextView mRegisterButton = (TextView) findViewById(R.id.register_button);
+        mRegisterButton = (TextView) findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +143,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if(currentUser != null) {
             Toast.makeText(this, "Welcome Back " + currentUser.getEmail(),
                     Toast.LENGTH_SHORT).show();
+            mEmailSignInButton.setClickable(false);
+            mRegisterButton.setClickable(false);
             loadHomeScreen();
         }
 
@@ -163,16 +167,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void loadHomeScreen()
     {
         UserService userService = new UserService(test);
+        showProgress(true);
         userService.storeUserInPreferences(mAuth, new ServerCallback<Boolean>(){
 
             @Override
             public void onSuccess(Boolean result) {
+                showProgress(false);
                 startActivity(HomeActivity.createIntent(test));
             }
 
             @Override
             public void onFail(ErrorResponse errorMessage) {
-
+                showProgress(false);
             }
         });
     }

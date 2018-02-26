@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -117,6 +119,26 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+        final RelativeLayout cancelButton = (RelativeLayout) findViewById(R.id.cancel_action);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+
+        });
+
+        TextView mPasswordView = (TextView) findViewById(R.id.password);
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE) {
+                    createAccount();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void onStart() {
@@ -139,39 +161,68 @@ public class RegisterActivity extends AppCompatActivity {
         TextView passwordTextView = (TextView) findViewById(R.id.password);
         String email = emailTextView.getText().toString();
         String password = passwordTextView.getText().toString();
+        EditText firstNameEditText = (EditText)findViewById(R.id.firstName);
+        EditText lastNameEditText = (EditText)findViewById(R.id.lastName);
+        TextView dobTextView = (TextView) findViewById(R.id.date);
+        String firstName = firstNameEditText.getText().toString();
+        String lastName = lastNameEditText.getText().toString();
+        String dob = dobTextView.getText().toString();
 
-        boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            passwordTextView.setError(getString(R.string.error_invalid_password));
-            focusView = passwordTextView;
-            cancel = true;
-        } else if (!isPasswordValid(password)) {
-            passwordTextView.setError(getString(R.string.error_invalid_password));
-            focusView = passwordTextView;
-            cancel = true;
+        // Check for a valid first name, if the user entered one.
+        if (TextUtils.isEmpty(firstName)) {
+            firstNameEditText.setError(getString(R.string.error_field_required));
+            focusView = firstNameEditText;
+            focusView.requestFocus();
+            return;
+        }
+
+        // Check for a valid last name, if the user entered one.
+        if (TextUtils.isEmpty(lastName)) {
+            lastNameEditText.setError(getString(R.string.error_field_required));
+            focusView = lastNameEditText;
+            focusView.requestFocus();
+            return;
+        }
+
+        // Check for a valid dob, if the user entered one.
+        if (dob.equals("")) {
+            dobTextView.setError(getString(R.string.error_field_required));
+            focusView = dobTextView;
+            focusView.requestFocus();
+            return;
+        } else {
+            dobTextView.setError(null);
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             emailTextView.setError(getString(R.string.error_field_required));
             focusView = emailTextView;
-            cancel = true;
+            focusView.requestFocus();
+            return;
         } else if (!isEmailValid(email)) {
             emailTextView.setError(getString(R.string.error_invalid_email));
             focusView = emailTextView;
-            cancel = true;
-        }
-
-        if (cancel) {
-
             focusView.requestFocus();
-        } else {
-
-            createAccount(email, password);
+            return;
         }
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password)) {
+            passwordTextView.setError(getString(R.string.error_invalid_password));
+            focusView = passwordTextView;
+            focusView.requestFocus();
+            return;
+        } else if (!isPasswordValid(password)) {
+            passwordTextView.setError(getString(R.string.error_invalid_password));
+            focusView = passwordTextView;
+            focusView.requestFocus();
+            return;
+        }
+
+        createAccount(email, password);
     }
 
     private boolean isEmailValid(String email) {

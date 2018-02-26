@@ -27,6 +27,7 @@ tools:context="net.orbit.orbit.activities.ReportABugActivity">
     android:drawablePadding="5dp"
     android:hint="Name Of The Issue"
     android:inputType="textEmailAddress"
+    android:textColorHint="@color/placeholderColor"
     android:textSize="16dp"
     android:textColor="@color/colorAccent"
     android:layout_marginBottom="35dp"
@@ -41,6 +42,7 @@ tools:context="net.orbit.orbit.activities.ReportABugActivity">
     android:drawableLeft="@drawable/ic_description_white_24dp"
     android:paddingLeft="10dp"
     android:drawablePadding="5dp"
+    android:textColorHint="@color/placeholderColor"
     android:ems="10"
     android:hint="Issue Desription"
     android:inputType="textMultiLine"
@@ -89,6 +91,33 @@ tools:context="net.orbit.orbit.activities.ReportABugActivity">
             android:textSize="18sp" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/cardView"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cancel_action">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Cancel"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 <TextView
     android:id="@+id/textView2"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -65,6 +67,10 @@ public class ChooseCourseActivity extends BaseActivity {
             if(c.getIsSelected()){
                 assignList.add(c);
             }
+        }
+        if (assignList.size() < 1) {
+            Toast.makeText(this, "Please select at least one course!" , Toast.LENGTH_SHORT).show();
+            return;
         }
         CourseService courseService = new CourseService(this);
         courseService.assignCourseToTeacher(assignList);

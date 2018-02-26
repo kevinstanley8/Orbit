@@ -66,6 +66,12 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
 
     public void updateAssignmentList(List<Assignment> assignmentList)
     {
+        if (assignmentList.size() < 1) {
+            TextView noAssignments = (TextView)findViewById(R.id.noAssignments);
+            noAssignments.setVisibility(View.VISIBLE);
+            return;
+        }
+        recyclerView.setVisibility(View.VISIBLE);
         for(Assignment a : assignmentList)
         {
             ViewCourseAssignmentsActivity.Adapter.assignments.add(a);

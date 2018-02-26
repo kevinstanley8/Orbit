@@ -170,6 +170,7 @@ public class BaseActivity extends AppCompatActivity {
         public static final int VIEW_ASSIGNMENTS = 10;
         public static final int CREATE_ASSIGNMENT = 11;
         public static final int REPORT_A_BUG = 12;
+        public static final int COURSE_GRADES = 13;
 
 
 
@@ -219,6 +220,8 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = CREATE_ASSIGNMENT;
             else if(item.mTitle.trim().equals("Report A Bug"))
                 selectedItem = REPORT_A_BUG;
+            else if(item.mTitle.trim().equals("My Grades"))
+                selectedItem = COURSE_GRADES;
 
 
             switch(selectedItem)
@@ -250,6 +253,8 @@ public class BaseActivity extends AppCompatActivity {
                 case CREATE_ASSIGNMENT: startActivityForResult(CreateAssignmentActivity.createIntent(context), result);
                     break;
                 case REPORT_A_BUG: startActivityForResult(ReportABugActivity.createIntent(context), result);
+                    break;
+                case COURSE_GRADES: startActivityForResult(CourseGradesActivity.createIntent(context), result);
                     break;
             }
         }

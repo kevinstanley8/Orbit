@@ -34,6 +34,7 @@
         android:inputType="textPersonName"
         android:paddingLeft="5dp"
         android:textSize="16dp"
+        android:textColorHint="@color/placeholderColor"
         android:textColor="@color/colorAccent"
         android:layout_marginTop="120dp"
         android:layout_centerHorizontal="true" />
@@ -47,6 +48,7 @@
         android:drawableLeft="@drawable/ic_account_box_white_24px"
         android:drawablePadding="5dp"
         android:ems="10"
+        android:textColorHint="@color/placeholderColor"
         android:hint="Last Name"
         android:inputType="textPersonName"
         android:textSize="16dp"
@@ -80,6 +82,7 @@
         android:layout_height="50dp"
         android:layout_alignLeft="@+id/studentFirstName"
         android:layout_alignStart="@+id/studentFirstName"
+        android:textColorHint="@color/placeholderColor"
         android:layout_below="@+id/studentLastName"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="10dp"

@@ -42,6 +42,7 @@
     <string name="title_create_student">Create Student</string>
     <string name="title_add_Teacher">Add Teacher</string>
     <string name="message_center">Message Center</string>
+    <string name="menu_my_grades">My Grades</string>
 
     <!--
 
