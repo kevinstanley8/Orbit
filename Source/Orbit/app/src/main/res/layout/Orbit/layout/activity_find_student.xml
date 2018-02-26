@@ -67,23 +67,6 @@
         android:textSize="16dp"
         android:textColor="@color/colorAccent"
         android:layout_marginBottom="80dp"
-        android:layout_alignBottom="@+id/studentSSN"
-        android:layout_alignLeft="@+id/studentFirstName"
-        android:layout_alignStart="@+id/studentFirstName" />
-
-    <EditText
-        android:id="@+id/studentSSN"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:paddingLeft="3dp"
-        android:background="#11000000"
-        android:drawableLeft="@drawable/ic_password"
-        android:ems="10"
-        android:hint="SSN"
-        android:inputType="numberPassword"
-        android:textSize="16dp"
-        android:textColor="@color/colorAccent"
-        android:layout_marginBottom="80dp"
         android:layout_alignBottom="@+id/cardView"
         android:layout_alignLeft="@+id/studentFirstName"
         android:layout_alignStart="@+id/studentFirstName" />

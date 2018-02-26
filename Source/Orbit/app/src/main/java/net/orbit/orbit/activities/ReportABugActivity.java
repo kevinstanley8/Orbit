@@ -61,7 +61,7 @@ public class ReportABugActivity extends BaseActivity {
     }
 
     public static Intent createIntent(Context context) {
-        Intent i = new Intent(context, EnrollStudentInCourseActivity.class);
+        Intent i = new Intent(context, ReportABugActivity.class);
         return i;
     }
 

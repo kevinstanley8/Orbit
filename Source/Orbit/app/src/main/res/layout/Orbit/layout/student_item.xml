@@ -11,12 +11,12 @@
         android:id="@+id/txtMoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/frameLayout"
-        android:layout_alignTop="@+id/frameLayout"
+        android:layout_alignParentTop="true"
         android:text=""
-        android:textColor="#0000FF"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#0000FF" />
 
     <TextView
         android:id="@+id/txtStudentName"
@@ -27,12 +27,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:text=""
+        android:text="Kevin Stanley"
         android:layout_marginRight="10dp"
         android:background="@drawable/gradient"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

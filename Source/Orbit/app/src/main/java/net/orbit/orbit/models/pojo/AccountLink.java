@@ -1,6 +1,7 @@
 package net.orbit.orbit.models.pojo;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by brocktubre on 12/25/17.
@@ -8,15 +9,13 @@ import java.sql.Date;
 
 public class AccountLink {
     private int accountLinkID;
-    private Date date_linked;
     private String active;
     private int user_id;
     private int student_id;
     private String message;
 
-    public AccountLink(int accountLinkID, Date date_linked, String active, int user_id, int student_id, String message) {
+    public AccountLink(int accountLinkID, String active, int user_id, int student_id, String message) {
         this.accountLinkID = accountLinkID;
-        this.date_linked = date_linked;
         this.active = active;
         this.user_id = user_id;
         this.student_id = student_id;
@@ -29,14 +28,6 @@ public class AccountLink {
 
     public void setAccountLinkID(int accountLinkID) {
         this.accountLinkID = accountLinkID;
-    }
-
-    public Date getDate_linked() {
-        return date_linked;
-    }
-
-    public void setDate_linked(Date date_linked) {
-        this.date_linked = date_linked;
     }
 
     public String getActive() {
@@ -75,7 +66,6 @@ public class AccountLink {
     public String toString() {
         return "AccountLink{" +
                 "accountLinkID='" + accountLinkID + '\'' +
-                ", date_linked='" + date_linked + '\'' +
                 ", active='" + active + '\'' +
                 ", user_id='" + user_id + '\'' +
                 ", student_id='" + student_id + '\'' +
