@@ -196,8 +196,10 @@ public class HomeActivity extends BaseActivity {
                 if(temp.getLabel() == (R.string.message_center))
                 {
                     /*** Connects user to SendBird by Email **/
-                    connectToSendBird(user.getUid(), user.getEmail() + "(" + user.getRole() +")");
+                    String nickName = user.getEmail() + " (" + user.getRole().getName().toString() + ")";
+                    connectToSendBird(user.getUid(), nickName);
                     Intent newIntent = new Intent(HomeActivity.this, MainActivity.class);
+                    startActivity(newIntent);
                 }
                 if(temp.getLabel() == (R.string.menu_my_grades))
                 {
@@ -291,6 +293,7 @@ public class HomeActivity extends BaseActivity {
                     return;
                 }
 
+                orbitPref.setUserId(orbitPref.getUserPreferenceObj("loggedUser").getEmail());
                 orbitPref.setNickname(user.getNickname());
                 orbitPref.setProfileUrl(user.getProfileUrl());
                 orbitPref.setConnected(true);
