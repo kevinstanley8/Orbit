@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <!--- SendBird Stuff-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +19,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name" />
@@ -24,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.RegisterActivity"
             android:label="@string/title_activity_register"
@@ -87,10 +94,76 @@
         <activity
             android:name=".activities.ReportABugActivity"
             android:label="@string/report_a_bug"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.CourseGradesActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.CourseGradesActivity"
             android:label="@string/menu_my_grades"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--
+
+
+        Send Bird Activities
+
+
+        -->
+
+        <activity android:name=".messaging.main.MainActivity"
+        android:label="@string/select_channel_type"/>
+        <activity
+            android:name=".messaging.main.SettingsActivity"
+            android:label="@string/settings" />
+        <activity
+            android:name=".messaging.main.BlockedMembersListActivity"
+            android:label="@string/blocked_members_list" />
+
+        <activity android:name=".messaging.utils.PhotoViewerActivity" />
+        <activity
+            android:name=".messaging.utils.MediaPlayerActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".messaging.groupchannel.GroupChannelActivity"
+            android:label="@string/create_open_channel"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".messaging.groupchannel.InviteMemberActivity"
+            android:label="@string/invite_member" />
+        <activity
+            android:name=".messaging.groupchannel.MemberListActivity"
+            android:label="@string/member_list" />
+        <activity
+            android:name=".messaging.groupchannel.MemberInfoActivity"
+            android:label="@string/member_info" />
+        <activity
+            android:name=".messaging.groupchannel.CreateGroupChannelActivity"
+            android:label="@string/create_group_channel" />
+        <activity
+            android:name=".messaging.openchannel.CreateOpenChannelActivity"
+            android:label="@string/participant_list" />
+        <activity android:name=".messaging.openchannel.OpenChannelActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".messaging.openchannel.ParticipantListActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <!---
+
+    Notifications for Messages
+
+    -->
+
+        <service android:name=".messaging.fcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".messaging.fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
+
+
 
 </manifest>
