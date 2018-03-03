@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.CourseGrade;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
@@ -115,11 +116,6 @@ public class CourseGradesActivity extends BaseActivity {
 
             holder.txtCourseName.setText(grade.getCourse().getName());
             holder.txtGrade.setText(grade.getCalcGrade());
-
-            /*if(grade.getIsSelected())
-                holder.itemView.setBackgroundColor(Color.parseColor("#90CAF9"));
-            else
-                holder.itemView.setBackgroundColor(Color.WHITE);*/
         }
 
         @Override
@@ -143,28 +139,16 @@ public class CourseGradesActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-            /*int position = getAdapterPosition();
-            int assignmentID = CourseGradesActivity.Adapter.assignments.get(position).getAssignmentId();
+            int position = getAdapterPosition();
+            int courseID = CourseGradesActivity.Adapter.grades.get(position).getCourse().getCourseId();
 
             Context context = itemView.getContext();
-            Intent intent = ViewAssignmentGradesActivity.createIntent(context, courseID, assignmentID);
-            context.startActivity(intent);*/
-
+            Intent intent = ViewAssignmentGradesStudentActivity.createIntent(context, CourseGradesActivity.studentID, courseID);
+            context.startActivity(intent);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            /*int position = getAdapterPosition();
-            String top = Adapter.memes.get(position).getTxtTop();
-            String bottom = Adapter.memes.get(position).getTxtBottom();
-            String url = Adapter.memes.get(position).getMemeURL();
-
-            Context context = itemView.getContext();
-            int TEST = 0;
-
-            context.startActivity(EditMeme.createIntent(
-                    context, Adapter.memes, position, itemView, top, bottom, url));*/
-
             return false;
         }
 

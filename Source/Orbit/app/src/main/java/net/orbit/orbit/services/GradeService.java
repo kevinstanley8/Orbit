@@ -11,6 +11,7 @@ import com.loopj.android.http.RequestParams;
 
 import net.orbit.orbit.activities.CourseGradesActivity;
 import net.orbit.orbit.activities.ViewAssignmentGradesActivity;
+import net.orbit.orbit.activities.ViewAssignmentGradesStudentActivity;
 import net.orbit.orbit.activities.ViewCourseAssignmentsActivity;
 import net.orbit.orbit.models.dto.CreateAssignmentDTO;
 import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
@@ -118,10 +119,6 @@ public class GradeService extends  BaseService{
 
     public void getCourseGrades(final CourseGradesActivity activity, final int studentID){
 
-        //need to figure out how to find student ID based on logged in user.
-        //student logins will come from account link table
-        //parent logins will have to choose which student they want to see
-
         Log.d("GradeService", "Getting all course grades for student ID " + studentID);
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("course-grades/" + studentID, null, new JsonHttpResponseHandler(){
@@ -137,6 +134,32 @@ public class GradeService extends  BaseService{
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.e("GradeService", "Error when getting course grades for student ID: " + studentID);
+            }
+
+        });
+    }
+
+    public void getStudentCourseGrades(final ViewAssignmentGradesStudentActivity activity, final int studentID, final int courseID){
+
+        //need to figure out how to find student ID based on logged in user.
+        //student logins will come from account link table
+        //parent logins will have to choose which student they want to see
+
+        Log.d("GradeService", "Getting all grades for student ID " + studentID + " courseID " + courseID);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.get("student-grades/" + studentID + "/" + courseID, null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray grades) {
+                Gson gson = new Gson();
+                List<Grade> gradeList = gson.fromJson(grades.toString(), new TypeToken<List<Grade>>(){}.getType());
+                activity.updateGradeList(gradeList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("GradeService", "Error when getting course grades for student ID: " + studentID + " courseID");
             }
 
         });

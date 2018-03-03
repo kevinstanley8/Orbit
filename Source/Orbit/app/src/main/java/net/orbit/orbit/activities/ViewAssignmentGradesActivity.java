@@ -143,11 +143,6 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
 
             holder.txtStudentName.setText(grade.getStudent().getStudentLastName() + ", " + grade.getStudent().getStudentFirstName());
             holder.txtGrade.setText(grade.getGrade());
-
-            /*if(grade.getIsSelected())
-                holder.itemView.setBackgroundColor(Color.parseColor("#90CAF9"));
-            else
-                holder.itemView.setBackgroundColor(Color.WHITE);*/
         }
 
         @Override

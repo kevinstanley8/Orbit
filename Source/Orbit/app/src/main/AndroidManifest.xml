@@ -97,11 +97,15 @@
             android:name=".activities.CourseGradesActivity"
             android:label="@string/menu_my_grades"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ChooseStudentSaveActivity"
+        <activity
+            android:name=".activities.ChooseStudentSaveActivity"
             android:label="Save Chosen Student"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ViewAssignmentGradesStudentActivity"
+            android:label="Grade Details"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <!--         Send Bird Activities -->
+        <!-- Send Bird Activities -->
 
         <activity
             android:name=".messaging.main.MainActivity"
@@ -158,7 +162,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>
