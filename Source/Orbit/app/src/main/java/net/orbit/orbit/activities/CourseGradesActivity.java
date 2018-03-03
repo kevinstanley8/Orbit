@@ -14,6 +14,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.CourseGrade;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,18 @@ public class CourseGradesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //if student ID has not been set then the user must select a student to view grades
+        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
+        String id = orbitPref.getStringPreference("chosenStudentID");
+
+        if(id == null || id.equals(""))
+        {
+            Intent intent = ChooseStudentActivity.createIntent(this);
+            this.startActivity(intent);
+        }
+        else
+            CourseGradesActivity.studentID = Integer.parseInt(id);
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_course_grades, relativeLayout);
@@ -57,7 +70,7 @@ public class CourseGradesActivity extends BaseActivity {
         });*/
 
         GradeService gradeService = new GradeService(this);
-        gradeService.getCourseGrades(this, 1);
+        gradeService.getCourseGrades(this, studentID);
     }
 
     public void updateCourseGradeList(List<CourseGrade> courseGradeList)

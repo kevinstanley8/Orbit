@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Student;
+import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -127,17 +128,12 @@ public class ChooseStudentActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-
-            /*TextView top = (TextView) itemView.findViewById(R.id.txtTop);
-            TextView bottom = (TextView) itemView.findViewById(R.id.txtBottom);
-            TextView url = (TextView) itemView.findViewById(R.id.txtURLString);
-
-            String text = (String) top.getText();
+            int position = getAdapterPosition();
+            int studentID = ChooseStudentActivity.Adapter.students.get(position).getStudentId();
 
             Context context = itemView.getContext();
-            context.startActivity(MemeCloseUpActivity.createIntent(
-                    context, (String) top.getText(), (String) bottom.getText(), (String) url.getText()));*/
-
+            Intent intent = ChooseStudentSaveActivity.createIntent(context, studentID);
+            context.startActivity(intent);
         }
 
         @Override
