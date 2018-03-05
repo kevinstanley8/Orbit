@@ -8,27 +8,30 @@
 
     <TextView
         android:id="@+id/txtStudentName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
         android:text=""
-        android:layout_marginRight="10dp"
-        android:background="@drawable/gradient"
-        android:textAlignment="center"
+        android:background="#11000000"
+        android:gravity="center"
+        android:layout_marginTop="3dp"
+        android:drawableLeft="@drawable/ic_account_box_white_24px"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorAccent"/>
 
     <EditText
         android:id="@+id/txtGrade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textColorHint="@color/placeholderColor"
+        android:background="#11000000"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:ems="10"
         android:hint="Grade"
-        android:digits="0123456789"
-        android:inputType="numberDecimal"/>
+        android:inputType="textPersonName"
+        android:textColor="@color/colorAccent"
+        android:digits="0123456789"/>
 
     </LinearLayout>
 
