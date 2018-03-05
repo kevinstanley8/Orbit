@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.sendbird.android.SendBird;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.messaging.main.MainActivity;
 import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
@@ -171,6 +172,7 @@ public class BaseActivity extends AppCompatActivity {
         public static final int CREATE_ASSIGNMENT = 11;
         public static final int REPORT_A_BUG = 12;
         public static final int COURSE_GRADES = 13;
+        public static final int MESSAGING = 14;
 
 
 
@@ -222,6 +224,8 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = REPORT_A_BUG;
             else if(item.mTitle.trim().equals("My Grades"))
                 selectedItem = COURSE_GRADES;
+            else if (item.mTitle.trim().equals("Message Center"))
+                selectedItem = MESSAGING;
 
 
             switch(selectedItem)
@@ -256,6 +260,8 @@ public class BaseActivity extends AppCompatActivity {
                     break;
                 case COURSE_GRADES: startActivityForResult(CourseGradesActivity.createIntent(context), result);
                     break;
+               // case MESSAGING: startActivityForResult(MainActivity.createIntent(context), result);
+                 //   break;
             }
         }
 

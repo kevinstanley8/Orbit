@@ -101,7 +101,8 @@
             android:name=".activities.ChooseStudentSaveActivity"
             android:label="Save Chosen Student"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ViewAssignmentGradesStudentActivity"
+        <activity
+            android:name=".activities.ViewAssignmentGradesStudentActivity"
             android:label="Grade Details"
             android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -109,7 +110,8 @@
 
         <activity
             android:name=".messaging.main.MainActivity"
-            android:label="@string/select_channel_type" />
+            android:label="@string/select_channel_type"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.main.SettingsActivity"
             android:label="@string/settings" />
@@ -123,7 +125,7 @@
         <activity
             android:name=".messaging.groupchannel.GroupChannelActivity"
             android:label="@string/create_open_channel"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".messaging.groupchannel.InviteMemberActivity"
             android:label="@string/invite_member" />
@@ -135,16 +137,7 @@
             android:label="@string/member_info" />
         <activity
             android:name=".messaging.groupchannel.CreateGroupChannelActivity"
-            android:label="@string/create_group_channel" />
-        <activity
-            android:name=".messaging.openchannel.CreateOpenChannelActivity"
-            android:label="@string/participant_list" />
-        <activity
-            android:name=".messaging.openchannel.OpenChannelActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".messaging.openchannel.ParticipantListActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:label="@string/create_group_channel"/>
 
         <!--
     -

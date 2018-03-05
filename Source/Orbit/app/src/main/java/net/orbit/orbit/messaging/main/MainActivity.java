@@ -16,7 +16,6 @@ import com.sendbird.android.SendBirdException;
 import net.orbit.orbit.R;
 import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.messaging.groupchannel.GroupChannelActivity;
-import net.orbit.orbit.messaging.openchannel.OpenChannelActivity;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 public class MainActivity extends AppCompatActivity {
 
@@ -33,14 +32,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GroupChannelActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.linear_layout_open_channels).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, OpenChannelActivity.class);
                 startActivity(intent);
             }
         });
