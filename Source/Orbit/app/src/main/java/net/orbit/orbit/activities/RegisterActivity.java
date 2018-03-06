@@ -17,7 +17,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -33,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
-import net.orbit.orbit.models.pojo.AccountDetailsDTO;
+import net.orbit.orbit.models.dto.AccountDetailsDTO;
 import net.orbit.orbit.models.pojo.Role;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.RoleService;
@@ -42,15 +41,12 @@ import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 import net.orbit.orbit.utils.ServerCallback;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -268,7 +264,7 @@ public class RegisterActivity extends AppCompatActivity {
                             // Get current date
                             Date dateObj = new Date();
                             String date = new SimpleDateFormat(Constants.DATE_FORMAT_LAST_LOGIN).format(dateObj);
-                            User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role);
+                            User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role, firstName.getText().toString(), lastName.getText().toString());
                             AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString(), dob.getText().toString());
 
 

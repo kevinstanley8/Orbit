@@ -9,17 +9,12 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import net.orbit.orbit.models.exceptions.ErrorResponse;
-import net.orbit.orbit.models.pojo.AccountDetailsDTO;
-import net.orbit.orbit.models.pojo.Student;
-import net.orbit.orbit.models.pojo.Teacher;
+import net.orbit.orbit.models.dto.AccountDetailsDTO;
 import net.orbit.orbit.models.pojo.User;
-import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
-import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.ServerCallback;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;

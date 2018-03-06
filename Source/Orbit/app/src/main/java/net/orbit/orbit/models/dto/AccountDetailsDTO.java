@@ -1,4 +1,6 @@
-package net.orbit.orbit.models.pojo;
+package net.orbit.orbit.models.dto;
+
+import net.orbit.orbit.models.pojo.User;
 
 /**
  * Created by brocktubre on 2/5/18.
