@@ -38,7 +38,11 @@ public class LogoutService {
             disconnect();
 
         orbitPref.clear();
-        context.startActivity(LoginActivity.createIntent(context));
+        // Hoping this kills all previous activities
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+        // context.startActivity(LoginActivity.createIntent(context));
     }
 
     private void disconnect() {
