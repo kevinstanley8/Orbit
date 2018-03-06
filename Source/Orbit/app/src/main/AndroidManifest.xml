@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Required for my tablet to work -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/orbit_icon"
@@ -112,30 +115,40 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.main.SettingsActivity"
-            android:label="@string/settings" />
+            android:label="@string/settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.main.BlockedMembersListActivity"
-            android:label="@string/blocked_members_list" />
-        <activity android:name=".messaging.utils.PhotoViewerActivity" />
+            android:label="@string/blocked_members_list"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".messaging.utils.PhotoViewerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.utils.MediaPlayerActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.groupchannel.GroupChannelActivity"
             android:label="@string/create_open_channel"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.groupchannel.InviteMemberActivity"
-            android:label="@string/invite_member" />
+            android:label="@string/invite_member"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.groupchannel.MemberListActivity"
-            android:label="@string/member_list" />
+            android:label="@string/member_list"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.groupchannel.MemberInfoActivity"
-            android:label="@string/member_info" />
+            android:label="@string/member_info"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.groupchannel.CreateGroupChannelActivity"
-            android:label="@string/create_group_channel"/>
+            android:label="@string/create_group_channel"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <!--
     -

@@ -196,7 +196,8 @@ public class HomeActivity extends BaseActivity {
                 if(temp.getLabel() == (R.string.message_center))
                 {
                     /*** Connects user to SendBird by Email **/
-                    String nickName = user.getEmail() + " (" + user.getRole().getName().toString() + ")";
+                    String nickName = user.getFirstName() + user.getLastName()  +
+                                        " (" + user.getRole().getName().toString() + ")";
                     connectToSendBird(user.getUid(), nickName);
                     Intent newIntent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(newIntent);
@@ -293,7 +294,7 @@ public class HomeActivity extends BaseActivity {
                     return;
                 }
 
-                orbitPref.setUserId(orbitPref.getUserPreferenceObj("loggedUser").getEmail());
+                orbitPref.setUserId(orbitPref.getUserPreferenceObj("loggedUser").getUid());
                 orbitPref.setNickname(user.getNickname());
                 orbitPref.setProfileUrl(user.getProfileUrl());
                 orbitPref.setConnected(true);
