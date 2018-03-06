@@ -18,7 +18,7 @@
 
         <ImageButton
             android:id="@+id/button_group_chat_upload"
-            app:srcCompat="@drawable/ic_add_black_24dp"
+            app:srcCompat="@drawable/ic_add_white_24dp"
             android:background="?attr/selectableItemBackground"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -32,6 +32,8 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/placeholderColor"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -41,7 +43,7 @@
             android:id="@+id/button_group_chat_send"
             android:text="SEND"
             android:textSize="14dp"
-            android:textColor="@drawable/selector_btn_send"
+            android:textColor="@color/placeholderColor"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="64dp"

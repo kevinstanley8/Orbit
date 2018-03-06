@@ -5,6 +5,5 @@
     <item android:id="@+id/action_create_group_channel"
         android:title="CREATE"
         android:orderInCategory="10"
-        app:showAsAction="always"/>
-
+        app:showAsAction="always" />
 </menu>

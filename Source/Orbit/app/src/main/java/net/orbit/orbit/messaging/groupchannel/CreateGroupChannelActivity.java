@@ -3,6 +3,7 @@ package net.orbit.orbit.messaging.groupchannel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,8 @@ public class CreateGroupChannelActivity extends AppCompatActivity
     static final int STATE_SELECT_USERS = 0;
     static final int STATE_SELECT_DISTINCT = 1;
 
-    private Button mNextButton, mCreateButton;
+    private Button mNextButton;
+    private FloatingActionButton mCreateButton;
 
     private List<String> mSelectedIds;
     private boolean mIsDistinct = true;
@@ -74,7 +76,7 @@ public class CreateGroupChannelActivity extends AppCompatActivity
         });
         mNextButton.setEnabled(false);
 
-        mCreateButton = (Button) findViewById(R.id.button_create_group_channel_create);
+        mCreateButton = (FloatingActionButton) findViewById(R.id.button_create_group_channel_create);
         mCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

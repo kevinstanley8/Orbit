@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:id="@+id/toolbar_group_channel"
             android:layout_width="match_parent"
             android:theme="@style/Toolbar"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="0dp"
             app:popupTheme="@style/Theme.AppCompat.Light">
 
         </android.support.v7.widget.Toolbar>

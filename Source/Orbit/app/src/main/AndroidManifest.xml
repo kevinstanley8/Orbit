@@ -110,7 +110,7 @@
 
         <activity
             android:name=".messaging.main.MainActivity"
-            android:label="@string/select_channel_type"
+            android:label="@string/title_message_center"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".messaging.main.SettingsActivity"

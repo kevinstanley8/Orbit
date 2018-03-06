@@ -40,6 +40,7 @@
         android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
         android:layout_toRightOf="@id/image_group_chat_profile"
         android:layout_alignTop="@id/image_group_chat_profile"
         android:layout_marginBottom="4dp"/>
@@ -164,7 +165,7 @@
         android:id="@+id/text_group_chat_time"
         android:textSize="10dp"
         android:text="21:27"
-        android:textColor="#8e8e8e"
+        android:textColor="@color/colorWhite"
         android:layout_toRightOf="@id/card_group_chat_message"
         android:layout_alignBottom="@id/card_group_chat_message"
         android:layout_width="wrap_content"

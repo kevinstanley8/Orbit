@@ -43,7 +43,7 @@
     <string name="title_add_Teacher">Add Teacher</string>
     <string name="message_center">Message Center</string>
     <string name="menu_my_grades">My Grades</string>
-
+    <string name="title_message_center">Message Center</string>
     <!--
 
 
@@ -55,7 +55,6 @@
 
 
     <!-- all -->
-    <string name="all_app_version">Sample UI v%1$s / SDK v%2$s</string>
 
     <string name="all_create">Create</string>
     <string name="all_invite">Invite</string>
@@ -74,7 +73,6 @@
     <string name="login_user_id">User ID</string>
     <string name="login_user_nickname">Nickname</string>
     <string name="login_connect">Connect</string>
-    <string name="login_disconnect">Disconnect</string>
 
     <!-- Open Channel List -->
     <string name="open_channel_list_participant_count">%1$d participants</string>

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sendbird.android.SendBird;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(mToolbar);
+
         findViewById(R.id.linear_layout_group_channels).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,20 +41,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.button_disconnect).setOnClickListener(new View.OnClickListener() {
-            @Override
+        final CardView cancelButton = (CardView) findViewById(R.id.goBackBtn);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Unregister push tokens and disconnect
-                //disconnect();
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
+                finish();
             }
+
         });
 
-        // Displays the SDK version in a TextView
-        String sdkVersion = String.format(getResources().getString(R.string.all_app_version),
-                BaseApplication.VERSION, SendBird.getSDKVersion());
-        ((TextView) findViewById(R.id.text_main_versions)).setText(sdkVersion);
     }
 
     /**
