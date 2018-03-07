@@ -23,6 +23,7 @@ import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
+import net.orbit.orbit.utils.OrbitUserPreferences;
 import net.orbit.orbit.utils.ServerCallback;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ import java.util.Date;
 public class CreateStudentActivity extends BaseActivity
 {
     private int mYear,mMonth,mDay;
+
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, CreateStudentActivity.class);
@@ -62,7 +64,6 @@ public class CreateStudentActivity extends BaseActivity
         final EditText studentFirstName = (EditText) findViewById(R.id.studentFirstName);
         final EditText studentLastName = (EditText) findViewById(R.id.studentLastName);
         final TextView dateTextView = (TextView) findViewById(R.id.studentDateOfBirth);
-
 //        final EditText studentSSN = (EditText) findViewById(R.id.studentSSN);
 //        final EditText studentAddress1 = (EditText) findViewById(R.id.studentAddress1);
 //        final EditText studentAddress2 = (EditText) findViewById(R.id.studentAddress2);
@@ -97,7 +98,7 @@ public class CreateStudentActivity extends BaseActivity
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("AddTeacherActivity", "Cancel adding new Teacher.");
+                Log.d("AddStudentActivity", "Cancel adding new Student.");
                 finish();
             }
 
@@ -232,4 +233,6 @@ public class CreateStudentActivity extends BaseActivity
             date.setText(formattedDate);
         }
     }
+
+
 }

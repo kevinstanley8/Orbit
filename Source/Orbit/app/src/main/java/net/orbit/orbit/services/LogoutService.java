@@ -37,7 +37,7 @@ public class LogoutService {
         if(user.getRole().getName() != Constants.ROLE_STUDENT)
             disconnect();
 
-        orbitPref.clear();
+        orbitPref.clear("loggedUser");
         // Hoping this kills all previous activities
         Intent intent = new Intent(context, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

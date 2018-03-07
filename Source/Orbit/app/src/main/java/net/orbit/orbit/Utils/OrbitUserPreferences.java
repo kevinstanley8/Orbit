@@ -250,4 +250,9 @@ public class OrbitUserPreferences {
         editor.commit();
     }
 
+    public void clear(String prefName)
+    {
+        editor.remove(prefName);
+        editor.commit();
+    }
 }

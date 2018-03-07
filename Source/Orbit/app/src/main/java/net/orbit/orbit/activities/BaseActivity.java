@@ -25,13 +25,14 @@ import com.sendbird.android.SendBird;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.messaging.main.MainActivity;
-import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.models.pojo.User;
+import net.orbit.orbit.services.ConnectToSendBird;
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -228,6 +229,8 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = MESSAGING;
 
 
+
+
             switch(selectedItem)
             {
                 case HOME: startActivityForResult(HomeActivity.createIntent(context), result);
@@ -260,8 +263,17 @@ public class BaseActivity extends AppCompatActivity {
                     break;
                 case COURSE_GRADES: startActivityForResult(CourseGradesActivity.createIntent(context), result);
                     break;
-               // case MESSAGING: startActivityForResult(MainActivity.createIntent(context), result);
-                 //   break;
+                case MESSAGING:
+                    ConnectToSendBird connectToSendBird = new ConnectToSendBird(this.context);
+                    OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+                    final User user = orbitPref.getUserPreferenceObj("loggedUser");
+                    /*** Connects user to SendBird by Email **/
+                    String nickName = user.getFirstName() + user.getLastName()  +
+                            " (" + user.getRole().getName().toString() + ")";
+                    connectToSendBird.connectToSendBird(user.getUid(), nickName);
+                    Intent newIntent = new Intent(BaseActivity.this, MainActivity.class);
+                    startActivity(newIntent);
+                    break;
             }
         }
 

@@ -28,6 +28,7 @@ import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
 
+import net.orbit.orbit.services.ConnectToSendBird;
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.Constants;
@@ -46,11 +47,12 @@ import cz.msebera.android.httpclient.Header;
 public class HomeActivity extends BaseActivity {
 
     List<MainMenuItem> mainMenuItems = new ArrayList<>();
+    ConnectToSendBird connectToSendBird;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
+        final ConnectToSendBird connectToSendBird = new ConnectToSendBird(this);
 
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
         final User user = orbitPref.getUserPreferenceObj("loggedUser");
@@ -198,7 +200,7 @@ public class HomeActivity extends BaseActivity {
                     /*** Connects user to SendBird by Email **/
                     String nickName = user.getFirstName() + user.getLastName()  +
                                         " (" + user.getRole().getName().toString() + ")";
-                    connectToSendBird(user.getUid(), nickName);
+                    connectToSendBird.connectToSendBird(user.getUid(), nickName);
                     Intent newIntent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(newIntent);
                 }
@@ -268,81 +270,4 @@ public class HomeActivity extends BaseActivity {
 
         });
     }
-
-    /*** Tried to do this as a Service Class but was getting null pointers */
-    public void connectToSendBird(final String userId, final String userNickname) {
-        // Show the loading indicator
-        //showProgressBar(true);
-        //mConnectButton.setEnabled(false);
-        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
-        ConnectionManager.login(userId, new SendBird.ConnectHandler() {
-            @Override
-            public void onConnected(com.sendbird.android.User user, SendBirdException e) {
-                // Callback received; hide the progress bar.
-
-                if (e != null) {
-                    // Error!
-                    Toast.makeText(
-                            HomeActivity.this, "" + e.getCode() + ": " + e.getMessage(),
-                            Toast.LENGTH_SHORT)
-                            .show();
-
-                    // Show login failure snackbar
-                    //showSnackbar("Login to SendBird failed");
-                    //mConnectButton.setEnabled(true);
-                    orbitPref.setConnected(false);
-                    return;
-                }
-
-                orbitPref.setUserId(orbitPref.getUserPreferenceObj("loggedUser").getUid());
-                orbitPref.setNickname(user.getNickname());
-                orbitPref.setProfileUrl(user.getProfileUrl());
-                orbitPref.setConnected(true);
-
-                // Update the user's nickname
-                updateCurrentUserInfo(userNickname);
-                updateCurrentUserPushToken();
-
-                // Proceed to MainActivity
-
-            }
-        });
-    }
-
-
-
-    private void updateCurrentUserPushToken() {
-        PushUtils.registerPushTokenForCurrentUser(HomeActivity.this, null);
-    }
-
-    private void updateCurrentUserInfo(final String userNickname) {
-        SendBird.updateCurrentUserInfo(userNickname, null, new SendBird.UserInfoUpdateHandler() {
-            @Override
-            public void onUpdated(SendBirdException e) {
-                if (e != null) {
-                    // Error!
-                    Toast.makeText(
-                            HomeActivity.this, "" + e.getCode() + ":" + e.getMessage(),
-                            Toast.LENGTH_SHORT)
-                            .show();
-
-                    // Show update failed snackbar
-
-                    return;
-                }
-                final OrbitUserPreferences orbitPref = new OrbitUserPreferences(HomeActivity.this);
-                orbitPref.setNickname(userNickname);
-            }
-        });
-
-
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(OrbitUserPreferences.getConnected()) {
-            connectToSendBird(OrbitUserPreferences.getUserId(), OrbitUserPreferences.getNickname());
-        }
-    }
-
 }
