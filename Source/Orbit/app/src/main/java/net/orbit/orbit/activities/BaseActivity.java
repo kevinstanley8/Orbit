@@ -443,6 +443,7 @@ public class BaseActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+        mDrawerLayout.closeDrawer(mDrawerPane);
     }
 
     /*
@@ -472,5 +473,4 @@ public class BaseActivity extends AppCompatActivity {
         Intent i = new Intent(context, BaseActivity.class);
         return i;
     }
-
 }
