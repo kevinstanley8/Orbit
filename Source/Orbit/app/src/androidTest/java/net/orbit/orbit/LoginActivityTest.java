@@ -1,41 +1,31 @@
 package net.orbit.orbit;
 
-import android.support.test.rule.ActivityTestRule;
-import android.view.View;
+import android.os.Looper;
 
 import net.orbit.orbit.activities.LoginActivity;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import java.util.regex.Pattern;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Created by brocktubre on 11/7/17.
+ * Created by Kevin Stanley on 3/9/2018.
  */
+
 public class LoginActivityTest {
 
-    @Rule
-    public ActivityTestRule<LoginActivity> mLoginActivityActivityTestRule = new ActivityTestRule<LoginActivity>(LoginActivity.class);
-
-    private LoginActivity mLoginActivity = null;
-    @Before
-    public void setUp() throws Exception {
-        mLoginActivity = mLoginActivityActivityTestRule.getActivity();
-    }
-
     @Test
-    public void testLaunch(){
-        View view = mLoginActivity.findViewById(R.id.login_form);
-        assertNotNull(view);
+    public void loginActivity_TestEmailAndPasswords() {
+        Looper.prepare();
+        LoginActivity loginActivity = new LoginActivity();
 
+        //test for valid username and password
+        assertTrue(loginActivity.isEmailValid("orbit@testemail.com"));
+        assertTrue(loginActivity.isPasswordValid("Password123"));
+
+        //test for invalid username and password
+        assertFalse(loginActivity.isEmailValid("orbit.com"));
+        assertFalse(loginActivity.isPasswordValid("test"));
     }
-
-    @After
-    public void tearDown() throws Exception {
-        mLoginActivity = null;
-    }
-
 }
