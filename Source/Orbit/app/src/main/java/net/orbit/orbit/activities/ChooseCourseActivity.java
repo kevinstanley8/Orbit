@@ -162,7 +162,8 @@ public class ChooseCourseActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            iconImage = (ImageView) itemView.findViewById(R.drawable.ic_class_white_24px);
+            iconImage = (ImageView) itemView.findViewById(R.id.iconImage);
+            iconImage.setImageResource(R.drawable.ic_class_white_24px);
             txtCourseName = (TextView) itemView.findViewById(R.id.txtCourseName);
             isSelected = false;
         }
