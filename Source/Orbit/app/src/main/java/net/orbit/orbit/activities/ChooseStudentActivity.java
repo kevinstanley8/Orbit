@@ -114,7 +114,7 @@ public class ChooseStudentActivity extends BaseActivity {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        public final ImageView memeImage;
+        public final ImageView iconImage;
         public final TextView txtStudentName;
 
         public ViewHolder(View itemView) {
@@ -122,7 +122,8 @@ public class ChooseStudentActivity extends BaseActivity {
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
 
-            memeImage = (ImageView) itemView.findViewById(R.drawable.ic_perm_identity_white_24px);
+            iconImage = (ImageView) itemView.findViewById(R.id.iconImage);
+            iconImage.setImageResource(R.drawable.ic_perm_identity_white_24px);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
         }
 
