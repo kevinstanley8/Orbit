@@ -130,10 +130,14 @@ public class ChooseStudentActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            int studentID = ChooseStudentActivity.Adapter.students.get(position).getStudentId();
+            Student student = ChooseStudentActivity.Adapter.students.get(position);
+            int studentID = student.getStudentId();
+            String studentFullName = student.getStudentFirstName() + " " + student.getStudentLastName();
 
             Context context = itemView.getContext();
-            Intent intent = ChooseStudentSaveActivity.createIntent(context, studentID);
+            Intent intent = CourseGradesActivity.createIntent(context);
+            intent.putExtra("chosenStudentID", studentID);
+            intent.putExtra("studentFullName", studentFullName);
             context.startActivity(intent);
         }
 
