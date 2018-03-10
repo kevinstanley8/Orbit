@@ -11,13 +11,12 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import net.orbit.orbit.activities.ChooseCourseActivity;
 import net.orbit.orbit.activities.ViewCoursesTeacherActivity;
 import net.orbit.orbit.models.dto.AssignCourseToTeacherDTO;
+import net.orbit.orbit.models.dto.CreateCourseDTO;
 import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
-import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
 import net.orbit.orbit.utils.OrbitUserPreferences;
-import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.ServerCallback;
 
 
@@ -140,6 +139,55 @@ public class CourseService extends BaseService{
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("CourseService", "Error when assigning courses to teacher: " + errorResponse);
                         Toast.makeText(context, "Error assigning courses to teacher, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                    }
+                });
+    }
+
+    public void createCourse(String courseName){
+        final OrbitUserPreferences orbitPref = new OrbitUserPreferences(this.context);
+        Teacher teacher = orbitPref.getTeacherPreferenceObj("loggedInTeacher");
+
+        CreateCourseDTO createCourseDTO = new CreateCourseDTO(teacher.getTeacherID(), courseName);
+        Gson gson = new Gson();
+        String json = gson.toJson(createCourseDTO);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(json.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // Sets the URL for the API urlOrbitRestClient orbitRestClient = new OrbitRestClient(this.context);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.post(this.context, "create-course", entity, "application/json",
+                new JsonHttpResponseHandler(){
+                    @Override
+                    public void onStart() {
+                        // called before request is started
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject course) {
+                        // called when success happens
+                        Gson gson = new Gson();
+                        Course newCourse = gson.fromJson(course.toString(), Course.class);
+
+                        Log.i("CourseService", "Created Course" + newCourse.getName());
+                        // We have a match student. Need to do linking here.
+                        Toast.makeText(context, "New Course: " + newCourse.getName() + " created!", Toast.LENGTH_SHORT).show();
+                        context.startActivity(ViewCoursesTeacherActivity.createIntent(context));
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                        Log.e("CourseService", "Error when creating course: " + errorResponse);
+                        Toast.makeText(context, "Error creating course, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

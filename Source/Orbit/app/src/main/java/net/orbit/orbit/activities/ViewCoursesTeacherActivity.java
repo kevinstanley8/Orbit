@@ -47,9 +47,9 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         FloatingActionButton mFabAddCourse = (FloatingActionButton) findViewById(R.id.fab_add_course);
         mFabAddCourse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("ViewCoursesTActivity", "We want to add a new Course.");
-                Intent chooseCourseActivity = new Intent(ViewCoursesTeacherActivity.this, ChooseCourseActivity.class);
-                ViewCoursesTeacherActivity.this.startActivity(chooseCourseActivity);
+                Log.d("ViewCoursesActivity", "We want to add a new Course.");
+                Intent createCourseActivity = new Intent(ViewCoursesTeacherActivity.this, CreateCourseActivity.class);
+                ViewCoursesTeacherActivity.this.startActivity(createCourseActivity);
             }
 
         });
@@ -61,7 +61,6 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         Adapter.courses = new ArrayList<>();
         CourseService courseService = new CourseService(this);
         courseService.getAllCoursesAssignedToCurrentTeacher(this);
-
     }
 
     public void test()

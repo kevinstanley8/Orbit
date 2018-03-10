@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Required for my tablet to work -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -48,8 +48,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.BaseActivity"
-            android:label="@string/title_activity_main"
             android:configChanges="orientation"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.AllTeachersActivity"
@@ -106,6 +106,9 @@
         <activity
             android:name=".activities.ViewAssignmentGradesStudentActivity"
             android:label="Grade Details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.CreateCourseActivity"
+            android:label="Create Course"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <!-- Send Bird Activities -->
@@ -113,43 +116,43 @@
         <activity
             android:name=".messaging.main.MainActivity"
             android:label="@string/title_message_center"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.main.SettingsActivity"
             android:label="@string/settings"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.main.BlockedMembersListActivity"
             android:label="@string/blocked_members_list"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.utils.PhotoViewerActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.utils.MediaPlayerActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.groupchannel.GroupChannelActivity"
             android:label="@string/create_open_channel"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".messaging.groupchannel.InviteMemberActivity"
             android:label="@string/invite_member"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.groupchannel.MemberListActivity"
             android:label="@string/member_list"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.groupchannel.MemberInfoActivity"
             android:label="@string/member_info"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".messaging.groupchannel.CreateGroupChannelActivity"
             android:label="@string/create_group_channel"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!--
     -

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/gradient"
+tools:context="net.orbit.orbit.activities.CreateCourseActivity">
+
+<EditText
+    android:id="@+id/txtCourseName"
+    android:layout_width="250dp"
+    android:layout_height="60dp"
+    android:background="#11000000"
+    android:drawableLeft="@drawable/ic_description_white_24dp"
+    android:ems="10"
+    android:paddingLeft="10dp"
+    android:drawablePadding="5dp"
+    android:textColorHint="@color/placeholderColor"
+    android:hint="Course Name"
+    android:inputType="textEmailAddress"
+    android:textSize="16dp"
+    android:textColor="@color/colorAccent"
+    android:layout_marginBottom="35dp"
+    android:layout_above="@+id/txtMaxPoints"
+    android:layout_centerHorizontal="true" />
+
+<android.support.v7.widget.CardView
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="10dp"
+    android:id="@+id/cardView"
+    android:layout_above="@+id/textView2"
+    android:layout_centerHorizontal="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/btnCreateCourse">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Create Course"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+<android.support.v7.widget.CardView
+    android:id="@+id/cardView1"
+    android:layout_width="300dp"
+    android:layout_height="50dp"
+    android:layout_centerHorizontal="true"
+    android:layout_alignTop="@+id/cardView"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="10dp"
+    android:layout_marginTop="70dp"
+    android:layout_marginBottom="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cancel_action">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Cancel"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+<TextView
+    android:id="@+id/textView2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=""
+    android:textColor="#fff"
+    android:textSize="18sp"
+    android:layout_above="@+id/linearLayout"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp" />
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:layout_alignLeft="@+id/imageView"
+    android:layout_alignStart="@+id/imageView"
+    android:id="@+id/linearLayout">
+</LinearLayout>
+
+
+</RelativeLayout>
