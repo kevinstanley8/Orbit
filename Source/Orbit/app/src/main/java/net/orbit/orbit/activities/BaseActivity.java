@@ -65,6 +65,7 @@ public class BaseActivity extends AppCompatActivity {
     //user setters to set menu title when menu drawer is open and closed
     private String drawerOpenTitle = "";
     private String drawerClosedTitle = "";
+    private String activityTitle = "";
 
     private List<MainMenuItem> mainMenuItems;
     private DrawerListAdapter adapter;
@@ -312,6 +313,11 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         /***
          * SendBird
          */
@@ -356,12 +362,12 @@ public class BaseActivity extends AppCompatActivity {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(getDrawerOpenTitle());
+                getSupportActionBar().setTitle(activityTitle);
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(getDrawerClosedTitle());
+                activityTitle = getSupportActionBar().getTitle().toString();
                 if (!navBarUpdated) {
                     updateNavBar();
                     navBarUpdated = true;
@@ -372,10 +378,6 @@ public class BaseActivity extends AppCompatActivity {
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void updateNavBar(){

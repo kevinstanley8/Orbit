@@ -324,8 +324,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         Log.d("Roles list:", list.toString());
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.my_spinner, list);
+        dataAdapter.setDropDownViewResource(R.layout.my_spinner);
         roleSpinner.setAdapter(dataAdapter);
     }
 

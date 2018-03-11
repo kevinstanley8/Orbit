@@ -48,8 +48,8 @@ public class ReportABugActivity extends BaseActivity {
         issuePriorityList.add(Constants.ISSUE_HIGH_PRIORITY);
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, issuePriorityList);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.my_spinner, issuePriorityList);
+        dataAdapter.setDropDownViewResource(R.layout.my_spinner);
         issuePrioritySpinner.setAdapter(dataAdapter);
 
         final RelativeLayout cancelButton = (RelativeLayout) findViewById(R.id.cancel_action);

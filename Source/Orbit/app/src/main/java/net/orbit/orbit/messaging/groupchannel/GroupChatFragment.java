@@ -89,7 +89,6 @@ public class GroupChatFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private EditText mMessageEditText;
     private Button mMessageSendButton;
-    private ImageButton mUploadFileButton;
     private View mCurrentEventLayout;
     private TextView mCurrentEventText;
 
@@ -154,7 +153,6 @@ public class GroupChatFragment extends Fragment {
 
         mMessageEditText = (EditText) rootView.findViewById(R.id.edittext_group_chat_message);
         mMessageSendButton = (Button) rootView.findViewById(R.id.button_group_chat_send);
-        mUploadFileButton = (ImageButton) rootView.findViewById(R.id.button_group_chat_upload);
 
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -194,13 +192,6 @@ public class GroupChatFragment extends Fragment {
                         mMessageEditText.setText("");
                     }
                 }
-            }
-        });
-
-        mUploadFileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestMedia();
             }
         });
 
@@ -503,16 +494,11 @@ public class GroupChatFragment extends Fragment {
                 mCurrentState = STATE_NORMAL;
                 mEditingMessage = null;
 
-                mUploadFileButton.setVisibility(View.VISIBLE);
-                mMessageSendButton.setText("SEND");
-                mMessageEditText.setText("");
-                break;
 
             case STATE_EDIT:
                 mCurrentState = STATE_EDIT;
                 mEditingMessage = editingMessage;
 
-                mUploadFileButton.setVisibility(View.GONE);
                 mMessageSendButton.setText("SAVE");
                 String messageString = ((UserMessage)editingMessage).getMessage();
                 if (messageString == null) {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,6 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new EnrollStudentInCourseActivity.Adapter(this));
-
         findViewById(R.id.btnEnroll).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,6 +176,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         public final ImageView iconImage;
         public final TextView txtStudentName;
         public boolean isSelected;
+        public Drawable itemBackground;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -186,6 +187,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
             iconImage.setImageResource(R.drawable.ic_perm_identity_white_24px);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
             isSelected = false;
+            itemBackground = txtStudentName.getBackground();
         }
 
         @Override
@@ -193,11 +195,11 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
             int position = getAdapterPosition();
             if(EnrollStudentInCourseActivity.Adapter.students.get(position).getIsSelected()) {
                 EnrollStudentInCourseActivity.Adapter.students.get(position).setIsSelected(false);
-                itemView.setBackgroundColor(Color.WHITE);
+                txtStudentName.setBackground(itemBackground);
             }
             else {
                 EnrollStudentInCourseActivity.Adapter.students.get(position).setIsSelected(true);
-                itemView.setBackgroundColor(Color.parseColor("#90CAF9"));
+                txtStudentName.setBackgroundColor(Color.parseColor("#90CAF9"));
             }
         }
 

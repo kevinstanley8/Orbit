@@ -20,7 +20,9 @@
 
 
     -->
-
+    <style name="SpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">#11000000</item>
+    </style>
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:textColorPrimary">#ffffff</item>
     </style>

@@ -16,15 +16,6 @@
         android:orientation="horizontal"
         android:minHeight="48dp">
 
-        <ImageButton
-            android:id="@+id/button_group_chat_upload"
-            app:srcCompat="@drawable/ic_add_white_24dp"
-            android:background="?attr/selectableItemBackground"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="Upload file"
-            android:layout_gravity="bottom"/>
-
         <EditText
             android:id="@+id/edittext_group_chat_message"
             android:hint="Enter message"
@@ -85,6 +76,7 @@
 
             <TextView
                 android:id="@+id/text_group_chat_current_event"
+                android:textColor="@color/placeholderColor"
                 android:text="Terry and Harry are typing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
