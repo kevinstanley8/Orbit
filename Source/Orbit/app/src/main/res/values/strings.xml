@@ -13,10 +13,8 @@
     <string name="title_activity_home">Orbit</string>
     <string name="newAccountCreated">New Account Created!</string>
     <string name="registrationFailed">Registration Failed</string>
-    <string name="addTeacher">Add Teacher</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_main">TODO Change</string>
-    <string name="createStudent">Create Student</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -25,9 +23,7 @@
     <string name="menu_link_student">Link Student</string>
     <string name="menu_add_teacher">Add Teacher</string>
     <string name="menu_logout">Log Out</string>
-    <string name="menu_view_teacher">View Teachers</string>
     <string name="title_activity_all_teachers">View All Teachers</string>
-    <string name="link">Link Student</string>
     <string name="title_activity_find_student">Link Student</string>
     <string name="menu_choose_student">Choose Student</string>
     <string name="choose_student">Choose Student</string>
@@ -36,7 +32,6 @@
     <string name="choose_course">Choose Course</string>
     <string name="view_course">View Courses</string>
     <string name="view_assignments">View Assignments</string>
-    <string name="open">Open Drawer</string>
     <string name="create_assignment">Create Assignment</string>
     <string name="report_a_bug">Report A Bug</string>
     <string name="title_create_student">Create Student</string>
@@ -44,6 +39,7 @@
     <string name="message_center">Message Center</string>
     <string name="menu_my_grades">My Grades</string>
     <string name="title_message_center">Message Center</string>
+    <string name="open">Open Drawer</string>
     <!--
 
 
@@ -56,29 +52,17 @@
 
     <!-- all -->
 
-    <string name="all_create">Create</string>
-    <string name="all_invite">Invite</string>
-
     <string name="all_group_channels">Private Messaging</string>
-    <string name="all_open_channels">Open Channels</string>
 
     <!-- main -->
-    <string name="main_drawer_open">Open navigation drawer</string>
-    <string name="main_drawer_close">Close navigation drawer</string>
-    <string name="select_channel_type">Select channel type</string>
     <string name="settings">Settings</string>
     <string name="blocked_members_list">Blocked members</string>
 
     <!-- login -->
-    <string name="login_user_id">User ID</string>
-    <string name="login_user_nickname">Nickname</string>
-    <string name="login_connect">Connect</string>
 
     <!-- Open Channel List -->
-    <string name="open_channel_list_participant_count">%1$d participants</string>
 
     <string name="create_open_channel">Create Open Channel</string>
-    <string name="participant_list">Participants</string>
 
     <!-- Group Channel List -->
     <string name="group_channel_list_file_message_text">%1$s has uploaded a file.</string>
@@ -90,13 +74,10 @@
     <string name="member_info"></string>
 
     <!-- Content descriptions -->
-    <string name="open_channel_chat_content_desc_profile">Profile image</string>
 
     <!-- Menu actions -->
-    <string name="action_create_channel">Create channel</string>
 
     <string name="download">Download</string>
-    <string name="upload">Upload</string>
     <string name="resend_message">Resend</string>
     <string name="delete_message">Delete</string>
 

@@ -20,11 +20,13 @@ public class ChooseStudentSaveActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
-        orbitPref.storePreference("chosenStudentID", ChooseStudentSaveActivity.studentID);
-
-        Intent intent = CourseGradesActivity.createIntent(this);
-        this.startActivity(intent);
+//        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
+//        orbitPref.storePreference("chosenStudentID", ChooseStudentSaveActivity.studentID);
+//
+//        Intent intent = getIntent();
+//        Intent intentNext = CourseGradesActivity.createIntent(this);
+//        intentNext.putExtra("studentFullName", intent.getStringExtra("studentFullName"));
+//        this.startActivity(intentNext);
         //setContentView(R.layout.activity_choose_student_save);
     }
 }

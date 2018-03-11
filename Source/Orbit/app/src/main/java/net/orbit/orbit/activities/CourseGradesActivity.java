@@ -34,16 +34,17 @@ public class CourseGradesActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         //if student ID has not been set then the user must select a student to view grades
-        OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
-        String id = orbitPref.getStringPreference("chosenStudentID");
+        String studentFullName = getIntent().getStringExtra("studentFullName");
+        int id = getIntent().getIntExtra("chosenStudentID", -1);
 
-        if(id == null || id.equals(""))
+
+        if(id == -1)
         {
             Intent intent = ChooseStudentActivity.createIntent(this);
             this.startActivity(intent);
         }
         else
-            CourseGradesActivity.studentID = Integer.parseInt(id);
+            CourseGradesActivity.studentID = id;
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_course_grades, relativeLayout);
