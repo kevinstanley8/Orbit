@@ -3,6 +3,7 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +37,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
     public static int assignmentID = 0;
     private RecyclerView recyclerView;
     private static int courseID = 0;
-    private List<Grade> gradeList = new ArrayList<Grade>();
+    private List<Grade> gradeList = new ArrayList<>();
 
     public static Intent createIntent(Context context, int courseID, int assignmentID) {
         Intent i = new Intent(context, ViewAssignmentGradesActivity.class);
@@ -53,6 +56,16 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ViewAssignmentGradesActivity.Adapter(this));
+
+
+        if(savedInstanceState != null)
+        {
+            ArrayList<Integer> gradesSaved = savedInstanceState.getIntegerArrayList("savedGrades");
+
+            for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
+                if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
+                     ((EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i)).setText(gradesSaved.get(i));
+        }
 
         findViewById(R.id.btnSaveGrades).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +129,8 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 
-    public static class Adapter extends RecyclerView.Adapter<ViewAssignmentGradesActivity.ViewHolder> {
+    public static class Adapter extends RecyclerView.Adapter<ViewAssignmentGradesActivity.ViewHolder>
+    {
 
         private final Activity context;
         private static List<Grade> grades = new ArrayList<>();
@@ -132,9 +146,11 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         }
 
         @Override
-        public ViewAssignmentGradesActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewAssignmentGradesActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        {
             View view = context.getLayoutInflater().inflate(R.layout.grade_item, parent, false);
-            return new ViewAssignmentGradesActivity.ViewHolder(view);
+            ViewHolder vh = new ViewHolder(view, new MyCustomEditTextListener());
+            return vh;
         }
 
         @Override
@@ -143,6 +159,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
 
             holder.txtStudentName.setText(grade.getStudent().getStudentLastName() + ", " + grade.getStudent().getStudentFirstName());
             holder.txtGrade.setText(grade.getGrade());
+            holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
         }
 
         @Override
@@ -151,13 +168,40 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class MyCustomEditTextListener implements TextWatcher
+    {
+        private int position;
+
+        public void updatePosition(int x)
+        {
+            this.position = x;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            ViewAssignmentGradesActivity.Adapter.grades.get(position).setGrade(charSequence.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
+    {
 
         public final TextView txtStudentName;
         public boolean isSelected;
         public EditText txtGrade;
+        public MyCustomEditTextListener myCustomEditTextListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -165,7 +209,9 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
             //image = (ImageView) itemView.findViewById(R.drawable.ic_description_black_24dp);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
             txtGrade = (EditText) itemView.findViewById(R.id.txtGrade);
+            this.txtGrade.addTextChangedListener(myCustomEditTextListener);
             isSelected = false;
+            this.myCustomEditTextListener = myCustomEditTextListener;
         }
 
         @Override
@@ -196,4 +242,37 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         }
 
     }
+    public void onResume()
+    {
+        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
+            if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
+                ((EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i)).setText(gradeList.get(i).getGrade());
+        super.onResume();
+    }
+/***
+    public void onSaveInstanceState(Bundle outState)
+    {
+
+        ArrayList<EditText> myEditTextList = new ArrayList<>();
+        ArrayList<String> grades = new ArrayList<>();
+
+        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
+            if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
+                myEditTextList.add( (EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) );
+
+        int index = 0;
+        for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size(); j++)
+        {
+            //get the grade from the screen and save it
+            (this.gradeList.get(j)).setGrade(myEditTextList.get(index).getText().toString());
+            (this.gradeList.get(j)).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
+                grades.add(this.gradeList.get(j).getGrade());
+            index++;
+        }
+        for(int i = 0; i < grades.size(); i ++)
+            Log.d("Loop", grades.get(i).toString());
+        outState.putStringArrayList("savedGrades",grades);
+        super.onSaveInstanceState(outState);
+    }
+***/
 }
