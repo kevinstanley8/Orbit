@@ -119,7 +119,6 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
             saveGradesDTO.addGrade((Grade)this.gradeList.get(j));
             index++;
         }
-
         GradeService gradeService = new GradeService(this);
         gradeService.saveGrades(saveGradesDTO);
     }
@@ -256,17 +255,17 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         ArrayList<EditText> myEditTextList = new ArrayList<>();
         ArrayList<String> grades = new ArrayList<>();
 
-        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
+        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size()-1; i++ )
             if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
                 myEditTextList.add( (EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) );
 
         int index = 0;
-        for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size(); j++)
+        for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size()-1; j++)
         {
             //get the grade from the screen and save it
             (this.gradeList.get(j)).setGrade(myEditTextList.get(index).getText().toString());
             (this.gradeList.get(j)).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
-                grades.add(this.gradeList.get(j).getGrade());
+            grades.add(this.gradeList.get(j).getGrade());
             index++;
         }
         for(int i = 0; i < grades.size(); i ++)
