@@ -43,14 +43,6 @@ import java.util.List;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    /****
-     *
-     */
-    private static final String APP_ID = "FE7B3711-E010-41D3-9521-668C346F3F46";
-    public static final String VERSION = "3.0.39";
-    /****
-     *
-     */
     private static String TAG = BaseActivity.class.getSimpleName();
     ListView mDrawerList;
     RelativeLayout mDrawerPane;
@@ -323,7 +315,6 @@ public class BaseActivity extends AppCompatActivity {
          */
         OrbitUserPreferences.init(getApplicationContext());
 
-        SendBird.init(APP_ID, getApplicationContext());
         /***
          * SendBird
          */

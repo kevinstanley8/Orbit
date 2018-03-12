@@ -16,7 +16,6 @@ import com.sendbird.android.GroupChannel;
 import com.sendbird.android.SendBirdException;
 import net.orbit.orbit.R;
 import net.orbit.orbit.utils.OrbitUserPreferences;
-//import  net.orbit.orbit.messaging.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
