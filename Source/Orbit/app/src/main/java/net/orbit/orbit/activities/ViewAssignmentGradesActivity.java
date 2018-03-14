@@ -58,15 +58,6 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         recyclerView.setAdapter(new ViewAssignmentGradesActivity.Adapter(this));
 
 
-        if(savedInstanceState != null)
-        {
-            ArrayList<Integer> gradesSaved = savedInstanceState.getIntegerArrayList("savedGrades");
-
-            for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
-                if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
-                     ((EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i)).setText(gradesSaved.get(i));
-        }
-
         findViewById(R.id.btnSaveGrades).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,8 +139,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         public ViewAssignmentGradesActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
             View view = context.getLayoutInflater().inflate(R.layout.grade_item, parent, false);
-            ViewHolder vh = new ViewHolder(view, new MyCustomEditTextListener());
-            return vh;
+            return new ViewAssignmentGradesActivity.ViewHolder(view);
         }
 
         @Override
@@ -158,37 +148,11 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
 
             holder.txtStudentName.setText(grade.getStudent().getStudentLastName() + ", " + grade.getStudent().getStudentFirstName());
             holder.txtGrade.setText(grade.getGrade());
-            holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition());
         }
 
         @Override
         public int getItemCount() {
             return grades.size();
-        }
-    }
-
-    public static class MyCustomEditTextListener implements TextWatcher
-    {
-        private int position;
-
-        public void updatePosition(int x)
-        {
-            this.position = x;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            ViewAssignmentGradesActivity.Adapter.grades.get(position).setGrade(charSequence.toString());
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
         }
     }
 
@@ -198,9 +162,8 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         public final TextView txtStudentName;
         public boolean isSelected;
         public EditText txtGrade;
-        public MyCustomEditTextListener myCustomEditTextListener;
 
-        public ViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
+        public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -208,9 +171,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
             //image = (ImageView) itemView.findViewById(R.drawable.ic_description_black_24dp);
             txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
             txtGrade = (EditText) itemView.findViewById(R.id.txtGrade);
-            this.txtGrade.addTextChangedListener(myCustomEditTextListener);
             isSelected = false;
-            this.myCustomEditTextListener = myCustomEditTextListener;
         }
 
         @Override
@@ -248,30 +209,5 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
                 ((EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i)).setText(gradeList.get(i).getGrade());
         super.onResume();
     }
-/***
-    public void onSaveInstanceState(Bundle outState)
-    {
 
-        ArrayList<EditText> myEditTextList = new ArrayList<>();
-        ArrayList<String> grades = new ArrayList<>();
-
-        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size()-1; i++ )
-            if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
-                myEditTextList.add( (EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) );
-
-        int index = 0;
-        for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size()-1; j++)
-        {
-            //get the grade from the screen and save it
-            (this.gradeList.get(j)).setGrade(myEditTextList.get(index).getText().toString());
-            (this.gradeList.get(j)).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
-            grades.add(this.gradeList.get(j).getGrade());
-            index++;
-        }
-        for(int i = 0; i < grades.size(); i ++)
-            Log.d("Loop", grades.get(i).toString());
-        outState.putStringArrayList("savedGrades",grades);
-        super.onSaveInstanceState(outState);
-    }
-***/
 }
