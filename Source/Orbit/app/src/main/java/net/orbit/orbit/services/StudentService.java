@@ -204,7 +204,6 @@ public class StudentService extends BaseService {
                 activity.updateStudentList(studentList);
 
                 Log.i("StudentService", "Find Linked Student - Successful");
-                Toast.makeText(context, "Found students." , Toast.LENGTH_SHORT).show();
             }
 
             @Override
