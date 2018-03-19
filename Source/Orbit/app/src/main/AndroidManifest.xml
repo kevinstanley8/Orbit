@@ -106,6 +106,7 @@
             android:name=".activities.ViewAssignmentGradesActivity"
             android:label="View Single Assignment"
             android:screenOrientation="nosensor"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ReportABugActivity"

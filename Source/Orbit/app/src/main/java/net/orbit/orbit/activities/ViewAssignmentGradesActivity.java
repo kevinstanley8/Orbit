@@ -1,33 +1,22 @@
 package net.orbit.orbit.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.dto.SaveGradesDTO;
-import net.orbit.orbit.models.pojo.Assignment;
-import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.Grade;
-import net.orbit.orbit.services.AssignmentService;
 import net.orbit.orbit.services.GradeService;
 
 import java.util.ArrayList;
@@ -35,7 +24,8 @@ import java.util.List;
 
 public class ViewAssignmentGradesActivity extends BaseActivity {
     public static int assignmentID = 0;
-    private RecyclerView recyclerView;
+    private ListView listView;
+
     private static int courseID = 0;
     private List<Grade> gradeList = new ArrayList<>();
 
@@ -53,10 +43,9 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_assignment_grades, relativeLayout);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ViewAssignmentGradesActivity.Adapter(this));
-
+        listView = (ListView) findViewById(R.id.recyclerView);
+        ListAdapter customAdapter = new ListAdapter(this, R.layout.grade_item, gradeList);
+        listView.setAdapter(customAdapter);
 
         findViewById(R.id.btnSaveGrades).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,135 +68,81 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
             return;
         }
 
-        recyclerView.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.VISIBLE);
         for(Grade g : gradeList)
         {
-            /*if(g.getAssignment().getCourse() == null)
-                g.getAssignment().setCourse(new Course());*/
-            ViewAssignmentGradesActivity.Adapter.grades.add(g);
             this.gradeList.add(g);
         }
-
-        reloadList();
     }
 
     public void saveGrades()
     {
-        //***** figure out why Grade.toString() is giving a null pointer
-        ArrayList<EditText> myEditTextList = new ArrayList<EditText>();
-
-        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
-            if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
-                myEditTextList.add( (EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) );
-
+        View childView;
+        EditText gradeValue;
         SaveGradesDTO saveGradesDTO = new SaveGradesDTO();
-        int index = 0;
-        for(int j = 0; j < ViewAssignmentGradesActivity.Adapter.grades.size(); j++)
+
+        for(int i = 0; i < listView.getChildCount(); i++)
         {
-            //get the grade from the screen and save it
-            ((Grade)this.gradeList.get(j)).setGrade(myEditTextList.get(index).getText().toString());
-            ((Grade)this.gradeList.get(j)).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
-            saveGradesDTO.addGrade((Grade)this.gradeList.get(j));
-            index++;
+            childView = listView.getChildAt(i);
+            gradeValue = (EditText) childView.findViewById(R.id.txtGrade);
+            this.gradeList.get(i).setGrade(gradeValue.getText().toString());
+            this.gradeList.get(i).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
+            saveGradesDTO.addGrade(this.gradeList.get(i));
         }
         GradeService gradeService = new GradeService(this);
         gradeService.saveGrades(saveGradesDTO);
     }
 
-    public void reloadList()
+    public class ListAdapter extends ArrayAdapter<Grade>
     {
-        recyclerView.getAdapter().notifyDataSetChanged();
-    }
-
-    public static class Adapter extends RecyclerView.Adapter<ViewAssignmentGradesActivity.ViewHolder>
-    {
-
-        private final Activity context;
-        private static List<Grade> grades = new ArrayList<>();
-
-        public Adapter(Activity context) {
-            this.context = context;
-            grades.clear();
+        public ListAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
         }
 
-        public static void addGrade(Grade grade)
+        public ListAdapter(Context context, int resource, List<Grade> grades) {
+            super(context, resource, grades);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
         {
-            grades.add(grade);
-        }
+            View v = convertView;
+            final int holder = position;
 
-        @Override
-        public ViewAssignmentGradesActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-        {
-            View view = context.getLayoutInflater().inflate(R.layout.grade_item, parent, false);
-            return new ViewAssignmentGradesActivity.ViewHolder(view);
-        }
+            if(v == null)
+            {
+                LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+                v = layoutInflater.inflate(R.layout.grade_item, null);
+            }
 
-        @Override
-        public void onBindViewHolder(ViewAssignmentGradesActivity.ViewHolder holder, int position) {
-            Grade grade = grades.get(position);
+            Grade grade = getItem(position);
+            TextView studentName = (TextView) v.findViewById(R.id.txtStudentName);
+            final EditText gradeValue = (EditText) v.findViewById(R.id.txtGrade);
 
-            holder.txtStudentName.setText(grade.getStudent().getStudentLastName() + ", " + grade.getStudent().getStudentFirstName());
-            holder.txtGrade.setText(grade.getGrade());
-        }
+            if(grade != null)
+            {
+                studentName.setText(grade.getStudent().getStudentLastName() + " " +
+                                    grade.getStudent().getStudentFirstName());
+                gradeValue.setText(grade.getGrade());
+            }
 
-        @Override
-        public int getItemCount() {
-            return grades.size();
+            gradeValue.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable)
+                {
+                    gradeList.get(holder).setGrade(editable.toString());
+                }
+            });
+            return v;
         }
     }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
-    {
-
-        public final TextView txtStudentName;
-        public boolean isSelected;
-        public EditText txtGrade;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-
-            //image = (ImageView) itemView.findViewById(R.drawable.ic_description_black_24dp);
-            txtStudentName = (TextView) itemView.findViewById(R.id.txtStudentName);
-            txtGrade = (EditText) itemView.findViewById(R.id.txtGrade);
-            isSelected = false;
-        }
-
-        @Override
-        public void onClick(View v) {
-            /*int position = getAdapterPosition();
-            int gradeID = ViewAssignmentGradesActivity.Adapter.grades.get(position).getGradeId();
-
-            Context context = itemView.getContext();
-            Intent intent = ViewAssignmentGradesActivity.createIntent(context, gradeID);
-            context.startActivity(intent);*/
-
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            /*int position = getAdapterPosition();
-            String top = Adapter.memes.get(position).getTxtTop();
-            String bottom = Adapter.memes.get(position).getTxtBottom();
-            String url = Adapter.memes.get(position).getMemeURL();
-
-            Context context = itemView.getContext();
-            int TEST = 0;
-
-            context.startActivity(EditMeme.createIntent(
-                    context, Adapter.memes, position, itemView, top, bottom, url));*/
-
-            return false;
-        }
-
-    }
-    public void onResume()
-    {
-        for( int i = 0; i < recyclerView.getFocusables(View.FOCUS_FORWARD).size(); i++ )
-            if( recyclerView.getFocusables(View.FOCUS_FORWARD).get(i) instanceof EditText )
-                ((EditText) recyclerView.getFocusables(View.FOCUS_FORWARD).get(i)).setText(gradeList.get(i).getGrade());
-        super.onResume();
-    }
-
 }

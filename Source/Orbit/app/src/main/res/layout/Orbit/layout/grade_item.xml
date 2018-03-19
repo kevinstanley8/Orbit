@@ -29,6 +29,7 @@
         android:gravity="center"
         android:ems="10"
         android:hint="Grade"
+        android:selectAllOnFocus="true"
         android:inputType="numberDecimal"
         android:textColor="@color/colorAccent"
         android:digits="0123456789"/>
