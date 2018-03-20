@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:paddingLeft="15dp"
-        android:textColor="@color/placeholderColor"
+        android:textColor="@color/colorWhite"
         android:text="No description for this assignment."
         android:layout_centerInParent="true"
         android:paddingTop="50dp"
@@ -23,13 +23,13 @@
         />
     <TextView
         android:id="@+id/closePopupBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="X"
-        android:paddingRight="20dp"
-        android:textSize="40dp"
+        android:textSize="20dp"
         android:textColor="@color/colorWhite"
         />
 

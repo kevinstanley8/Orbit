@@ -34,4 +34,7 @@ public class Constants {
     public static final String ISSUE_LOW_PRIORITY = "Low";
     public static final String ISSUE_MEDIUM_PRIORITY = "Medium";
     public static final String ISSUE_HIGH_PRIORITY = "High";
+
+    // Dim bacground value
+    public static final float DIM_BACKGROUND = 0.5f;
 }

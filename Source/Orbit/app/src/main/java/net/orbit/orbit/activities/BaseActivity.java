@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public void setDrawerClosedTitle(String drawerClosedTitle) {
         this.drawerClosedTitle = drawerClosedTitle;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_info, menu);
+        return true;
     }
 
     /**

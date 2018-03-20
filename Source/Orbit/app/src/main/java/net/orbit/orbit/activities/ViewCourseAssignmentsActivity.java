@@ -135,7 +135,7 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
             itemView.setOnLongClickListener(this);
 
             iconImage = (ImageView) itemView.findViewById(R.id.iconImage);
-            iconImage.setImageResource(R.drawable.ic_perm_identity_white_24px);
+            iconImage.setImageResource(R.drawable.ic_description_white_24dp);
             txtAssignmentName = (TextView) itemView.findViewById(R.id.txtAssignmentName);
             isSelected = false;
         }

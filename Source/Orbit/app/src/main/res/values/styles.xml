@@ -26,5 +26,8 @@
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:textColorPrimary">#ffffff</item>
     </style>
+    <style name="popup_window_animation_phone">
+        <item name="android:windowEnterAnimation">@anim/popup_fade_in</item>
+    </style>
 
 </resources>

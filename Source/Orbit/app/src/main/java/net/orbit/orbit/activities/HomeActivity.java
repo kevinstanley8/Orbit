@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,16 +15,11 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.sendbird.android.SendBird;
-import com.sendbird.android.SendBirdException;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.messaging.main.ConnectionManager;
 import net.orbit.orbit.messaging.main.MainActivity;
-import net.orbit.orbit.messaging.utils.PushUtils;
 import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.models.pojo.MainMenuItem;
 import net.orbit.orbit.models.pojo.MenuList;
@@ -218,7 +214,6 @@ public class HomeActivity extends BaseActivity {
         getDBConnectionAlert();
 
     }
-
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, HomeActivity.class);
