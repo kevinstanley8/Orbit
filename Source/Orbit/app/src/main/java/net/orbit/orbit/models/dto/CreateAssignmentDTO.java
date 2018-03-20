@@ -8,11 +8,13 @@ public class CreateAssignmentDTO {
     private int courseID;
     private String name;
     private String maxPoints;
+    private String description;
 
-    public CreateAssignmentDTO(int courseID, String name, String maxPoints) {
+    public CreateAssignmentDTO(int courseID, String name, String maxPoints, String description) {
         this.courseID = courseID;
         this.name = name;
         this.maxPoints = maxPoints;
+        this.description = description;
     }
 
     public int getCourseID() {
@@ -39,12 +41,21 @@ public class CreateAssignmentDTO {
         this.maxPoints = maxPoints;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "CreateAssignmentDTO{" +
                 "courseID='" + courseID + '\'' +
                 ", name='" + name + '\'' +
                 ", maxPoints='" + maxPoints + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 

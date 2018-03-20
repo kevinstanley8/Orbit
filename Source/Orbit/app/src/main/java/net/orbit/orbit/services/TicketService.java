@@ -60,6 +60,7 @@ public class TicketService extends BaseService{
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         Log.e("TicketService", "Error when adding new ticket: " + errorResponse);
+                        Toast.makeText(context, "An error occurred, please try again!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

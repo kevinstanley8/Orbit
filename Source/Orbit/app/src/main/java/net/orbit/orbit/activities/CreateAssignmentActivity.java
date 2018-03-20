@@ -45,8 +45,10 @@ public class CreateAssignmentActivity extends BaseActivity {
     {
         EditText txtAssignmentName;
         EditText txtMaxPoints;
+        EditText txtDescription;
 
         txtAssignmentName = (EditText)findViewById(R.id.txtAssignmentName);
+        txtDescription = (EditText)findViewById(R.id.txtDescription);
         txtMaxPoints = (EditText)findViewById(R.id.txtMaxPoints);
 
         View focusView = null;
@@ -58,6 +60,13 @@ public class CreateAssignmentActivity extends BaseActivity {
             return;
         }
 
+        if (TextUtils.isEmpty(txtDescription.getText().toString())) {
+            txtDescription.setError(getString(R.string.error_field_required));
+            focusView = txtDescription;
+            focusView.requestFocus();
+            return;
+        }
+
         if (TextUtils.isEmpty(txtMaxPoints.getText().toString())) {
             txtMaxPoints.setError(getString(R.string.error_field_required));
             focusView = txtMaxPoints;
@@ -65,7 +74,7 @@ public class CreateAssignmentActivity extends BaseActivity {
             return;
         }
 
-        CreateAssignmentDTO assignmentDTO = new CreateAssignmentDTO(CreateAssignmentActivity.courseID, txtAssignmentName.getText().toString(), txtMaxPoints.getText().toString());
+        CreateAssignmentDTO assignmentDTO = new CreateAssignmentDTO(CreateAssignmentActivity.courseID, txtAssignmentName.getText().toString(), txtMaxPoints.getText().toString(), txtDescription.getText().toString());
         AssignmentService assignmentService = new AssignmentService(this);
         assignmentService.createAssignment(assignmentDTO);
     }

@@ -3,21 +3,19 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
-import net.orbit.orbit.models.dto.SaveGradesDTO;
-import net.orbit.orbit.models.pojo.Grade;
+import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
+import net.orbit.orbit.services.PopupService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,7 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private static int studentID = 0;
     private static int courseID = 0;
+    public static PopupService p;
 
     public static Intent createIntent(Context context, int studentID, int courseID) {
         Intent i = new Intent(context, ViewAssignmentGradesStudentActivity.class);
@@ -44,8 +43,12 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ViewAssignmentGradesStudentActivity.Adapter(this));
 
+        p = new PopupService(this);
+
         GradeService gradeService = new GradeService(this);
         gradeService.getStudentCourseGrades(this, ViewAssignmentGradesStudentActivity.studentID, ViewAssignmentGradesStudentActivity.courseID);
+
+
     }
 
     public void updateGradeList(List<Grade> gradeList)
@@ -112,7 +115,12 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
         }
 
         @Override
-        public void onClick(View v) {}
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Grade grade = ViewAssignmentGradesStudentActivity.Adapter.grades.get(position);
+            Assignment assignment = grade.getAssignment();
+            p.showPopup(assignment.getDescription());
+        }
 
         @Override
         public boolean onLongClick(View v) {

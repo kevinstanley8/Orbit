@@ -12,13 +12,14 @@ public class Assignment {
     private String maxPoints;
     private Course course;
     private Boolean isSelected = false;
+    private String description;
 
     public Assignment()
     {
         this.course = new Course();
     }
 
-    public Assignment(int assignmentId, String year, String name, String type, String maxPoints, Course course)
+    public Assignment(int assignmentId, String year, String name, String type, String maxPoints, Course course, String description)
     {
         this.assignmentId = assignmentId;
         this.year = year;
@@ -26,6 +27,7 @@ public class Assignment {
         this.type = type;
         this.maxPoints = maxPoints;
         this.course = course;
+        this.description = description;
     }
 
     public int getAssignmentId() {
@@ -84,8 +86,16 @@ public class Assignment {
         isSelected = selected;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "Assignment [assignmentId=" + assignmentId + ", year=" + year + ", name=" + name + ", type=" + type + ", maxPoints=" + maxPoints + ", course=" + course.toString() + "]";
+        return "Assignment [assignmentId=" + assignmentId + ", year=" + year + ", name=" + name + ", type=" + type + ", maxPoints=" + maxPoints + ", course=" + course.toString() + "], description=" + description + "";
     }
 }
