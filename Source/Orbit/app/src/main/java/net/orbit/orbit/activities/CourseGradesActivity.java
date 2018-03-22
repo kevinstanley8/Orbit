@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.models.pojo.CourseGrade;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class CourseGradesActivity extends BaseActivity {
         //if student ID has not been set then the user must select a student to view grades
         String studentFullName = getIntent().getStringExtra("studentFullName");
         int id = getIntent().getIntExtra("chosenStudentID", -1);
-
+        context = this;
 
         if(id == -1)
         {
@@ -154,5 +156,18 @@ public class CourseGradesActivity extends BaseActivity {
         }
 
     }
+    private Context context;
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Tap on a class average to see the average broken down into individual assignments.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 }

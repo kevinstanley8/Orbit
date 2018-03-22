@@ -1,14 +1,17 @@
 package net.orbit.orbit.messaging.groupchannel;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import net.orbit.orbit.R;
+import net.orbit.orbit.services.PopupService;
 
 
 public class GroupChannelActivity extends AppCompatActivity{
@@ -17,6 +20,7 @@ public class GroupChannelActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_channel);
+        context = this;
 /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_group_channel);
         setSupportActionBar(toolbar);
@@ -65,14 +69,23 @@ public class GroupChannelActivity extends AppCompatActivity{
         }
         super.onBackPressed();
     }
-
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_info, menu);
+        return true;
+    }
+    private Context context;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("The create a new private message, tap on the plus sign and select the person that you would like to contact. Once you have the person/people selected, tap again on the plus sign and proceed to send the message like you would in any other messaging app.");
+            case R.id.home:
+                onBackPressed();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

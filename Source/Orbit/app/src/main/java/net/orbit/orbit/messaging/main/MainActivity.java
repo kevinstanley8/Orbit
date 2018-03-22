@@ -18,6 +18,7 @@ import com.sendbird.android.SendBirdException;
 import net.orbit.orbit.R;
 import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.messaging.groupchannel.GroupChannelActivity;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context = this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     /**
      * Tried to extract as a Service, null pointer happened, left here.
@@ -84,12 +86,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_info, menu);
         return true;
     }
 
-    @Override
+    private Context context;
+
     public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("This the home page to the messaging center. From here you get access to message teachers / parents directly. To create or respond to a tap on \"Private Messaging\".");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

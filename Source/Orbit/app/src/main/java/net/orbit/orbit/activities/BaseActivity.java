@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sendbird.android.SendBird;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.messaging.main.MainActivity;
@@ -54,6 +53,9 @@ public class BaseActivity extends AppCompatActivity {
     private OrbitMenuNavigation orbitNav;
     private TextView userName;
     private boolean navBarUpdated = false;
+    private Context test;
+
+    int selectedItem = 0;
 
     //user setters to set menu title when menu drawer is open and closed
     private String drawerOpenTitle = "";
@@ -196,7 +198,7 @@ public class BaseActivity extends AppCompatActivity {
             LogoutService logoutService = new LogoutService(this.context);
 
             // translation of menu item titles -> defined menu constants
-            int selectedItem = 0;
+            selectedItem = 0;
             if(item.mTitle.trim().equals("Home"))
                 selectedItem = HOME;
             else if(item.mTitle.trim().equals("Add Student"))
@@ -311,7 +313,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
+        test = this;
         Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

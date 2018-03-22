@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.dto.SaveGradesDTO;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
+import net.orbit.orbit.services.PopupService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
     public static int assignmentID = 0;
     private ListView listView;
 
+    Context context;
     private static int courseID = 0;
     private List<Grade> gradeList = new ArrayList<>();
 
@@ -33,13 +36,14 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         Intent i = new Intent(context, ViewAssignmentGradesActivity.class);
         ViewAssignmentGradesActivity.courseID = courseID;
         ViewAssignmentGradesActivity.assignmentID = assignmentID;
+
         return i;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_assignment_grades, relativeLayout);
 
@@ -145,5 +149,18 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
             });
             return v;
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("To edit a grade just tap on the grade value and enter the new grade. To save the grades into the system, just tap the \"Save\" button.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

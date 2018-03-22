@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.R;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.Constants;
 
@@ -45,6 +47,7 @@ public class AddTeacherActivity extends BaseActivity {
         final String mState   = Constants.FILLOUT_LATER;
         final String mZip   = Constants.FILLOUT_LATER;
 
+        context = this;
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -96,5 +99,19 @@ public class AddTeacherActivity extends BaseActivity {
 
             }
         });
+    }
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("To complete this form, fill out the First Name, Last Name, and Date of Birth, then click the \"Save\" Button to save the new teacher into the system.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

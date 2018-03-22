@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import net.orbit.orbit.models.pojo.MenuList;
 
 import net.orbit.orbit.services.ConnectToSendBird;
 import net.orbit.orbit.services.LogoutService;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
@@ -48,6 +50,8 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        context = this;
         final ConnectToSendBird connectToSendBird = new ConnectToSendBird(this);
 
         OrbitUserPreferences orbitPref = new OrbitUserPreferences(this);
@@ -264,5 +268,20 @@ public class HomeActivity extends BaseActivity {
             }
 
         });
+    }
+
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("This the home page. It contains links to all the pages that are also in the Navigation Menu that is accessed by tapping on the button to the left the one you just tapped.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

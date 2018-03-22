@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.CourseService;
+import net.orbit.orbit.services.PopupService;
 
 public class CreateCourseActivity extends BaseActivity {
 
@@ -37,6 +39,7 @@ public class CreateCourseActivity extends BaseActivity {
                 createCourse();
             }
         });
+        context = this;
     }
 
     private void createCourse()
@@ -56,5 +59,19 @@ public class CreateCourseActivity extends BaseActivity {
 
         CourseService courseService = new CourseService(this);
         courseService.createCourse(txtCourseName.getText().toString());
+    }
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Create a new course.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -3,15 +3,12 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
@@ -33,6 +30,7 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
         Intent i = new Intent(context, ViewAssignmentGradesStudentActivity.class);
         ViewAssignmentGradesStudentActivity.studentID = studentID;
         ViewAssignmentGradesStudentActivity.courseID = courseID;
+
         return i;
     }
 
@@ -41,7 +39,7 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_assignment_grades_student, relativeLayout);
-
+        context = this;
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ViewAssignmentGradesStudentActivity.Adapter(this));
@@ -54,18 +52,15 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
 
     }
 
-    public void updateGradeList(List<Grade> gradeList)
-    {
-        for(Grade g : gradeList)
-        {
+    public void updateGradeList(List<Grade> gradeList) {
+        for (Grade g : gradeList) {
             ViewAssignmentGradesStudentActivity.Adapter.grades.add(g);
         }
 
         reloadList();
     }
 
-    public void reloadList()
-    {
+    public void reloadList() {
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 
@@ -79,8 +74,7 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
             grades.clear();
         }
 
-        public static void addGrade(Grade grade)
-        {
+        public static void addGrade(Grade grade) {
             grades.add(grade);
         }
 
@@ -131,5 +125,19 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
         }
 
     }
-    
+
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("To view the description of an assignment tap on the name of the assignment to display the description.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 }

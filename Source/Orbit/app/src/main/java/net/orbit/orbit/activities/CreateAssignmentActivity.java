@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.CreateAssignmentDTO;
 import net.orbit.orbit.services.AssignmentService;
+import net.orbit.orbit.services.PopupService;
 
 public class CreateAssignmentActivity extends BaseActivity {
     public static int courseID;
@@ -24,6 +26,8 @@ public class CreateAssignmentActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_create_assignment, relativeLayout);
         final RelativeLayout cancelButton = (RelativeLayout) findViewById(R.id.cancel_action);
@@ -77,5 +81,19 @@ public class CreateAssignmentActivity extends BaseActivity {
         CreateAssignmentDTO assignmentDTO = new CreateAssignmentDTO(CreateAssignmentActivity.courseID, txtAssignmentName.getText().toString(), txtMaxPoints.getText().toString(), txtDescription.getText().toString());
         AssignmentService assignmentService = new AssignmentService(this);
         assignmentService.createAssignment(assignmentDTO);
+    }
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Filling out this form will allow you to add a new assignment to the current course. The description will be the information that the student can see what is required to be done.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Student;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -39,7 +41,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_enroll_student_in_course, relativeLayout);
 
@@ -221,4 +223,18 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
 
     }
 
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Select students that are enrolled in your class to allow to gives them grades on your assignments.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 }

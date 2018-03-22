@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Ticket;
 import net.orbit.orbit.models.pojo.User;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.TicketService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
@@ -33,7 +35,7 @@ public class ReportABugActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context = this;
         getLayoutInflater().inflate(R.layout.activity_report_a_bug, relativeLayout);
 
         issueName = (EditText)findViewById(R.id.issueName);
@@ -104,4 +106,18 @@ public class ReportABugActivity extends BaseActivity {
         issueDescription.setText("");
     }
 
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Report anything that you find to be confusing or broken. If something does not operate clearly please fill the form out and let the Developers now.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 }

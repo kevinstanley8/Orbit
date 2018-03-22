@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.pojo.User;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -32,7 +34,7 @@ public class ChooseStudentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_choose_student);
-
+        context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_choose_student, relativeLayout);
 
@@ -159,5 +161,18 @@ public class ChooseStudentActivity extends BaseActivity {
 
     }
 
+    private Context context;
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Tap on the name of the student that you would like to see their academic status: grades and assignments. ");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 }

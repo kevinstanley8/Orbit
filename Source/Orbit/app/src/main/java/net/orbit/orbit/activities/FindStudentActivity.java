@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.StudentDTO;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
@@ -38,7 +40,7 @@ public class FindStudentActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_create_student);
-
+        context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_find_student, relativeLayout);
 
@@ -167,5 +169,19 @@ public class FindStudentActivity extends BaseActivity {
             // Display the chosen date to app interface
             date.setText(formattedDate);
         }
+    }
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("As a parent or guardian to gain access to view a student's academic standing, you must provide a name and a date of birth. Once entered you will be given a list of matching students from the system and asked to pick out your student and add them your list of students. ");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 }

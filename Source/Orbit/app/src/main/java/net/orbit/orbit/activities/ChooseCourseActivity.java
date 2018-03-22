@@ -9,6 +9,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Course;
 import net.orbit.orbit.services.CourseService;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
@@ -39,6 +41,7 @@ public class ChooseCourseActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
 
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_choose_course, relativeLayout);
@@ -197,6 +200,21 @@ public class ChooseCourseActivity extends BaseActivity {
             return false;
         }
 
+    }
+
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Please select all the courses that you are teaching for this period and then click the \"Save\" button to add them to your teaching period.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 
 }

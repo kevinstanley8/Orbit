@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import net.orbit.orbit.models.exceptions.ErrorResponse;
 import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.R;
+import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
@@ -52,6 +54,8 @@ public class CreateStudentActivity extends BaseActivity
 
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        context = this;
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_create_student);
 
@@ -234,5 +238,19 @@ public class CreateStudentActivity extends BaseActivity
         }
     }
 
+    private Context context;
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.menu_info:
+                PopupService p = new PopupService(context);
+                p.showPopup("Create a new student with only their First and Last name and their Date of Birth.");
+        }
+
+
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
 
 }
