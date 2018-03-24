@@ -210,7 +210,7 @@ public class StudentService extends BaseService {
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.e("StudentService", "Error finding linked students: " + errorResponse);
-                Toast.makeText(context, "Error finding linked students.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, "Error finding linked students.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
