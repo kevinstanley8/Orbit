@@ -24,6 +24,7 @@ import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -177,7 +178,7 @@ public class FindStudentActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("As a parent or guardian to gain access to view a student's academic standing, you must provide a name and a date of birth. Once entered you will be given a list of matching students from the system and asked to pick out your student and add them your list of students. ");
+                p.showPopup(PopupMessages.FIND_STUDENT_MESSAGE);
         }
 
 

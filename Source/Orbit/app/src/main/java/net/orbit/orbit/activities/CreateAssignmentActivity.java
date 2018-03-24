@@ -13,6 +13,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.models.dto.CreateAssignmentDTO;
 import net.orbit.orbit.services.AssignmentService;
 import net.orbit.orbit.services.PopupService;
+import net.orbit.orbit.utils.PopupMessages;
 
 public class CreateAssignmentActivity extends BaseActivity {
     public static int courseID;
@@ -89,7 +90,7 @@ public class CreateAssignmentActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Filling out this form will allow you to add a new assignment to the current course. The description will be the information that the student can see what is required to be done.");
+                p.showPopup(PopupMessages.CREATE_ASSIGNMENT_MESSAGE);
         }
 
 

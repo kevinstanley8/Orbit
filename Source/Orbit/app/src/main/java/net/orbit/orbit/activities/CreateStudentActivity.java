@@ -26,6 +26,7 @@ import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 import net.orbit.orbit.utils.ServerCallback;
 
 import java.text.SimpleDateFormat;
@@ -245,7 +246,7 @@ public class CreateStudentActivity extends BaseActivity
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Create a new student with only their First and Last name and their Date of Birth.");
+                p.showPopup(PopupMessages.CREATE_STUDENT_MESSAGE);
         }
 
 

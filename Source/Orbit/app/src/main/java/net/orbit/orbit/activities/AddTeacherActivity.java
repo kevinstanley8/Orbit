@@ -16,6 +16,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.Constants;
+import net.orbit.orbit.utils.PopupMessages;
 
 public class AddTeacherActivity extends BaseActivity {
 
@@ -107,7 +108,7 @@ public class AddTeacherActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("To complete this form, fill out the First Name, Last Name, and Date of Birth, then click the \"Save\" Button to save the new teacher into the system.");
+                p.showPopup(PopupMessages.ADD_TEACHER_MESSAGE);
         }
 
 

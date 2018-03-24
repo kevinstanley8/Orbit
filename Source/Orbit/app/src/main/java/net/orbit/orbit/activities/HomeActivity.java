@@ -28,6 +28,7 @@ import net.orbit.orbit.models.pojo.MenuList;
 import net.orbit.orbit.services.ConnectToSendBird;
 import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.services.PopupService;
+import net.orbit.orbit.utils.PopupMessages;
 import net.orbit.orbit.utils.PropertiesService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitRestClient;
@@ -277,7 +278,7 @@ public class HomeActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("This the home page. It contains links to all the pages that are also in the Navigation Menu that is accessed by tapping on the button to the left the one you just tapped.");
+                p.showPopup(PopupMessages.HOME_MESSAGE);
         }
 
 

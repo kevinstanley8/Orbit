@@ -19,6 +19,7 @@ import net.orbit.orbit.R;
 import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.services.AssignmentService;
 import net.orbit.orbit.services.PopupService;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,7 +179,7 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("This displays the assignment currently assigned to the class being viewed. To add a assignment, tap the plus sign.");
+                p.showPopup(PopupMessages.VIEW_COURSE_ASSIGNMENTS);
         }
 
 

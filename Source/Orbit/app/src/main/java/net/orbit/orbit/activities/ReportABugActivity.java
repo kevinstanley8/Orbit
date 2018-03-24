@@ -21,6 +21,7 @@ import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.TicketService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
 
@@ -113,7 +114,7 @@ public class ReportABugActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Report anything that you find to be confusing or broken. If something does not operate clearly please fill the form out and let the Developers now.");
+                p.showPopup(PopupMessages.REPORT_BUG_MESSAGE);
         }
 
 

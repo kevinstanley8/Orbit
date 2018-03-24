@@ -23,6 +23,7 @@ import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -230,7 +231,7 @@ public class EnrollStudentInCourseActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Select students that are enrolled in your class to allow to gives them grades on your assignments.");
+                p.showPopup(PopupMessages.ENROLL_STUDENT_IN_COURSE_MESSAGE);
         }
 
 

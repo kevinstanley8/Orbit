@@ -16,6 +16,7 @@ import net.orbit.orbit.models.pojo.Assignment;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
 import net.orbit.orbit.services.PopupService;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +134,7 @@ public class ViewAssignmentGradesStudentActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("To view the description of an assignment tap on the name of the assignment to display the description.");
+                p.showPopup(PopupMessages.VIEW_ASSIGNMENT_GRADES_STUDENT_MESSAGE);
         }
 
 

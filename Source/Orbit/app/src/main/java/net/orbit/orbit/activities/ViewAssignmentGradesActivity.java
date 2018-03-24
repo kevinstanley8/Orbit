@@ -20,6 +20,7 @@ import net.orbit.orbit.models.dto.SaveGradesDTO;
 import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
 import net.orbit.orbit.services.PopupService;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +157,7 @@ public class ViewAssignmentGradesActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("To edit a grade just tap on the grade value and enter the new grade. To save the grades into the system, just tap the \"Save\" button.");
+                p.showPopup(PopupMessages.VIEW_ASSIGNMENT_GRADES_MESSAGE);
         }
 
 

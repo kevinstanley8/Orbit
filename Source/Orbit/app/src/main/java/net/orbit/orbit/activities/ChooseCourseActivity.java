@@ -25,6 +25,7 @@ import net.orbit.orbit.services.CourseService;
 import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.TeacherService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -209,7 +210,7 @@ public class ChooseCourseActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Please select all the courses that you are teaching for this period and then click the \"Save\" button to add them to your teaching period.");
+                p.showPopup(PopupMessages.CHOOSE_COURSE_MESSAGE);
         }
 
 

@@ -18,6 +18,7 @@ import net.orbit.orbit.models.pojo.User;
 import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.services.StudentService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,7 +169,7 @@ public class ChooseStudentActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Tap on the name of the student that you would like to see their academic status: grades and assignments. ");
+                p.showPopup(PopupMessages.CHOOSE_STUDENT_MESSAGE);
         }
 
 

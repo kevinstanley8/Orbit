@@ -18,6 +18,7 @@ import net.orbit.orbit.models.pojo.Grade;
 import net.orbit.orbit.services.GradeService;
 import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,7 +164,7 @@ public class CourseGradesActivity extends BaseActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("Tap on a class average to see the average broken down into individual assignments.");
+                p.showPopup(PopupMessages.COURSE_GRADES_MESSAGE);
         }
 
 
