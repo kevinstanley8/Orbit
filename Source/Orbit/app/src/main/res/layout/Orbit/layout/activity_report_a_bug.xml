@@ -29,9 +29,9 @@ tools:context="net.orbit.orbit.activities.ReportABugActivity">
     android:inputType="textEmailAddress"
     android:textColorHint="@color/placeholderColor"
     android:textSize="16dp"
+    android:layout_marginTop="20dp"
     android:textColor="@color/colorAccent"
-    android:layout_marginBottom="35dp"
-    android:layout_above="@+id/issueDescription"
+    android:layout_below="@id/imageView"
     android:layout_centerHorizontal="true" />
 
 <EditText
@@ -43,13 +43,14 @@ tools:context="net.orbit.orbit.activities.ReportABugActivity">
     android:paddingTop="10dp"
     android:textColorHint="@color/placeholderColor"
     android:ems="10"
-    android:hint="Issue Desription"
+    android:hint="Issue Description"
     android:inputType="textMultiLine"
     android:textSize="16dp"
     android:gravity="top"
     android:textColor="@color/colorAccent"
     android:layout_above="@+id/issuePriority"
-    android:layout_marginBottom="35dp"
+    android:layout_marginTop="20dp"
+    android:layout_below="@id/issueName"
     android:layout_alignLeft="@+id/issueName"
     android:layout_alignStart="@+id/issueName" />
 
@@ -63,6 +64,7 @@ tools:context="net.orbit.orbit.activities.ReportABugActivity">
         android:textColor="@color/colorWhite"
         android:textSize="16dp"
         android:popupBackground="@drawable/gradient"
+        android:layout_marginTop="20dp"
         android:spinnerMode="dropdown"
         android:layout_alignBottom="@+id/cardView"
         android:layout_alignLeft="@+id/issueDescription"
