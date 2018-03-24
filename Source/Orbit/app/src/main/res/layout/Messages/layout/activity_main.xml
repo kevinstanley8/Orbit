@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:theme="@style/Toolbar"
                 android:layout_height="56dp"
+                android:minHeight="56dp"
                 app:popupTheme="@style/Theme.AppCompat.Light">
 
             </android.support.v7.widget.Toolbar>
