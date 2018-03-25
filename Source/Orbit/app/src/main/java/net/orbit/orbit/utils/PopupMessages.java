@@ -22,4 +22,9 @@ public class PopupMessages {
 
     public static final String VIEW_COURSE_ASSIGNMENTS = "This displays the assignment currently assigned to the class being viewed. To add a assignment, tap the plus sign.";
     public static final String VIEW_COURSES_TEACHER = "To add a new course to your teaching schedule for this teaching period, tap the plus sign.";
+
+
+    public static final String MESSAGE_CENTER_MESSAGE = "Welcome to Orbit Messaging. Here you can message teachers / parents directly. To create or respond to a message please tap on \"Private Messages\"";
+    public static final String PRIVATE_MESSAGING_MESSAGE = "To create a new private message, tap on the plus sign and select the person that you would like to contact. Once you have the person/people selected, " +
+            "tap again on the plus sign and proceed to send messages.";
 }

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import net.orbit.orbit.R;
 import net.orbit.orbit.services.PopupService;
+import net.orbit.orbit.utils.PopupMessages;
 
 
 public class GroupChannelActivity extends AppCompatActivity{
@@ -82,7 +83,7 @@ public class GroupChannelActivity extends AppCompatActivity{
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("The create a new private message, tap on the plus sign and select the person that you would like to contact. Once you have the person/people selected, tap again on the plus sign and proceed to send the message like you would in any other messaging app.");
+                p.showPopup(PopupMessages.PRIVATE_MESSAGING_MESSAGE);
             case R.id.home:
                 onBackPressed();
                 return true;

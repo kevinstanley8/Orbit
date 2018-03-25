@@ -20,6 +20,8 @@ import net.orbit.orbit.activities.HomeActivity;
 import net.orbit.orbit.messaging.groupchannel.GroupChannelActivity;
 import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PopupMessages;
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup("This the home page to the messaging center. From here you get access to message teachers / parents directly. To create or respond to a tap on \"Private Messaging\".");
+                p.showPopup(PopupMessages.MESSAGE_CENTER_MESSAGE);
         }
 
 
