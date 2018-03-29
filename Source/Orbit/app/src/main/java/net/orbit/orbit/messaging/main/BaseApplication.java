@@ -3,10 +3,14 @@ package net.orbit.orbit.messaging.main;
 import android.app.Application;
 
 import com.sendbird.android.SendBird;
+
+import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
+import net.orbit.orbit.utils.PropertiesService;
+
 public class BaseApplication extends Application {
 
-    private static final String APP_ID = "FE7B3711-E010-41D3-9521-668C346F3F46";
+    //private static final String APP_ID = Constants.SENDBIRD_APPID;
     public static final String VERSION = "3.0.39";
 
 
@@ -15,6 +19,9 @@ public class BaseApplication extends Application {
         super.onCreate();
         OrbitUserPreferences.init(getApplicationContext());
 
+
+        PropertiesService propertiesService = new PropertiesService(this);
+        String APP_ID= propertiesService.getProperty(this, Constants.SENDBIRD_APPID);
         SendBird.init(APP_ID, getApplicationContext());
     }
 }
