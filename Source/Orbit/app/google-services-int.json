@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "81373994806",
+    "firebase_url": "https://orbit-680-team.firebaseio.com",
+    "project_id": "orbit-680-team",
+    "storage_bucket": "orbit-680-team.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81373994806:android:9cbb82692a33526c",
+        "android_client_info": {
+          "package_name": "net.orbit.orbit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81373994806-fvvr4obockm72tcd59hlepluqoqhsnji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.orbit.orbit",
+            "certificate_hash": "578f7c6c94f4bd3241ace5309ac9f4b382f66ad6"
+          }
+        },
+        {
+          "client_id": "81373994806-9703l1mhg87k0uruge23e06a1vfsihar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlPsbyJdf1Wwbytm-FqPGFh326XuBw3Ps"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81373994806-9703l1mhg87k0uruge23e06a1vfsihar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
