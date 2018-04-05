@@ -48,7 +48,7 @@ public class CourseGrade {
         DecimalFormat df = new DecimalFormat("#.00");
 
         try {
-            formatGrade = df.format(Integer.parseInt(grade) * 1.00 / gradeCount) + "%";
+            formatGrade = df.format((Integer.parseInt(grade) * 1.00 / gradeCount) * 100)  + "%";
         } catch(Exception e) { formatGrade = "N/A"; }
 
         return formatGrade;
