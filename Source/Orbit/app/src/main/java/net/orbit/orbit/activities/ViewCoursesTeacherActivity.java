@@ -3,7 +3,6 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,11 +28,11 @@ import java.util.List;
 
 public class ViewCoursesTeacherActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    private static PopupService popupService ;
+    private static String subOption;
 
-
-    public static Intent createIntent(Context context) {
+    public static Intent createIntent(Context context, String subOption) {
         Intent i = new Intent(context, ViewCoursesTeacherActivity.class);
+        ViewCoursesTeacherActivity.subOption = subOption;
         return i;
     }
 
@@ -44,7 +43,6 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_courses_teacher, relativeLayout);
-        popupService = new PopupService(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -160,9 +158,14 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             int position = getAdapterPosition();
             Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
             Context context = itemView.getContext();
-            popupService.showButtonPopup(context, course.getCourseId());
-            //Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
-            //context.startActivity(intent);
+            if(subOption.equals("Grades")){
+                Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
+                context.startActivity(intent);
+            }
+            if(subOption.equals("Attendance")){
+                Intent intent = ViewAttendanceActivity.createIntent(context, course.getCourseId());
+                context.startActivity(intent);
+            }
         }
 
         @Override

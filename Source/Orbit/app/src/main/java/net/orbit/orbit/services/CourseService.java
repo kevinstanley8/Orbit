@@ -131,7 +131,7 @@ public class CourseService extends BaseService{
                         Log.i("CourseService", "Successfully assigned courses to teacher.");
                         // We have a match student. Need to do linking here.
                         Toast.makeText(context, "Assign courses successfully" , Toast.LENGTH_SHORT).show();
-                        context.startActivity(ViewCoursesTeacherActivity.createIntent(context));
+                        context.startActivity(ViewCoursesTeacherActivity.createIntent(context, ""));
                     }
 
                     @Override
@@ -180,7 +180,7 @@ public class CourseService extends BaseService{
                         Log.i("CourseService", "Created Course" + newCourse.getName());
                         // We have a match student. Need to do linking here.
                         Toast.makeText(context, "New Course: " + newCourse.getName() + " created!", Toast.LENGTH_SHORT).show();
-                        context.startActivity(ViewCoursesTeacherActivity.createIntent(context));
+                        context.startActivity(ViewCoursesTeacherActivity.createIntent(context, ""));
                     }
 
                     @Override

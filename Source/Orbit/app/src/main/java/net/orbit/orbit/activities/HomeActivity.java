@@ -178,8 +178,11 @@ public class HomeActivity extends BaseActivity {
                 }
                 if(temp.getLabel() == (R.string.view_course))
                 {
-                    Intent newIntent = new Intent(HomeActivity.this, ViewCoursesTeacherActivity.class);
-                    startActivity(newIntent);
+                    context.startActivity(ViewCoursesTeacherActivity.createIntent(context, "Grades"));
+                }
+                if(temp.getLabel() == (R.string.menu_attendance))
+                {
+                    context.startActivity(ViewCoursesTeacherActivity.createIntent(context, "Attendance"));
                 }
                 if(temp.getLabel() == (R.string.view_assignments))
                 {

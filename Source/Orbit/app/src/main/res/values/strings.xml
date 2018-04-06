@@ -43,6 +43,8 @@
     <string name="no_description">No description for this assignment.</string>
 
 
+    <string name="menu_attendance">Take Attendance</string>
+
     <string name="all_group_channels">Private Messaging</string>
 
     <!-- main -->

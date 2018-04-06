@@ -28,4 +28,7 @@ public class SaveAttendanceDTO {
     public void setAttendanceList(List<Attendance> attendanceList) {
         this.attendanceList = attendanceList;
     }
+    public void addAttendance(Attendance attendance){
+        this.attendanceList.add(attendance);
+    }
 }

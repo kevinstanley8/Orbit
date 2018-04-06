@@ -1,21 +1,16 @@
 package net.orbit.orbit.services;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import net.orbit.orbit.R;
-import net.orbit.orbit.activities.ViewCourseAssignmentsActivity;
 import net.orbit.orbit.utils.Constants;
 
 /**
@@ -49,48 +44,6 @@ public class PopupService {
         } else {
             descText.setText(R.string.no_description);
         }
-        closePopupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
-    }
-
-    public void showButtonPopup(Context context, int courseID){
-        final int courseId = courseID;
-        final Context mContext = context;
-        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customView = layoutInflater.inflate(R.layout.button_popup,null);
-
-        //instantiate popup window
-        popupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        //display the popup window
-        popupWindow.setAnimationStyle(R.style.popup_window_animation_phone);
-        popupWindow.showAtLocation(customView, Gravity.CENTER, 0, 0);
-        dimBehind(popupWindow);
-        TextView closePopupBtn = (TextView) customView.findViewById(R.id.closePopupBtn);
-
-        /** Button to get to viewing and grading assingments. **/
-        Button gradesButton = (Button) customView.findViewById(R.id.gradesButton);
-        gradesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = ViewCourseAssignmentsActivity.createIntent(mContext, courseId);
-                mContext.startActivity(intent);
-            }
-        });
-        /** Button to get to viewing and grading assingments. **/
-        Button attendanceButton= (Button) customView.findViewById(R.id.attendanceButton);
-        gradesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = ViewCourseAssignmentsActivity.createIntent(mContext, courseId);
-                //mContext.startActivity(intent);
-            }
-        });
-
         closePopupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

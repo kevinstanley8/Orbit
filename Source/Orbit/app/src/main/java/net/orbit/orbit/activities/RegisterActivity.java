@@ -267,25 +267,6 @@ public class RegisterActivity extends AppCompatActivity {
                             User user = new User(email, userUID, date, Constants.USER_INVALID_ATTEMPTS, Constants.USER_ACTIVE, role, firstName.getText().toString(), lastName.getText().toString());
                             AccountDetailsDTO accountDetails = new AccountDetailsDTO(user, firstName.getText().toString(), lastName.getText().toString(), dob.getText().toString());
 
-
-                            /***
-                             *
-                             *
-                             * SendBird Login Testing
-                             *
-                             *
-                             */
-
-
-
-                            /*****
-                             *
-                             *
-                             *
-                             *
-                             *
-                             *
-                             */
                             Log.i("role", role.toString());
                             // Add user to database
                             userService.addUser(accountDetails, new ServerCallback<User>() {
