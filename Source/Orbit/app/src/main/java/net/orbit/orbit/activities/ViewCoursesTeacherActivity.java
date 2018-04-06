@@ -29,6 +29,8 @@ import java.util.List;
 
 public class ViewCoursesTeacherActivity extends BaseActivity {
     private RecyclerView recyclerView;
+    private static PopupService popupService ;
+
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ViewCoursesTeacherActivity.class);
@@ -42,7 +44,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_courses_teacher, relativeLayout);
-
+        popupService = new PopupService(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -158,8 +160,9 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             int position = getAdapterPosition();
             Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
             Context context = itemView.getContext();
-            Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
-            context.startActivity(intent);
+            popupService.showButtonPopup(context, course.getCourseId());
+            //Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
+            //context.startActivity(intent);
         }
 
         @Override

@@ -1,6 +1,7 @@
 package net.orbit.orbit.activities;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -147,7 +148,6 @@ public class ViewCourseAssignmentsActivity extends BaseActivity {
         public void onClick(View v) {
             int position = getAdapterPosition();
             int assignmentID = ViewCourseAssignmentsActivity.Adapter.assignments.get(position).getAssignmentId();
-
             Context context = itemView.getContext();
             Intent intent = ViewAssignmentGradesActivity.createIntent(context, courseID, assignmentID);
             context.startActivity(intent);
