@@ -205,11 +205,17 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, MainActivity.class);
                     startActivity(newIntent);
                 }
-                if(temp.getLabel() == (R.string.menu_my_grades))
+                if(temp.getLabel() == (R.string.menu_view_conduct))
                 {
-                    Intent newIntent = new Intent(HomeActivity.this, CourseGradesActivity.class);
+                    Intent newIntent = new Intent(HomeActivity.this, ConductActivity.class);
                     startActivity(newIntent);
                 }
+                if(temp.getLabel() == (R.string.menu_my_conduct))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ConductActivity.class);
+                    startActivity(newIntent);
+                }
+
 
             }
         });
