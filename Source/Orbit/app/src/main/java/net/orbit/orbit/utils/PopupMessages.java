@@ -29,4 +29,6 @@ public class PopupMessages {
             "tap again on the plus sign and proceed to send messages.";
 
     public static final String VIEW_CONDUCT_MESSAGE = "To edit conduct just tap on the conduct value and enter the new conduct. To save the conduct into the system, just tap the \"Save\" button.";
+    public static final String STUDENT_CONDUCT_MESSAGE = "Tap on a class to see the conduct scores broken down per day.";
+    public static final String DAILY_CONDUCT_MESSAGE = "Daily conduct scores.";
 }

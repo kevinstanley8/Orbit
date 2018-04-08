@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -13,6 +14,8 @@ import net.orbit.orbit.activities.ConductActivity;
 import net.orbit.orbit.activities.CourseGradesActivity;
 import net.orbit.orbit.activities.ViewAssignmentGradesActivity;
 import net.orbit.orbit.activities.ViewAssignmentGradesStudentActivity;
+import net.orbit.orbit.activities.ViewMyConductActivity;
+import net.orbit.orbit.activities.ViewMyConductCourseActivity;
 import net.orbit.orbit.models.dto.GetGradesForAssignmentDTO;
 import net.orbit.orbit.models.dto.SaveConductDTO;
 import net.orbit.orbit.models.dto.SaveGradesDTO;
@@ -25,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -41,40 +45,10 @@ public class ConductService extends  BaseService{
         this.context = context;
     }
 
-    /*public void getAllStudentGradesForAssignment(final ViewAssignmentGradesActivity activity, final GetGradesForAssignmentDTO getGradesForAssignmentDTO){
-        Gson gson = new Gson();
-        String json = gson.toJson(getGradesForAssignmentDTO);
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(json.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("GradeService", "Getting all the enrolled students and grades for course ID " + getGradesForAssignmentDTO.getCourseID() + " assignment ID: " + getGradesForAssignmentDTO.getAssignmentID());
-        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
-        orbitRestClient.get("all-grades-for-assignment/" + getGradesForAssignmentDTO.getCourseID() + "/" + getGradesForAssignmentDTO.getAssignmentID(), new RequestParams("getGradesForAssignmentDTO", entity), new JsonHttpResponseHandler(){
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray grades) {
-                Gson gson = new Gson();
-                List<Grade> gradeList = gson.fromJson(grades.toString(), new TypeToken<List<Grade>>(){}.getType());
-                activity.updateGradeList(gradeList);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
-                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("GradeService", "Error when getting grades for assignment: " + getGradesForAssignmentDTO.getAssignmentID());
-            }
-
-        });
-    }*/
-
     public void saveConduct(SaveConductDTO saveConductDTO){
         final OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String json = gson.toJson(saveConductDTO);
         StringEntity entity = null;
         try {
@@ -120,7 +94,7 @@ public class ConductService extends  BaseService{
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray conducts) {
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                 List<Conduct> conductList = gson.fromJson(conducts.toString(), new TypeToken<List<Conduct>>(){}.getType());
                 activity.updateConductList(conductList);
             }
@@ -134,31 +108,47 @@ public class ConductService extends  BaseService{
         });
     }
 
-    /*public void getStudentCourseGrades(final ViewAssignmentGradesStudentActivity activity, final int studentID, final int courseID){
-
-        //need to figure out how to find student ID based on logged in user.
-        //student logins will come from account link table
-        //parent logins will have to choose which student they want to see
-
-        Log.d("GradeService", "Getting all grades for student ID " + studentID + " courseID " + courseID);
+    public void getStudentConduct(final ViewMyConductActivity activity, final int studentID){
+        Log.d("ConductService", "Getting all conduct for student ID " + studentID);
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
-        orbitRestClient.get("student-grades/" + studentID + "/" + courseID, null, new JsonHttpResponseHandler(){
+        orbitRestClient.get("student-conduct/" + studentID, null, new JsonHttpResponseHandler(){
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray grades) {
-                Gson gson = new Gson();
-                List<Grade> gradeList = gson.fromJson(grades.toString(), new TypeToken<List<Grade>>(){}.getType());
-                activity.updateGradeList(gradeList);
+            public void onSuccess(int statusCode, Header[] headers, JSONArray conducts) {
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                List<Conduct> conductList = gson.fromJson(conducts.toString(), new TypeToken<List<Conduct>>(){}.getType());
+                activity.updateConductList(conductList);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("GradeService", "Error when getting course grades for student ID: " + studentID + " courseID");
+                Log.e("ConductService", "Error when getting student conduct for student ID: " + studentID);
             }
 
         });
-    }*/
+    }
+
+    public void getStudentDailyConduct(final ViewMyConductCourseActivity activity, final int studentID, final int courseID){
+        Log.d("ConductService", "Getting all conduct for student ID " + studentID + " course ID " + courseID);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.get("student-daily-conduct/" + studentID + "/" + courseID, null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray conducts) {
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                List<Conduct> conductList = gson.fromJson(conducts.toString(), new TypeToken<List<Conduct>>(){}.getType());
+                activity.updateConductList(conductList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("ConductService", "Error when getting daily student conduct for student ID: " + studentID + " course ID " + courseID);
+            }
+
+        });
+    }
 
 
 }

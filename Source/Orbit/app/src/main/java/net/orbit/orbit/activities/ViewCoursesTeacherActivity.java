@@ -167,7 +167,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
                 Context context = itemView.getContext();
                 Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
-            } else if(Adapter.actionType == 0) {
+            } else if(Adapter.actionType == 1) {
                 int position = getAdapterPosition();
                 Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
                 Context context = itemView.getContext();

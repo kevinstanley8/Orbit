@@ -133,8 +133,18 @@
             android:label="Create Course"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ConductActivity"
+        <activity
+            android:name=".activities.ConductActivity"
             android:label="View Conduct"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ViewMyConductActivity"
+            android:label="My Conduct"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ViewMyConductCourseActivity"
+            android:label="My Daily Conduct"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -207,7 +217,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
 
     </application>
 

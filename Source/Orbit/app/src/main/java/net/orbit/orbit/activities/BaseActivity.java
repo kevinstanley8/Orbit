@@ -282,9 +282,9 @@ public class BaseActivity extends AppCompatActivity {
                     Intent newIntent = new Intent(BaseActivity.this, MainActivity.class);
                     startActivity(newIntent);
                     break;
-                case VIEW_CONDUCT: startActivityForResult(ConductActivity.createIntent(context, 1), result);
+                case VIEW_CONDUCT: startActivityForResult(ConductActivity.createIntent(context, 0), result);
                     break;
-                case MY_CONDUCT: startActivityForResult(ConductActivity.createIntent(context, 1), result);
+                case MY_CONDUCT: startActivityForResult(ViewMyConductActivity.createIntent(context), result);
                     break;
             }
         }

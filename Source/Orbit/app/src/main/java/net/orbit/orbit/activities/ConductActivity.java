@@ -29,6 +29,7 @@ import net.orbit.orbit.services.PopupService;
 import net.orbit.orbit.utils.PopupMessages;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ConductActivity extends BaseActivity {
@@ -49,8 +50,20 @@ public class ConductActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+
+        // verify course has been chosen
+        if(courseID == 0)
+        {
+            Intent intent = ViewCoursesTeacherActivity.createIntent(this);
+            intent.putExtra("actionType", 1);
+            this.startActivity(intent);
+        }
+
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_conduct, relativeLayout);
+
+        TextView txtDate = (TextView)findViewById(R.id.txtDate);
+        txtDate.setText(new java.sql.Date(Calendar.getInstance().getTime().getTime()).toString());
 
         listView = (ListView) findViewById(R.id.recyclerView);
         ConductActivity.ListAdapter customAdapter = new ConductActivity.ListAdapter(this, R.layout.grade_item, conductList);
@@ -63,7 +76,6 @@ public class ConductActivity extends BaseActivity {
             }
         });
 
-        //GetGradesForAssignmentDTO getGradesForAssignmentDTO = new GetGradesForAssignmentDTO(ConductActivity.courseID, ConductActivity.assignmentID);
         ConductService conductService = new ConductService(this);
         conductService.getCourseConduct(this, courseID);
     }
@@ -91,7 +103,13 @@ public class ConductActivity extends BaseActivity {
         {
             childView = listView.getChildAt(i);
             rating = (RatingBar) childView.findViewById(R.id.rating);
+
+            if(rating.getRating() <= 0)
+                continue;
+
             Conduct conduct = this.conductList.get(i);
+            java.sql.Date currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            //conduct.setDate(currentDate);
             conduct.setScore((int)rating.getRating());
             saveConductDTO.addConduct(conduct);
         }
@@ -122,7 +140,7 @@ public class ConductActivity extends BaseActivity {
             final RatingBar rating = (RatingBar) v.findViewById(R.id.rating);
 
             if(conduct != null) {
-                studentName.setText(conduct.getStudent().getStudentLastName() + " " +
+                studentName.setText(conduct.getStudent().getStudentLastName() + ", " +
                         conduct.getStudent().getStudentFirstName());
                 rating.setRating(conduct.getScore());
             }
