@@ -98,6 +98,11 @@
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.ViewCourseAttendanceActivity"
+            android:label="View Course Assignments"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.CreateAssignmentActivity"
             android:label="Create Assignment"
             android:screenOrientation="nosensor"

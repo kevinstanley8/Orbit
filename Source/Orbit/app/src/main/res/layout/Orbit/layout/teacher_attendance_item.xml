@@ -5,24 +5,22 @@
 
     <TextView
         android:id="@+id/txtStudentName"
-        android:layout_width="200dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:text=""
         android:background="#11000000"
         android:gravity="center"
         android:layout_marginTop="3dp"
-        android:drawableLeft="@drawable/ic_account_box_white_24px"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorAccent"/>
-    <TextView
+    <EditText
         android:id="@+id/comment"
-        android:layout_width="300dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:text=""
         android:background="#11000000"
         android:gravity="center"
         android:layout_marginTop="3dp"
-        android:drawableLeft="@drawable/ic_account_box_white_24px"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/colorAccent"
         android:layout_toRightOf="@+id/txtStudentName"/>
@@ -37,5 +35,5 @@
         android:textSize="16dp"
         android:layout_toRightOf="@+id/comment"
         android:popupBackground="@drawable/gradient"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"/>
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -13,12 +14,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 import net.orbit.orbit.activities.ViewAttendanceActivity;
+import net.orbit.orbit.activities.ViewCourseAttendanceActivity;
 import net.orbit.orbit.models.dto.SaveAttendanceDTO;
 import net.orbit.orbit.models.pojo.Attendance;
 import net.orbit.orbit.utils.OrbitRestClient;
@@ -50,22 +54,35 @@ public class AttendanceService extends BaseService {
         });
     }
 
-    public void getCourseAttendance(final ViewAttendanceActivity activity, final  int courseId){
-        Log.d("GradeService", "Getting all course grades for student ID " + courseId);
+    public void getCourseAttendance(final ViewCourseAttendanceActivity activity, final int courseId){
+        Log.d("AttendanceService", "Getting all course attendance for course ID " + courseId);
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("course-attendance/" + courseId , null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray attendances) {
                 Gson gson = new Gson();
-                List<Attendance> attendanceList = gson.fromJson(attendances.toString(), new TypeToken<List<Attendance>>(){}.getType());
-                //activity.updateCourseGradeList(attendanceList);
+                Gson test = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+                List<Attendance> attendanceList = new ArrayList<>();
+                java.sql.Date date;
+                Attendance a;
+                for(int i = 0; i < attendances.length(); i ++)
+                {
+                    String ab = attendances.optString(i);
+                    a = test.fromJson(attendances.optString(i), Attendance.class);
+                    //Log.d("SugarMonkey", a.toString() + "\n");
+                   // Attendance a = (Attendance) attendances.opt(i);
+                    attendanceList.add(a);
+                }
+                //attendanceList = test.fromJson(attendances.toString(), new TypeToken<List<Attendance>>(){}.getType());
+                activity.updateAttendanceList(attendanceList);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                Log.e("GradeService", "Error when getting course attendance for course ID: " + courseId);
+                Log.e("AttendanceService", "Error when getting course attendance for course ID: " + courseId);
             }
 
         });
@@ -74,8 +91,9 @@ public class AttendanceService extends BaseService {
     public void saveCourseAttendance(SaveAttendanceDTO saveAttendanceDTO){
         final OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
 
+        Gson test = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Gson gson = new Gson();
-        String json = gson.toJson(saveAttendanceDTO);
+        String json = test.toJson(saveAttendanceDTO);
         StringEntity entity = null;
         try {
             entity = new StringEntity(json.toString());

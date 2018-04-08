@@ -13,10 +13,16 @@
     tools:context="net.orbit.orbit.activities.ViewAssignmentGradesActivity">
 
     <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Date:"
+        />
+    <TextView
         android:id="@+id/noAttendance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Grades Found."
+        android:text="No attendance records found."
         android:textColor="@color/colorWhite"
         android:textSize="20dp"
         android:layout_gravity="center_horizontal"
@@ -49,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Save Grades"
+                android:text="Save Attendance"
                 android:textColor="#fff"
                 android:textSize="18sp"
                 />

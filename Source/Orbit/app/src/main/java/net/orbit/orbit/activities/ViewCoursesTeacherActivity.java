@@ -158,12 +158,14 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             int position = getAdapterPosition();
             Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
             Context context = itemView.getContext();
+            Log.d("TEST", subOption);
+
             if(subOption.equals("Grades")){
                 Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
             }
             if(subOption.equals("Attendance")){
-                Intent intent = ViewAttendanceActivity.createIntent(context, course.getCourseId());
+                Intent intent = ViewCourseAttendanceActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
             }
         }

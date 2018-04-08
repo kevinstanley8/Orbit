@@ -39,7 +39,7 @@ public class ViewAttendanceActivity extends BaseActivity{
     private List<Attendance> attendanceList = new ArrayList<>();
 
     public static Intent createIntent(Context context, int courseID) {
-        Intent i = new Intent(context, ViewAssignmentGradesActivity.class);
+        Intent i = new Intent(context, ViewCourseAttendanceActivity.class);
         ViewAttendanceActivity.courseID = courseID;
         return i;
     }
@@ -64,21 +64,24 @@ public class ViewAttendanceActivity extends BaseActivity{
 
         //GetGradesForAssignmentDTO getGradesForAssignmentDTO = new GetGradesForAssignmentDTO(ViewAssignmentGradesActivity.courseID, ViewAssignmentGradesActivity.assignmentID);
         AttendanceService attendanceService= new AttendanceService(this);
-        attendanceService.getCourseAttendance(this, courseID);
+       // attendanceService.getCourseAttendance(this, courseID);
     }
 
     public void saveAttendance()
     {
         View childView;
         EditText comment;
+        Spinner statusSpinner;
         SaveAttendanceDTO  saveAttendanceDTO = new SaveAttendanceDTO();
 
         for(int i = 0; i < listView.getChildCount(); i++)
         {
             childView = listView.getChildAt(i);
             comment = (EditText) childView.findViewById(R.id.txtGrade);
+            statusSpinner = (Spinner)childView.findViewById(R.id.statusSpinner);
             this.attendanceList.get(i).setComment(comment.getText().toString());
             // SPINNER VALUE
+            this.attendanceList.get(i).setStatus(statusSpinner.getSelectedItem().toString());
             //this.gradeList.get(i).getAssignment().setAssignmentId(ViewAssignmentGradesActivity.assignmentID);
             saveAttendanceDTO.addAttendance(this.attendanceList.get(i));
         }
@@ -148,7 +151,21 @@ public class ViewAttendanceActivity extends BaseActivity{
             return v;
         }
     }
+    public void updateAttendanceList(List<Attendance> attendanceList)
+    {
 
+        if (attendanceList.size() < 1) {
+            TextView noGrades = (TextView)findViewById(R.id.noGrades);
+            noGrades.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        listView.setVisibility(View.VISIBLE);
+        for(Attendance a : attendanceList)
+        {
+            this.attendanceList.add(a);
+        }
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId())
         {
