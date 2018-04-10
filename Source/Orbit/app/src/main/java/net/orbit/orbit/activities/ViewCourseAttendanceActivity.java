@@ -45,7 +45,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
     private Context context;
     private ListView listView;
     private List<Attendance> attendanceList = new ArrayList<>();
-    private static String dateEntered;
+    private Date today;
 
     public static Intent createIntent(Context context, int courseID) {
         Intent i = new Intent(context, ViewCourseAttendanceActivity.class);
@@ -64,14 +64,17 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         ListAdapter customAdapter = new ListAdapter(this, R.layout.teacher_attendance_item, attendanceList);
         listView.setAdapter(customAdapter);
         TextView dateTextView = (TextView) findViewById(R.id.date);
-        dateTextView.setOnClickListener(new View.OnClickListener() {
+
+       /*** dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment dialogFragment = new DatePickerFragment();
                 dialogFragment.show(getFragmentManager(), "Date Picker");
             }
         });
-        dateEntered = dateTextView.getText().toString();
+        ***/
+        today = new Date(Calendar.getInstance().getTimeInMillis());
+        dateTextView.setText(today.toString());
         findViewById(R.id.btnSaveAttendance).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +83,8 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         });
 
         AttendanceService attendanceService= new AttendanceService(this);
-        attendanceService.getCourseAttendance(this, courseID);
+        Log.d("CHEESE", String.valueOf(courseID));
+        attendanceService.getCourseAttendance(this, courseID, today);
     }
 
     public void saveAttendance()
@@ -98,7 +102,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
             this.attendanceList.get(i).setComment(comment.getText().toString());
             // SPINNER VALUE
             this.attendanceList.get(i).setStatus(statusSpinner.getSelectedItem().toString());
-            this.attendanceList.get(i).setDate(Date.valueOf(dateEntered));
+            this.attendanceList.get(i).setDate(today);
             saveAttendanceDTO.addAttendance(this.attendanceList.get(i));
         }
         AttendanceService attendanceService = new AttendanceService(this);
@@ -130,6 +134,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
             TextView studentName = (TextView) v.findViewById(R.id.txtStudentName);
             final EditText comment = (EditText) v.findViewById(R.id.comment);
             List<String> status = new ArrayList<>();
+            status.add("");
             status.add("P");
             status.add("A");
             status.add("E");
@@ -189,8 +194,8 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
     {
 
         if (attendanceList.size() < 1) {
-            TextView noGrades = (TextView)findViewById(R.id.noAttendance);
-            noGrades.setVisibility(View.VISIBLE);
+            TextView noAttendance = (TextView)findViewById(R.id.noAttendance);
+            noAttendance.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -212,6 +217,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
     }
+    /***
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
         @Override
@@ -230,7 +236,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
 
                 Other three themes act perfectly after defined enabled date range of date picker.
                 Those theme completely hide the disable dates from date picker object.
-             */
+             *
             DatePickerDialog dpd = new DatePickerDialog(getActivity(),
                     AlertDialog.THEME_HOLO_LIGHT,this,year,month,day);
 
@@ -270,5 +276,6 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
             dateEntered = formattedDate;
         }
     }
+     ***/
 }
 

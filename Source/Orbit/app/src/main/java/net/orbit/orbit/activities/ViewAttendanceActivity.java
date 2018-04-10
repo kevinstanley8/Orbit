@@ -64,7 +64,7 @@ public class ViewAttendanceActivity extends BaseActivity{
 
         //GetGradesForAssignmentDTO getGradesForAssignmentDTO = new GetGradesForAssignmentDTO(ViewAssignmentGradesActivity.courseID, ViewAssignmentGradesActivity.assignmentID);
         AttendanceService attendanceService= new AttendanceService(this);
-       // attendanceService.getCourseAttendance(this, courseID);
+        //attendanceService.getCourseAttendance(this, courseID);
     }
 
     public void saveAttendance()
