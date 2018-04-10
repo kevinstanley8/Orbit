@@ -29,6 +29,9 @@ import java.util.List;
 
 public class ViewCoursesTeacherActivity extends BaseActivity {
     private RecyclerView recyclerView;
+    private int actionType = 0;
+    public static int GRADE_ACTION = 0;
+    public static int CONDUCT_ACTION = 1;
 
     public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ViewCoursesTeacherActivity.class);
@@ -60,6 +63,9 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter(this));
+
+        //figure out which action to perform on click
+        Adapter.actionType = getIntent().getIntExtra("actionType", 0);
 
         Adapter.courses = new ArrayList<>();
         CourseService courseService = new CourseService(this);
@@ -103,6 +109,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
 
         private final Activity context;
         private static List<Course> courses = new ArrayList<>();
+        private static int actionType = 0;
 
         public Adapter(Activity context) {
             this.context = context;
@@ -154,12 +161,19 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-
-            int position = getAdapterPosition();
-            Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
-            Context context = itemView.getContext();
-            Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
-            context.startActivity(intent);
+            if(Adapter.actionType == 0) {
+                int position = getAdapterPosition();
+                Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
+                Context context = itemView.getContext();
+                Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
+                context.startActivity(intent);
+            } else if(Adapter.actionType == 1) {
+                int position = getAdapterPosition();
+                Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
+                Context context = itemView.getContext();
+                Intent intent = ConductActivity.createIntent(context, course.getCourseId());
+                context.startActivity(intent);
+            }
         }
 
         @Override

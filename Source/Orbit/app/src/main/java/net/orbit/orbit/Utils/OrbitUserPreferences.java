@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import net.orbit.orbit.models.pojo.Course;
-import net.orbit.orbit.models.pojo.Student;
 import net.orbit.orbit.models.pojo.Teacher;
 import net.orbit.orbit.models.pojo.User;
 

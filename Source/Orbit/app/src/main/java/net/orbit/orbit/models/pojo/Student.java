@@ -69,17 +69,19 @@ public class Student
         this.studentId = studentId;
     }
 
-    public Student(String studentFirstName, String studentLastName, String studentDateOfBirth)
-    {
+    public Student(String studentFirstName, String studentLastName, String studentDateOfBirth) {
         this.studentFirstName = studentFirstName;
         this.studentLastName = studentLastName;
         this.studentDateOfBirth = studentDateOfBirth;
     }
 
-    public Student(String studentFirstName, String studentLastName)
-    {
+    public Student(String studentFirstName, String studentLastName) {
         this.studentFirstName = studentFirstName;
         this.studentLastName = studentLastName;
+    }
+
+    public Student() {
+
     }
 
 

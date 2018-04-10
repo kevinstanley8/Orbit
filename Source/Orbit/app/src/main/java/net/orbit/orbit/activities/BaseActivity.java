@@ -176,6 +176,8 @@ public class BaseActivity extends AppCompatActivity {
         public static final int REPORT_A_BUG = 12;
         public static final int COURSE_GRADES = 13;
         public static final int MESSAGING = 14;
+        public static final int VIEW_CONDUCT = 15;
+        public static final int MY_CONDUCT = 16;
 
 
 
@@ -229,6 +231,10 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = COURSE_GRADES;
             else if (item.mTitle.trim().equals("Message Center"))
                 selectedItem = MESSAGING;
+            else if (item.mTitle.trim().equals("View Conduct"))
+                selectedItem = VIEW_CONDUCT;
+            else if (item.mTitle.trim().equals("My Conduct"))
+                selectedItem = MY_CONDUCT;
 
 
 
@@ -275,6 +281,10 @@ public class BaseActivity extends AppCompatActivity {
                     connectToSendBird.connectToSendBird(user.getUid(), nickName);
                     Intent newIntent = new Intent(BaseActivity.this, MainActivity.class);
                     startActivity(newIntent);
+                    break;
+                case VIEW_CONDUCT: startActivityForResult(ConductActivity.createIntent(context, 0), result);
+                    break;
+                case MY_CONDUCT: startActivityForResult(ViewMyConductActivity.createIntent(context), result);
                     break;
             }
         }

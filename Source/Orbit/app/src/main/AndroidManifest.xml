@@ -106,8 +106,8 @@
             android:name=".activities.ViewAssignmentGradesActivity"
             android:label="View Single Assignment"
             android:screenOrientation="nosensor"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.ReportABugActivity"
             android:label="@string/report_a_bug"
@@ -131,6 +131,20 @@
         <activity
             android:name=".activities.CreateCourseActivity"
             android:label="Create Course"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ConductActivity"
+            android:label="View Conduct"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ViewMyConductActivity"
+            android:label="My Conduct"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.ViewMyConductCourseActivity"
+            android:label="My Daily Conduct"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -203,6 +217,7 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>
