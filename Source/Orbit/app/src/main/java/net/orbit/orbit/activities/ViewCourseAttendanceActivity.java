@@ -68,7 +68,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         if(courseID == 0)
         {
             Intent intent = ViewCoursesTeacherActivity.createIntent(this);
-            intent.putExtra("actionType", 1);
+            intent.putExtra("actionType", 2);
             this.startActivity(intent);
         }
 

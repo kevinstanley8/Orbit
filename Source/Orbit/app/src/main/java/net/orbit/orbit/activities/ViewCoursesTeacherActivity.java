@@ -162,13 +162,21 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
                 Context context = itemView.getContext();
                 Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
-            } else if(Adapter.actionType == 1) {
+            }
+            else if(Adapter.actionType == 1) {
                 int position = getAdapterPosition();
                 Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
                 Context context = itemView.getContext();
-                Intent intent = ViewCourseAttendanceActivity.createIntent(context, course.getCourseId());
+                Intent intent = ConductActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
             }
+            else if(Adapter.actionType == 2) {
+            int position = getAdapterPosition();
+            Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
+            Context context = itemView.getContext();
+            Intent intent = ViewCourseAttendanceActivity.createIntent(context, course.getCourseId());
+            context.startActivity(intent);
+        }
         }
 
         @Override

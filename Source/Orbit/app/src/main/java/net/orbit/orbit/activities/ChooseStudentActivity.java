@@ -141,8 +141,6 @@ public class ChooseStudentActivity extends BaseActivity {
             int studentID = student.getStudentId();
             String studentFullName = student.getStudentFirstName() + " " + student.getStudentLastName();
 
-            Log.d("ATTTENDANCE TEST", String.valueOf(Adapter.actionType));
-
             if(ChooseStudentActivity.Adapter.actionType == 0) {
                 Context context = itemView.getContext();
                 Intent intent = CourseGradesActivity.createIntent(context);
@@ -151,6 +149,13 @@ public class ChooseStudentActivity extends BaseActivity {
                 context.startActivity(intent);
             }
             else if(ChooseStudentActivity.Adapter.actionType == 1) {
+                Context context = itemView.getContext();
+                Intent intent = ViewMyConductActivity.createIntent(context);
+                intent.putExtra("chosenStudentID", studentID);
+                intent.putExtra("studentFullName", studentFullName);
+                context.startActivity(intent);
+            }
+            else if(ChooseStudentActivity.Adapter.actionType == 2) {
                 Context context = itemView.getContext();
                 Intent intent = MyAttendanceActivity.createIntent(context);
                 intent.putExtra("chosenStudentID", studentID);
