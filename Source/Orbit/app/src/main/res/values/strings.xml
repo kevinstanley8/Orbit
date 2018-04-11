@@ -22,7 +22,6 @@
     <string name="menu_add_student">Add Student</string>
     <string name="menu_link_student">Link Student</string>
     <string name="menu_add_teacher">Add Teacher</string>
-    <string name="menu_logout">Log Out</string>
     <string name="title_activity_all_teachers">View All Teachers</string>
     <string name="title_activity_find_student">Link Student</string>
     <string name="menu_choose_student">Choose Student</string>
@@ -42,8 +41,11 @@
     <string name="open">Open Drawer</string>
     <string name="no_description">No description for this assignment.</string>
 
-
+    <string name="menu_my_attendance">My Attendance</string>
     <string name="menu_attendance">Take Attendance</string>
+
+    <string name="menu_logout">Log Out</string>
+
 
     <string name="all_group_channels">Private Messaging</string>
 

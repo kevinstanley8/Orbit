@@ -3,6 +3,7 @@ package net.orbit.orbit.activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,11 +29,12 @@ import java.util.List;
 
 public class ViewCoursesTeacherActivity extends BaseActivity {
     private RecyclerView recyclerView;
-    private static String subOption;
+    private int actionType = 0;
+    public static int GRADE_ACTION = 0;
+    public static int CONDUCT_ACTION = 1;
 
-    public static Intent createIntent(Context context, String subOption) {
+    public static Intent createIntent(Context context) {
         Intent i = new Intent(context, ViewCoursesTeacherActivity.class);
-        ViewCoursesTeacherActivity.subOption = subOption;
         return i;
     }
 
@@ -43,6 +45,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         context = this;
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_courses_teacher, relativeLayout);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,14 +64,12 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new Adapter(this));
 
+        //figure out which action to perform on click
+        Adapter.actionType = getIntent().getIntExtra("actionType", 0);
+
         Adapter.courses = new ArrayList<>();
         CourseService courseService = new CourseService(this);
         courseService.getAllCoursesAssignedToCurrentTeacher(this);
-    }
-
-    public void test()
-    {
-
     }
 
     public void updateCourseList(List<Course> courseList){
@@ -103,6 +104,7 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
 
         private final Activity context;
         private static List<Course> courses = new ArrayList<>();
+        private static int actionType = 0;
 
         public Adapter(Activity context) {
             this.context = context;
@@ -154,17 +156,16 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
 
         @Override
         public void onClick(View v) {
-
-            int position = getAdapterPosition();
-            Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
-            Context context = itemView.getContext();
-            Log.d("TEST", subOption);
-
-            if(subOption.equals("Grades")){
+            if(Adapter.actionType == 0) {
+                int position = getAdapterPosition();
+                Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
+                Context context = itemView.getContext();
                 Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
-            }
-            if(subOption.equals("Attendance")){
+            } else if(Adapter.actionType == 1) {
+                int position = getAdapterPosition();
+                Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
+                Context context = itemView.getContext();
                 Intent intent = ViewCourseAttendanceActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
             }
@@ -176,10 +177,8 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             String top = Adapter.memes.get(position).getTxtTop();
             String bottom = Adapter.memes.get(position).getTxtBottom();
             String url = Adapter.memes.get(position).getMemeURL();
-
             Context context = itemView.getContext();
             int TEST = 0;
-
             context.startActivity(EditMeme.createIntent(
                     context, Adapter.memes, position, itemView, top, bottom, url));*/
 

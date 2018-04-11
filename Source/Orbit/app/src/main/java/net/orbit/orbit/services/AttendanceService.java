@@ -1,5 +1,4 @@
 package net.orbit.orbit.services;
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,19 +8,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-import net.orbit.orbit.activities.ViewAttendanceActivity;
+import net.orbit.orbit.activities.MyAttendanceActivity;
+import net.orbit.orbit.activities.ViewCoursesTeacherActivity;
+import net.orbit.orbit.activities.ViewStudentCourseAttendanceActivity;
 import net.orbit.orbit.activities.ViewCourseAttendanceActivity;
 import net.orbit.orbit.models.dto.SaveAttendanceDTO;
 import net.orbit.orbit.models.pojo.Attendance;
@@ -33,16 +32,36 @@ public class AttendanceService extends BaseService {
         this.context = context;
     }
 
-    public void getStudentCourseAttendance(final ViewAttendanceActivity activity, final int studentId, int courseId){
+    public void getStudentCourseAttendance(final ViewStudentCourseAttendanceActivity activity, final int studentId, int courseId){
         Log.d("Attendance", "Getting all course attendance for student ID " + studentId);
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.get("student-attendance/" + studentId + "/" + courseId, null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray attendances) {
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                 List<Attendance> attendanceList = gson.fromJson(attendances.toString(), new TypeToken<List<Attendance>>(){}.getType());
-                //activity.updateCourseGradeList(attendanceList);
+                activity.updateAttendanceList(attendanceList);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.e("Attendance", "Error when getting course attendance for student ID: " + studentId);
+            }
+
+        });
+    }
+    public void getStudentAttendance(final MyAttendanceActivity activity, final int studentId){
+        Log.d("Attendance", "Getting all course attendance for student ID " + studentId);
+        OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
+        orbitRestClient.get("student-attendance/" + studentId, null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray attendances) {
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                List<Attendance> attendanceList = gson.fromJson(attendances.toString(), new TypeToken<List<Attendance>>(){}.getType());
+                activity.updateAttendanceList(attendanceList);
             }
 
             @Override
@@ -61,8 +80,8 @@ public class AttendanceService extends BaseService {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray attendances) {
-                Gson test = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                List<Attendance> attendanceList = test.fromJson(attendances.toString(), new TypeToken<List<Attendance>>(){}.getType());
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                List<Attendance> attendanceList = gson.fromJson(attendances.toString(), new TypeToken<List<Attendance>>(){}.getType());
                 activity.updateAttendanceList(attendanceList);
             }
 
@@ -75,7 +94,9 @@ public class AttendanceService extends BaseService {
         });
     }
 
-    public void saveCourseAttendance(SaveAttendanceDTO saveAttendanceDTO){
+
+
+    public void saveAttendance(SaveAttendanceDTO saveAttendanceDTO){
         final OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -95,19 +116,17 @@ public class AttendanceService extends BaseService {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         // called when success happens
-                        Log.i("AttendanceService", "Successfully saves attendance.");
-                        // We have a match student. Need to do linking here.
-                        Toast.makeText(context, "Saved attendance successfully" , Toast.LENGTH_SHORT).show();
-                        //context.startActivity(ViewCoursesTeacherActivity.createIntent(context));
+                        Log.i("ConductService", "Successfully saves conduct.");
+                        Toast.makeText(context, "Saved conduct successfully" , Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("AttendanceService", "Error when saving attendance");
-                        Toast.makeText(context, "Error saving attendance, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
+                        Log.e("ConductService", "Error when saving conduct");
+                        Toast.makeText(context, "Error saving conduct, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -116,4 +135,5 @@ public class AttendanceService extends BaseService {
                     }
                 });
     }
+
 }

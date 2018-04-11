@@ -7,12 +7,6 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <!-- - SendBird Stuff -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- Required for my tablet to work -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".messaging.main.BaseApplication"
@@ -98,11 +92,6 @@
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ViewCourseAttendanceActivity"
-            android:label="View Course Assignments"
-            android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.CreateAssignmentActivity"
             android:label="Create Assignment"
             android:screenOrientation="nosensor"
@@ -138,6 +127,24 @@
             android:label="Create Course"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+
+        <!--- ATTENDANCE ACTIVITIES -->
+        <activity
+            android:name=".activities.ViewCourseAttendanceActivity"
+            android:label="View Course Attendance"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MyAttendanceActivity"
+            android:label="View Courses"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ViewStudentCourseAttendanceActivity"
+            android:label="Course Attendance"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Send Bird Activities -->
 

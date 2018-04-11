@@ -41,7 +41,7 @@ import java.util.ResourceBundle;
 
 
 public class ViewCourseAttendanceActivity extends BaseActivity{
-    private static int courseID;
+    private static int courseID = 0;
     private Context context;
     private ListView listView;
     private List<Attendance> attendanceList = new ArrayList<>();
@@ -60,19 +60,18 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_view_course_attendance, relativeLayout);
 
-        listView = (ListView) findViewById(R.id.recyclerView);
+        listView = (ListView) findViewById(R.id.listView);
         ListAdapter customAdapter = new ListAdapter(this, R.layout.teacher_attendance_item, attendanceList);
         listView.setAdapter(customAdapter);
         TextView dateTextView = (TextView) findViewById(R.id.date);
 
-       /*** dateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment dialogFragment = new DatePickerFragment();
-                dialogFragment.show(getFragmentManager(), "Date Picker");
-            }
-        });
-        ***/
+        if(courseID == 0)
+        {
+            Intent intent = ViewCoursesTeacherActivity.createIntent(this);
+            intent.putExtra("actionType", 1);
+            this.startActivity(intent);
+        }
+
         today = new Date(Calendar.getInstance().getTimeInMillis());
         dateTextView.setText(today.toString());
         findViewById(R.id.btnSaveAttendance).setOnClickListener(new View.OnClickListener() {
@@ -83,30 +82,26 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         });
 
         AttendanceService attendanceService= new AttendanceService(this);
-        Log.d("CHEESE", String.valueOf(courseID));
         attendanceService.getCourseAttendance(this, courseID, today);
     }
 
     public void saveAttendance()
     {
         View childView;
-        EditText comment;
         Spinner statusSpinner;
         SaveAttendanceDTO saveAttendanceDTO = new SaveAttendanceDTO();
 
         for(int i = 0; i < listView.getChildCount(); i++)
         {
             childView = listView.getChildAt(i);
-            comment = (EditText) childView.findViewById(R.id.comment);
             statusSpinner = (Spinner)childView.findViewById(R.id.statusSpinner);
-            this.attendanceList.get(i).setComment(comment.getText().toString());
             // SPINNER VALUE
             this.attendanceList.get(i).setStatus(statusSpinner.getSelectedItem().toString());
             this.attendanceList.get(i).setDate(today);
             saveAttendanceDTO.addAttendance(this.attendanceList.get(i));
         }
         AttendanceService attendanceService = new AttendanceService(this);
-        attendanceService.saveCourseAttendance(saveAttendanceDTO);
+        attendanceService.saveAttendance(saveAttendanceDTO);
     }
 
     public class ListAdapter extends ArrayAdapter<Attendance>
@@ -132,9 +127,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
 
             final Attendance attendance = getItem(position);
             TextView studentName = (TextView) v.findViewById(R.id.txtStudentName);
-            final EditText comment = (EditText) v.findViewById(R.id.comment);
             List<String> status = new ArrayList<>();
-            status.add("");
             status.add("P");
             status.add("A");
             status.add("E");
@@ -152,6 +145,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
+                    attendanceList.get(listPosition).setStatus("P");
 
                 }
             });
@@ -161,8 +155,6 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
                 studentName.setText(attendance.getStudent().getStudentLastName() + " " +
                         attendance.getStudent().getStudentFirstName());
 
-                comment.setText(attendance.getComment());
-
                 /***LOADS ATTENDANCE STATUS VALUE INTO SPINNER**/
                 String attendanceStatus = attendanceList.get(listPosition).getStatus();
                 if(attendanceStatus != null){
@@ -171,22 +163,6 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
                 }
             }
 
-            comment.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    attendanceList.get(listPosition).setComment(charSequence.toString());
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    attendanceList.get(listPosition).setComment(charSequence.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable){
-                    attendanceList.get(listPosition).setComment(editable.toString());
-                }
-            });
             return v;
         }
     }
@@ -210,7 +186,7 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         {
             case R.id.menu_info:
                 PopupService p = new PopupService(context);
-                p.showPopup(PopupMessages.VIEW_ASSIGNMENT_GRADES_MESSAGE);
+                p.showPopup(PopupMessages.TEACHER_ATTENDANCE);
         }
 
 

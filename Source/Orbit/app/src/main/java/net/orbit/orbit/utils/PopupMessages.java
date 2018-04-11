@@ -27,4 +27,8 @@ public class PopupMessages {
     public static final String MESSAGE_CENTER_MESSAGE = "Welcome to Orbit Messaging. Here you can message teachers / parents directly. To create or respond to a message please tap on \"Private Messages\"";
     public static final String PRIVATE_MESSAGING_MESSAGE = "To create a new private message, tap on the plus sign and select the person that you would like to contact. Once you have the person/people selected, " +
             "tap again on the plus sign and proceed to send messages.";
+
+    public static final String TEACHER_ATTENDANCE = "This allows you take attendance for the class that you selected. To change the status option, tap on the spinner option. To save the attendance records, please tap on the \"Save\" button.";
+    public static final String STUDENT_ATTENDANCE = "This displays all attendance records for the selected student in the selected course.";
+    public static final String COURSE_STUDENT_ATTENDANCE = "This displays the list of courses the selected student is enrolled in, as well as the attendance status for today. To see previous attendance records, tap on the name of the course.";
 }

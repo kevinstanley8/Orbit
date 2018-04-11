@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,10 @@ public class ChooseStudentActivity extends BaseActivity {
         //need to inflate this activity inside the relativeLayout inherited from BaseActivity.  This will add this view to the mainContent layout
         getLayoutInflater().inflate(R.layout.activity_choose_student, relativeLayout);
 
-        //get UID of current user
+        //figure out which action to perform on click
+        ChooseStudentActivity.Adapter.actionType = getIntent().getIntExtra("actionType", 0);
 
+        //get UID of current user
         StudentService studentService = new StudentService(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -77,6 +80,7 @@ public class ChooseStudentActivity extends BaseActivity {
 
         private final Activity context;
         private static List<Student> students = new ArrayList<>();
+        private static int actionType = 0;
 
         public Adapter(Activity context) {
             this.context = context;
@@ -137,11 +141,22 @@ public class ChooseStudentActivity extends BaseActivity {
             int studentID = student.getStudentId();
             String studentFullName = student.getStudentFirstName() + " " + student.getStudentLastName();
 
-            Context context = itemView.getContext();
-            Intent intent = CourseGradesActivity.createIntent(context);
-            intent.putExtra("chosenStudentID", studentID);
-            intent.putExtra("studentFullName", studentFullName);
-            context.startActivity(intent);
+            Log.d("ATTTENDANCE TEST", String.valueOf(Adapter.actionType));
+
+            if(ChooseStudentActivity.Adapter.actionType == 0) {
+                Context context = itemView.getContext();
+                Intent intent = CourseGradesActivity.createIntent(context);
+                intent.putExtra("chosenStudentID", studentID);
+                intent.putExtra("studentFullName", studentFullName);
+                context.startActivity(intent);
+            }
+            else if(ChooseStudentActivity.Adapter.actionType == 1) {
+                Context context = itemView.getContext();
+                Intent intent = MyAttendanceActivity.createIntent(context);
+                intent.putExtra("chosenStudentID", studentID);
+                intent.putExtra("studentFullName", studentFullName);
+                context.startActivity(intent);
+            }
         }
 
         @Override
@@ -150,10 +165,8 @@ public class ChooseStudentActivity extends BaseActivity {
             String top = Adapter.memes.get(position).getTxtTop();
             String bottom = Adapter.memes.get(position).getTxtBottom();
             String url = Adapter.memes.get(position).getMemeURL();
-
             Context context = itemView.getContext();
             int TEST = 0;
-
             context.startActivity(EditMeme.createIntent(
                     context, Adapter.memes, position, itemView, top, bottom, url));*/
 
