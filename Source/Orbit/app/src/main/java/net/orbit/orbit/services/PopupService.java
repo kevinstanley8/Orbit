@@ -1,8 +1,6 @@
 package net.orbit.orbit.services;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;

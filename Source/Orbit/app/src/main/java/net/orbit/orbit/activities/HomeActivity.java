@@ -181,6 +181,16 @@ public class HomeActivity extends BaseActivity {
                     Intent newIntent = new Intent(HomeActivity.this, ViewCoursesTeacherActivity.class);
                     startActivity(newIntent);
                 }
+                if(temp.getLabel() == (R.string.menu_attendance))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, ViewCourseAttendanceActivity.class);
+                    startActivity(newIntent);
+                }
+                if(temp.getLabel() == (R.string.menu_my_attendance))
+                {
+                    Intent newIntent = new Intent(HomeActivity.this, MyAttendanceActivity.class);
+                    startActivity(newIntent);
+                }
                 if(temp.getLabel() == (R.string.view_assignments))
                 {
                     Intent newIntent = new Intent(HomeActivity.this, ViewCourseAssignmentsActivity.class);

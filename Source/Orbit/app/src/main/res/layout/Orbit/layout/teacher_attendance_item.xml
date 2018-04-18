@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtStudentName"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:background="#11000000"
+        android:gravity="center"
+        android:layout_marginTop="3dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/colorAccent"/>
+    <!---
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text=""
+        android:background="#11000000"
+        android:gravity="center"
+        android:layout_marginTop="3dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/colorAccent"
+        android:layout_toRightOf="@+id/txtStudentName"/>
+        -->
+    <Spinner
+        android:id="@+id/statusSpinner"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        style="@style/SpinnerTheme"
+        android:textColor="@color/colorWhite"
+        android:textSize="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@+id/txtStudentName"
+        android:popupBackground="@drawable/gradient"
+        android:spinnerMode="dropdown"/>
+</RelativeLayout>

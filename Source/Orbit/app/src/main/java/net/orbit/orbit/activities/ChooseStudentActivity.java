@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,13 @@ public class ChooseStudentActivity extends BaseActivity {
                 intent.putExtra("studentFullName", studentFullName);
                 context.startActivity(intent);
             }
+            else if(ChooseStudentActivity.Adapter.actionType == 2) {
+                Context context = itemView.getContext();
+                Intent intent = MyAttendanceActivity.createIntent(context);
+                intent.putExtra("chosenStudentID", studentID);
+                intent.putExtra("studentFullName", studentFullName);
+                context.startActivity(intent);
+            }
         }
 
         @Override
@@ -162,10 +170,8 @@ public class ChooseStudentActivity extends BaseActivity {
             String top = Adapter.memes.get(position).getTxtTop();
             String bottom = Adapter.memes.get(position).getTxtBottom();
             String url = Adapter.memes.get(position).getMemeURL();
-
             Context context = itemView.getContext();
             int TEST = 0;
-
             context.startActivity(EditMeme.createIntent(
                     context, Adapter.memes, position, itemView, top, bottom, url));*/
 

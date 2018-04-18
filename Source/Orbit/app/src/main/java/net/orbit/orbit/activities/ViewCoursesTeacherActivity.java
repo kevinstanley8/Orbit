@@ -72,11 +72,6 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
         courseService.getAllCoursesAssignedToCurrentTeacher(this);
     }
 
-    public void test()
-    {
-
-    }
-
     public void updateCourseList(List<Course> courseList){
 
 
@@ -167,13 +162,21 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
                 Context context = itemView.getContext();
                 Intent intent = ViewCourseAssignmentsActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
-            } else if(Adapter.actionType == 1) {
+            }
+            else if(Adapter.actionType == 1) {
                 int position = getAdapterPosition();
                 Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
                 Context context = itemView.getContext();
                 Intent intent = ConductActivity.createIntent(context, course.getCourseId());
                 context.startActivity(intent);
             }
+            else if(Adapter.actionType == 2) {
+            int position = getAdapterPosition();
+            Course course = ViewCoursesTeacherActivity.Adapter.courses.get(position);
+            Context context = itemView.getContext();
+            Intent intent = ViewCourseAttendanceActivity.createIntent(context, course.getCourseId());
+            context.startActivity(intent);
+        }
         }
 
         @Override
@@ -182,10 +185,8 @@ public class ViewCoursesTeacherActivity extends BaseActivity {
             String top = Adapter.memes.get(position).getTxtTop();
             String bottom = Adapter.memes.get(position).getTxtBottom();
             String url = Adapter.memes.get(position).getMemeURL();
-
             Context context = itemView.getContext();
             int TEST = 0;
-
             context.startActivity(EditMeme.createIntent(
                     context, Adapter.memes, position, itemView, top, bottom, url));*/
 
