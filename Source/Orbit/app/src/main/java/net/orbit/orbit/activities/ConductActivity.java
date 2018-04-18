@@ -177,4 +177,18 @@ public class ConductActivity extends BaseActivity {
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
     }
+
+    public void onResume(){
+        super.onResume();
+        if(courseID == 0)
+        {
+            Intent intent = ViewCoursesTeacherActivity.createIntent(this);
+            intent.putExtra("actionType", 1);
+            this.startActivity(intent);
+        }
+    }
+    public void onPause(){
+        super.onPause();
+        courseID = 0;
+    }
 }

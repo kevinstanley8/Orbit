@@ -118,15 +118,15 @@ public class AttendanceService extends BaseService {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         // called when success happens
-                        Log.i("ConductService", "Successfully saves conduct.");
-                        Toast.makeText(context, "Saved conduct successfully" , Toast.LENGTH_SHORT).show();
+                        Log.i("AttendanceService", "Successfully saves attendance.");
+                        Toast.makeText(context, "Saved attendance successfully" , Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject errorResponse) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.e("ConductService", "Error when saving conduct");
-                        Toast.makeText(context, "Error saving conduct, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
+                        Log.e("AttendanceService", "Error when saving attendance");
+                        Toast.makeText(context, "Error saving attendance, please try again.  If the problem persists contact your administrator.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

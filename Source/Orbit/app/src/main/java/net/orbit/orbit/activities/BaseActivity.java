@@ -178,6 +178,8 @@ public class BaseActivity extends AppCompatActivity {
         public static final int MESSAGING = 14;
         public static final int VIEW_CONDUCT = 15;
         public static final int MY_CONDUCT = 16;
+        public static final int VIEW_ATTENDANCE = 17;
+        public static final int MY_ATTENDANCE = 18;
 
 
 
@@ -235,6 +237,10 @@ public class BaseActivity extends AppCompatActivity {
                 selectedItem = VIEW_CONDUCT;
             else if (item.mTitle.trim().equals("My Conduct"))
                 selectedItem = MY_CONDUCT;
+            else if (item.mTitle.trim().equals("Take Attendance"))
+                selectedItem = VIEW_ATTENDANCE;
+            else if (item.mTitle.trim().equals("My Attendance"))
+                selectedItem = MY_ATTENDANCE;
 
 
 
@@ -285,6 +291,10 @@ public class BaseActivity extends AppCompatActivity {
                 case VIEW_CONDUCT: startActivityForResult(ConductActivity.createIntent(context, 0), result);
                     break;
                 case MY_CONDUCT: startActivityForResult(ViewMyConductActivity.createIntent(context), result);
+                    break;
+                case VIEW_ATTENDANCE: startActivityForResult(ViewCourseAttendanceActivity.createIntent(context, 0), result);
+                    break;
+                case MY_ATTENDANCE: startActivityForResult(MyAttendanceActivity.createIntent(context), result);
                     break;
             }
         }

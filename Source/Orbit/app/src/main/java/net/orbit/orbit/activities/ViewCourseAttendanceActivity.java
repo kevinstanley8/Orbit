@@ -253,5 +253,19 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         }
     }
      ***/
+    public void onResume(){
+        super.onResume();
+        if(courseID == 0)
+        {
+            Intent intent = ViewCoursesTeacherActivity.createIntent(this);
+            intent.putExtra("actionType", 2);
+            this.startActivity(intent);
+        }
+    }
+
+    public void onPause(){
+        super.onPause();
+        courseID = 0;
+    }
 }
 

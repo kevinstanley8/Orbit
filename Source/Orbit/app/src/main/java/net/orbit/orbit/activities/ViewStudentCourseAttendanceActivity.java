@@ -74,6 +74,7 @@ public class ViewStudentCourseAttendanceActivity extends BaseActivity {
 
         public Adapter(Activity context) {
             this.context = context;
+            attendanceList.clear();
         }
 
         @Override
