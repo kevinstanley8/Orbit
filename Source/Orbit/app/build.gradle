@@ -8,7 +8,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 25
         // versionCode 1000 + (System.getenv("BUILD_NUMBER") as Integer) ?: 0
-        versionCode 2003
+        versionCode 2004
         versionName "0.0." + System.getenv("BUILD_NUMBER") as String ?: "0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
