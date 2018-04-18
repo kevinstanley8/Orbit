@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     Toast.LENGTH_SHORT).show();
 
                             Intent intent = getIntent();
-                            finish();
+                            //finish();
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
                         }

@@ -347,6 +347,7 @@ public class RegisterActivity extends AppCompatActivity {
             // Subtract 6 days from Calendar updated date
             calendar.add(Calendar.DATE, -10000);
 
+            calendar.set(1945, 0, 1);//Year,Mounth -1,Day
             // Set the Calendar new date as minimum date of date picker
             dpd.getDatePicker().setMinDate(calendar.getTimeInMillis());
 

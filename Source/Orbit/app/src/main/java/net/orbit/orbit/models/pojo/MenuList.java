@@ -17,7 +17,7 @@ public class MenuList
             new MainMenuItem(R.string.menu_choose_student, R.string.menu_choose_student, R.drawable.menu_choose_student),
             new MainMenuItem(R.string.menu_link_student,R.string.menu_link_student, R.drawable.menu_link_parent_student),
             new MainMenuItem(R.string.message_center, R.string.message_center, R.drawable.menu_icon_messages),
-            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.ic_menu_report_bug),
+            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.bug),
             new MainMenuItem(R.string.menu_logout, R.string.menu_logout, R.drawable.menu_logout));
 
     public static final List<MainMenuItem> teacherMenuList = Arrays.asList(
@@ -26,7 +26,7 @@ public class MenuList
             new MainMenuItem(R.string.menu_attendance,R.string.menu_attendance, R.drawable.menu_attendance),
             new MainMenuItem(R.string.menu_view_conduct,R.string.menu_view_conduct, R.drawable.menu_conduct),
             new MainMenuItem(R.string.message_center, R.string.message_center, R.drawable.menu_icon_messages),
-            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.ic_menu_report_bug),
+            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.bug),
             new MainMenuItem(R.string.menu_logout, R.string.menu_logout, R.drawable.menu_logout));
 
     public static final List<MainMenuItem> parentMenuList = Arrays.asList(
@@ -35,7 +35,7 @@ public class MenuList
             new MainMenuItem(R.string.menu_my_grades,R.string.menu_my_grades, R.drawable.menu_view_courses),
             new MainMenuItem(R.string.menu_my_attendance,R.string.menu_my_attendance, R.drawable.menu_attendance),
             new MainMenuItem(R.string.menu_my_conduct,R.string.menu_my_conduct, R.drawable.menu_conduct),
-            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.ic_menu_report_bug),
+            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.bug),
             new MainMenuItem(R.string.message_center, R.string.message_center, R.drawable.menu_icon_messages),
             new MainMenuItem(R.string.menu_logout, R.string.menu_logout, R.drawable.menu_logout));
 
@@ -44,7 +44,7 @@ public class MenuList
             new MainMenuItem(R.string.menu_my_grades,R.string.menu_my_grades, R.drawable.menu_view_courses),
             new MainMenuItem(R.string.menu_my_attendance,R.string.menu_my_attendance, R.drawable.menu_attendance),
             new MainMenuItem(R.string.menu_my_conduct,R.string.menu_my_conduct, R.drawable.menu_conduct),
-            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.ic_menu_report_bug),
+            new MainMenuItem(R.string.report_a_bug, R.string.report_a_bug, R.drawable.bug),
             new MainMenuItem(R.string.menu_logout, R.string.menu_logout, R.drawable.menu_logout));
 
 

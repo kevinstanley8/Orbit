@@ -51,6 +51,8 @@ public class StudentService extends BaseService {
             e.printStackTrace();
         }
 
+        Toast.makeText(context, "Creating student, please wait.", Toast.LENGTH_SHORT).show();
+
         // Sets the URL for the API url
         OrbitRestClient orbitRestClient = getOrbitRestClient(this.context);
         orbitRestClient.post(this.context, "create-student", entity, "application/json",

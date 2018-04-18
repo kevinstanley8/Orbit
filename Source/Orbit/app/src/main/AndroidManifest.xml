@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activities.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -137,8 +138,14 @@
             android:label="My Conduct"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ViewMyConductCourseActivity"
+        <activity
+            android:name=".activities.ViewMyConductCourseActivity"
             android:label="My Daily Conduct"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activities.LogoutActivity"
+            android:label="Logout"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar"/>
 

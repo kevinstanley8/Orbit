@@ -1,31 +1,36 @@
-package net.orbit.orbit.services;
+package net.orbit.orbit.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
 
-import net.orbit.orbit.activities.BaseActivity;
-import net.orbit.orbit.activities.HomeActivity;
-import net.orbit.orbit.activities.LoginActivity;
+import net.orbit.orbit.R;
 import net.orbit.orbit.messaging.main.ConnectionManager;
 import net.orbit.orbit.models.pojo.User;
+import net.orbit.orbit.services.LogoutService;
 import net.orbit.orbit.utils.Constants;
 import net.orbit.orbit.utils.OrbitUserPreferences;
 
-/**
- * Created by sristic on 1/31/18.
- */
+public class LogoutActivity extends BaseActivity {
 
-public class LogoutService {
+    Context context;
 
-    private Context context;
+    public static Intent createIntent(Context context) {
+        Intent i = new Intent(context, LogoutActivity.class);
+        return i;
+    }
 
-    public LogoutService(Context context) {
-        this.context = context;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        context = this;
+        logout();
+        //setContentView(R.layout.activity_logout);
     }
 
     public void logout() {
