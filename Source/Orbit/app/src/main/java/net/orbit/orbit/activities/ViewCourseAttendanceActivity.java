@@ -102,6 +102,9 @@ public class ViewCourseAttendanceActivity extends BaseActivity{
         }
         AttendanceService attendanceService = new AttendanceService(this);
         attendanceService.saveAttendance(saveAttendanceDTO);
+
+        //This works, cheat and cheap, annoying for user
+        startActivity(createIntent(this, courseID));
     }
 
     public class ListAdapter extends ArrayAdapter<Attendance>
