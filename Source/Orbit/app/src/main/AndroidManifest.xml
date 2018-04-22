@@ -12,7 +12,7 @@
     <application
         android:name=".messaging.main.BaseApplication"
         android:allowBackup="true"
-        android:icon="@drawable/orbit_icon"
+        android:icon="@drawable/orbit_icon_outline"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
