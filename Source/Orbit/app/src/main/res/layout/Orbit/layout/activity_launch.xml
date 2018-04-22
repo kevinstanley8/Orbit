@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.orbit.orbit.activities.LaunchActivity"
-    android:background="@drawable/orbit_launch_background">
+    android:background="@drawable/splash_screen">
 
     <TextView
         android:layout_width="match_parent"
